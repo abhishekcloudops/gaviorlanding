@@ -16,13 +16,9 @@ systemd service on port `3000` (bound to localhost). See `deploy/` for the
 service definitions and `scripts/deploy.sh` for the deployment command.
 
 The GitHub Actions workflow verifies every pull request and push to `main`.
-To enable its deployment job, configure these repository secrets:
-
-- `DEPLOY_HOST`
-- `DEPLOY_USER`
-- `DEPLOY_SSH_KEY`
-- `DEPLOY_PATH` (for this server: `/home/ubuntu/gavior`)
-- `DEPLOY_PORT` (optional; defaults to `22`)
+On this server, the `gavior-production` self-hosted Actions runner deploys
+successful `main` builds without storing SSH credentials in GitHub. The runner
+is intentionally limited to restarting the `gavior` systemd service.
 
 ## Getting Started
 

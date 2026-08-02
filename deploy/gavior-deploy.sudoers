@@ -1,0 +1,2 @@
+# Allow the dedicated GitHub Actions runner user to restart only the Gavior app.
+ubuntu ALL=(root) NOPASSWD: /bin/systemctl restart gavior, /bin/systemctl is-active --quiet gavior
