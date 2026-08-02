@@ -1,1 +1,19 @@
-import { Header } from "@/components/site-header"; import { Footer } from "@/components/site-footer"; import { PageHero } from "@/components/page-templates"; import { FAQ, CTA } from "@/components/sections"; export default function FaqPage(){return <><Header/><PageHero eyebrow="FAQ" title="A little more clarity before we begin." copy="The questions we hear most often from teams considering a Gavior partnership."/><FAQ/><CTA/><Footer/></>}
+import { Header } from "@/components/site-header";
+import { Footer } from "@/components/site-footer";
+import { PageHero } from "@/components/page-templates";
+import { FAQ, CTA } from "@/components/sections";
+export default function FaqPage() {
+  return (
+    <>
+      <Header />
+      <PageHero
+        eyebrow="FAQ"
+        title="A little more clarity before we begin."
+        copy="The questions we hear most often from teams considering a Gavior partnership."
+      />
+      <FAQ />
+      <CTA />
+      <Footer />
+    </>
+  );
+}

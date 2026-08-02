@@ -1,1 +1,12 @@
-import { Header } from "@/components/site-header"; import { Footer } from "@/components/site-footer"; import { WorkPage } from "@/components/page-templates"; export default function Studies(){return <><Header/><WorkPage caseStudies/><Footer/></>}
+import { Header } from "@/components/site-header";
+import { Footer } from "@/components/site-footer";
+import { WorkPage } from "@/components/page-templates";
+export default function Studies() {
+  return (
+    <>
+      <Header />
+      <WorkPage caseStudies />
+      <Footer />
+    </>
+  );
+}
