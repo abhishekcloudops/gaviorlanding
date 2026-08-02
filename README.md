@@ -1,4 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gavior
+
+Gavior's Next.js 15 marketing site.
+
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+## Production deployment
+
+The application is configured for standalone output and runs as the `gavior`
+systemd service on port `3000` (bound to localhost). See `deploy/` for the
+service definitions and `scripts/deploy.sh` for the deployment command.
+
+The GitHub Actions workflow verifies every pull request and push to `main`.
+To enable its deployment job, configure these repository secrets:
+
+- `DEPLOY_HOST`
+- `DEPLOY_USER`
+- `DEPLOY_SSH_KEY`
+- `DEPLOY_PATH` (for this server: `/home/ubuntu/gavior`)
+- `DEPLOY_PORT` (optional; defaults to `22`)
 
 ## Getting Started
 

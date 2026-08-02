@@ -1,0 +1,14 @@
+[Unit]
+Description=Temporary public tunnel for Gavior
+After=network-online.target gavior.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+ExecStart=/home/ubuntu/.local/bin/cloudflared tunnel --url http://127.0.0.1:3000 --no-autoupdate
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
