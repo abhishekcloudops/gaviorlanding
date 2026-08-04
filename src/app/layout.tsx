@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   },
   description:
     "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
+  icons: {
+    icon: [{ url: "/brand/gavicon.png", type: "image/png", sizes: "512x512" }],
+    shortcut: "/brand/gavicon.png",
+    apple: "/brand/gavicon.png",
+  },
   openGraph: {
     type: "website",
     siteName: "Gavior",
