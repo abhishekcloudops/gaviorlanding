@@ -33,7 +33,7 @@ export default function SEOServices() {
               Rank #1 on Google
             </h1>
             <p className="text-xl text-[#667085] mb-8 max-w-2xl">
-              Technical SEO, content strategy, and link building. We've helped 100+ businesses achieve 150%+ organic traffic growth and top Google rankings.
+              Technical SEO, content strategy, and link building. We&apos;ve helped 100+ businesses achieve 150%+ organic traffic growth and top Google rankings.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <button className="px-6 py-3 bg-black text-white rounded-lg font-semibold">
@@ -290,7 +290,7 @@ export default function SEOServices() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to dominate Google?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Get a free SEO audit and discover exactly what's holding your rankings back.
+            Get a free SEO audit and discover exactly what&apos;s holding your rankings back.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Get Free SEO Audit

@@ -254,7 +254,7 @@ export default function DevOps() {
           <div className="space-y-4 max-w-3xl">
             {[
               {
-                q: "What's the difference between DevOps and SRE?",
+                q: "What&apos;s the difference between DevOps and SRE?",
                 a: "DevOps is a practice that bridges development and operations. SRE (Site Reliability Engineering) is a specific implementation of DevOps principles with focus on reliability.",
               },
               {
@@ -274,7 +274,7 @@ export default function DevOps() {
                 a: "We implement HashiCorp Vault, AWS Secrets Manager, or similar solutions to securely manage credentials.",
               },
               {
-                q: "What's your support like?",
+                q: "What&apos;s your support like?",
                 a: "We offer 24/7 monitoring, incident response, and regular optimization reviews with dedicated support teams.",
               },
             ].map((faq, i) => (
@@ -290,7 +290,7 @@ export default function DevOps() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to modernize your deployments?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Let's set up a modern DevOps pipeline that gets code to production faster and safer.
+            Let&apos;s set up a modern DevOps pipeline that gets code to production faster and safer.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Schedule DevOps Consultation

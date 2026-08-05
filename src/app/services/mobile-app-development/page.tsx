@@ -292,7 +292,7 @@ export default function MobileAppDevelopment() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to build your app?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Let's discuss your app idea and create something amazing together.
+            Let&apos;s discuss your app idea and create something amazing together.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Schedule App Consultation

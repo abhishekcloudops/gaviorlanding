@@ -292,7 +292,7 @@ export default function UIUXDesign() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to design something amazing?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Let's create a beautiful, conversion-optimized design for your product.
+            Let&apos;s create a beautiful, conversion-optimized design for your product.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Schedule Design Consultation

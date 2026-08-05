@@ -320,7 +320,7 @@ export default function VideoEditing() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to polish your videos?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Send us your raw footage and let's create something professional and engaging.
+            Send us your raw footage and let&apos;s create something professional and engaging.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Submit Your Footage

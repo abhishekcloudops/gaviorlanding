@@ -187,7 +187,7 @@ export default function AIAutomation() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to automate?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Let's discuss how AI can save your team time and money.
+            Let&apos;s discuss how AI can save your team time and money.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Schedule Consultation

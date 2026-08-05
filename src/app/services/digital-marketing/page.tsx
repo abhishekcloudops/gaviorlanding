@@ -298,8 +298,8 @@ export default function DigitalMarketing() {
           <div className="space-y-4 max-w-3xl">
             {[
               {
-                q: "What's the typical ROI on digital marketing?",
-                a: "Average 3-5x ROI. We've seen some clients achieve 10x+ ROI depending on industry and sales funnel.",
+                q: "What&apos;s the typical ROI on digital marketing?",
+                a: "Average 3-5x ROI. We&apos;ve seen some clients achieve 10x+ ROI depending on industry and sales funnel.",
               },
               {
                 q: "How long before we see results?",
@@ -334,7 +334,7 @@ export default function DigitalMarketing() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to grow your business?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Let's create a digital marketing strategy that drives measurable results and grows your bottom line.
+            Let&apos;s create a digital marketing strategy that drives measurable results and grows your bottom line.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Schedule Marketing Consultation

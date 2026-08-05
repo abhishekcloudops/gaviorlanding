@@ -323,7 +323,7 @@ export default function WebsiteDevelopment() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to grow?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Let's discuss your website project and how we can help you achieve
+            Let&apos;s discuss your website project and how we can help you achieve
             your business goals.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">

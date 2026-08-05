@@ -35,7 +35,7 @@ export default function SaaSDevelopment() {
         </section>
 
         <section className="py-20 shell">
-          <h2 className="display text-4xl mb-12">Why we're different</h2>
+          <h2 className="display text-4xl mb-12">Why we&apos;re different</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
@@ -242,10 +242,10 @@ export default function SaaSDevelopment() {
               },
               {
                 q: "Can you help raise funding?",
-                a: "We've helped 20+ SaaS companies raise funding. We can help with demo building and metrics.",
+                a: "We&apos;ve helped 20+ SaaS companies raise funding. We can help with demo building and metrics.",
               },
               {
-                q: "What's your experience with SaaS metrics?",
+                q: "What&apos;s your experience with SaaS metrics?",
                 a: "We track MRR, ARR, CAC, LTV, churn, and other key metrics for your business.",
               },
             ].map((faq, i) => (
@@ -260,7 +260,7 @@ export default function SaaSDevelopment() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to build your SaaS?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Let's discuss your product idea and how we can help you launch and scale.
+            Let&apos;s discuss your product idea and how we can help you launch and scale.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Schedule a Call

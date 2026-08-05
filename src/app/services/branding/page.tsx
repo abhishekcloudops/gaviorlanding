@@ -46,7 +46,7 @@ export default function Branding() {
           </div>
         </section>
 
-        {/* What's Included */}
+        {/* What&apos;s Included */}
         <section className="py-20 shell">
           <h2 className="display text-4xl mb-12">What we deliver</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -273,7 +273,7 @@ export default function Branding() {
                 a: "Absolutely! We create horizontal, vertical, icon, and monochrome versions of your logo.",
               },
               {
-                q: "What if we don't like the concepts?",
+                q: "What if we don&apos;t like the concepts?",
                 a: "We include revision rounds in all packages. We'll iterate until you're happy with the direction.",
               },
               {
@@ -293,7 +293,7 @@ export default function Branding() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to build your brand?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Let's create a distinctive brand that represents your values and resonates with your audience.
+            Let&apos;s create a distinctive brand that represents your values and resonates with your audience.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Schedule Branding Consultation

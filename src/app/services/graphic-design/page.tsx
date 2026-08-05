@@ -316,7 +316,7 @@ export default function GraphicDesign() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to elevate your visual design?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Let's create stunning graphics that bring your brand to life.
+            Let&apos;s create stunning graphics that bring your brand to life.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Start Design Project

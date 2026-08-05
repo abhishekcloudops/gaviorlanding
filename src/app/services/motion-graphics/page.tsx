@@ -292,7 +292,7 @@ export default function MotionGraphics() {
         <section className="py-20 shell text-center">
           <h2 className="display text-4xl mb-6">Ready to animate your story?</h2>
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
-            Let's create engaging animations that captivate your audience and drive results.
+            Let&apos;s create engaging animations that captivate your audience and drive results.
           </p>
           <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
             Start Animation Project
