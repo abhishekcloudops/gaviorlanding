@@ -151,6 +151,21 @@ jobs:
           NEW_REF=$(git rev-parse HEAD)
           echo "New revision: $NEW_REF"
 
+          echo "⚙️ Creating .env.local..."
+          cat > .env.local << 'ENVEOF'
+SMTP_HOST=smtp.hostinger.com
+SMTP_PORT=587
+SMTP_USER=hello@gavior.in
+SMTP_PASSWORD=Gavior@151281
+SMTP_FROM_EMAIL=hello@gavior.in
+SMTP_FROM_NAME=Gavior
+CONTACT_FORM_RECIPIENTS=info@gavior.in,gaviorsupport@gmail.com
+SUPPORT_EMAIL=gaviorsupport@gmail.com
+INFO_EMAIL=info@gavior.in
+NEXT_PUBLIC_WEBSITE_URL=https://gavior.in
+ENVEOF
+          echo "✅ .env.local created"
+
           echo "📥 Installing dependencies..."
           npm ci --no-audit --no-fund
 
