@@ -152,7 +152,7 @@ jobs:
           echo "New revision: $NEW_REF"
 
           echo "⚙️ Creating .env.local..."
-          cat > .env.local << 'ENVEOF'
+          cat > .env.local << EOF
 SMTP_HOST=smtp.hostinger.com
 SMTP_PORT=587
 SMTP_USER=hello@gavior.in
@@ -163,7 +163,7 @@ CONTACT_FORM_RECIPIENTS=info@gavior.in,gaviorsupport@gmail.com
 SUPPORT_EMAIL=gaviorsupport@gmail.com
 INFO_EMAIL=info@gavior.in
 NEXT_PUBLIC_WEBSITE_URL=https://gavior.in
-ENVEOF
+EOF
           echo "✅ .env.local created"
 
           echo "📥 Installing dependencies..."
