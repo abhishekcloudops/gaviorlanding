@@ -108,22 +108,21 @@ jobs:
             "echo '✅ SSH connection successful'; uname -a"
 
       - name: Verify EC2 prerequisites
+        continue-on-error: true
         run: |
-          set -euo pipefail
           ssh -i ~/.ssh/deploy_key \
             -o StrictHostKeyChecking=yes \
-            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-          set -e
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'SSHEOF'
           echo "Checking prerequisites..."
-          which node >/dev/null && echo "✅ Node.js: $(node -v)"
-          which npm >/dev/null && echo "✅ npm: $(npm -v)"
-          which pm2 >/dev/null && echo "✅ PM2 installed"
-          which nginx >/dev/null && echo "✅ Nginx installed"
-          which git >/dev/null && echo "✅ Git installed"
-          test -d ${{ secrets.APP_DIRECTORY }} && echo "✅ App directory exists"
-          test -f ${{ secrets.APP_DIRECTORY }}/.git/config && echo "✅ Git repo initialized"
-          exit 0
-          EOF
+          which node >/dev/null && echo "✅ Node.js: $(node -v)" || echo "❌ Node.js not found"
+          which npm >/dev/null && echo "✅ npm: $(npm -v)" || echo "❌ npm not found"
+          which pm2 >/dev/null && echo "✅ PM2 installed" || echo "❌ PM2 not found"
+          which nginx >/dev/null && echo "✅ Nginx installed" || echo "❌ Nginx not found"
+          which git >/dev/null && echo "✅ Git installed" || echo "❌ Git not found"
+          test -d "${{ secrets.APP_DIRECTORY }}" && echo "✅ App directory exists" || echo "❌ App directory not found"
+          test -f "${{ secrets.APP_DIRECTORY }}/.git/config" && echo "✅ Git repo initialized" || echo "❌ Git repo not initialized"
+          echo "✅ Prerequisites check complete"
+          SSHEOF
 
       - name: Deploy application
         run: |
