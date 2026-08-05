@@ -169,3 +169,70 @@ export const faqs = [
     "Every engagement is scoped around its outcome. We offer focused discovery sprints, project-based work and embedded partnerships.",
   ],
 ];
+
+// --- Route slug sources of truth -------------------------------------------
+// These bound the dynamic routes. `industries/[slug]` and `blog/[slug]` used to
+// title-case whatever string was in the URL and return 200 for it, which made
+// the URL space infinite and let anyone render arbitrary text as an <h1> on
+// this domain. Both routes now resolve against the data below and 404 otherwise,
+// so link generation, generateStaticParams and the sitemap cannot drift apart.
+
+export const industrySlug = (name: string) =>
+  name.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-");
+
+/** Slugs match what BlogPage has always linked to, so no live URL changes. */
+export const posts = [
+  {
+    slug: "the-operating-system-of-a-business-that-can-change-its-mind",
+    category: "Strategy",
+    title: "The operating system of a business that can change its mind",
+    readTime: "8 min read",
+  },
+  {
+    slug: "what-ai-automation-looks-like-when-it-is-actually-useful",
+    category: "Technology",
+    title: "What AI automation looks like when it is actually useful",
+    readTime: "6 min read",
+  },
+  {
+    slug: "why-trusted-products-feel-more-obvious-than-impressive",
+    category: "Design",
+    title: "Why trusted products feel more obvious than impressive",
+    readTime: "5 min read",
+  },
+  {
+    slug: "the-quiet-compounding-effect-of-a-clear-digital-brand",
+    category: "Growth",
+    title: "The quiet compounding effect of a clear digital brand",
+    readTime: "7 min read",
+  },
+  {
+    slug: "shipping-for-the-second-year-not-just-the-launch",
+    category: "Engineering",
+    title: "Shipping for the second year, not just the launch",
+    readTime: "9 min read",
+  },
+  {
+    slug: "how-to-make-complex-work-feel-like-a-single-decision",
+    category: "Leadership",
+    title: "How to make complex work feel like a single decision",
+    readTime: "4 min read",
+  },
+];
+
+/** Hardcoded service pages under src/app/services/<slug>/page.tsx. */
+export const hardcodedServiceSlugs = [
+  "ai-automation",
+  "branding",
+  "cloud-solutions",
+  "devops",
+  "digital-marketing",
+  "graphic-design",
+  "mobile-app-development",
+  "motion-graphics",
+  "saas-development",
+  "seo-services",
+  "ui-ux-design",
+  "video-editing",
+  "website-development",
+];

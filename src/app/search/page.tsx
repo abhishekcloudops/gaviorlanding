@@ -1,7 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { Search } from "lucide-react";
+
+// Search UI, not a destination page: keep it out of the index.
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+};
 const results = [
   [
     "Custom website development",

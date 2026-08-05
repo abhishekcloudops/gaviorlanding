@@ -1,22 +1,35 @@
+import { notFound } from "next/navigation";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { CTA } from "@/components/sections";
+import { posts } from "@/content/site-data";
+
+// Only these slugs exist. Anything else 404s instead of rendering the URL
+// string as an <h1>, which previously returned 200 for every possible slug.
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return posts.map((p) => ({ slug: p.slug }));
+}
+
 export default async function Article({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const title = slug
-    .split("-")
-    .map((x) => x[0].toUpperCase() + x.slice(1))
-    .join(" ");
+  const post = posts.find((p) => p.slug === slug);
+  if (!post) notFound();
   return (
     <>
       <Header />
       <article className="shell max-w-[820px] py-20">
-        <p className="eyebrow">Gavior journal · 6 min read</p>
-        <h1 className="display text-[52px] sm:text-[72px] mt-6">{title}</h1>
+        <p className="eyebrow">
+          Gavior journal · {post.category} · {post.readTime}
+        </p>
+        <h1 className="display text-[52px] sm:text-[72px] mt-6">
+          {post.title}
+        </h1>
         <p className="text-xl leading-8 text-[#667085] mt-8">
           The most useful digital work is built around the choices people need
           to make—not the technology they happen to use.

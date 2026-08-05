@@ -1,16 +1,25 @@
+import { notFound } from "next/navigation";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { StandardPage } from "@/components/page-templates";
+import { industries, industrySlug } from "@/content/site-data";
+
+// Bounded to the industries we actually serve; every other slug 404s instead
+// of returning 200 with the URL text injected into the page.
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return industries.map((name) => ({ slug: industrySlug(name) }));
+}
+
 export default async function Industry({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const name = slug
-    .split("-")
-    .map((x) => x[0].toUpperCase() + x.slice(1))
-    .join(" ");
+  const name = industries.find((i) => industrySlug(i) === slug);
+  if (!name) notFound();
   return (
     <>
       <Header />

@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
 import { CTA, Reveal } from "@/components/sections";
-import { industries, projects } from "@/content/site-data";
+import {
+  industries,
+  industrySlug,
+  posts,
+  projects,
+} from "@/content/site-data";
 export function PageHero({
   eyebrow,
   title,
@@ -147,7 +152,7 @@ export function IndustriesPage() {
       <section className="shell py-18 grid sm:grid-cols-2 lg:grid-cols-3 border-t border-[#e1e4e8]">
         {industries.map((i, n) => (
           <Link
-            href={`/industries/${i.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")}`}
+            href={`/industries/${industrySlug(i)}`}
             className="p-6 border-b border-[#e1e4e8] hover:bg-white transition-colors"
             key={i}
           >
@@ -163,38 +168,8 @@ export function IndustriesPage() {
   );
 }
 export function BlogPage() {
-  const posts = [
-    [
-      "Strategy",
-      "The operating system of a business that can change its mind",
-      "8 min read",
-    ],
-    [
-      "Technology",
-      "What AI automation looks like when it is actually useful",
-      "6 min read",
-    ],
-    [
-      "Design",
-      "Why trusted products feel more obvious than impressive",
-      "5 min read",
-    ],
-    [
-      "Growth",
-      "The quiet compounding effect of a clear digital brand",
-      "7 min read",
-    ],
-    [
-      "Engineering",
-      "Shipping for the second year, not just the launch",
-      "9 min read",
-    ],
-    [
-      "Leadership",
-      "How to make complex work feel like a single decision",
-      "4 min read",
-    ],
-  ];
+  // `posts` now comes from site-data so this list, generateStaticParams and the
+  // sitemap all read the same slugs.
   return (
     <>
       <PageHero
@@ -215,18 +190,18 @@ export function BlogPage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {posts.map((p) => (
             <Link
-              href={`/blog/${p[1].toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-              key={p[1]}
+              href={`/blog/${p.slug}`}
+              key={p.slug}
               className="card p-7 min-h-64 flex flex-col justify-between hover:-translate-y-1 transition-transform"
             >
               <div>
-                <p className="eyebrow">{p[0]}</p>
+                <p className="eyebrow">{p.category}</p>
                 <h2 className="text-2xl font-bold tracking-[-.05em] leading-tight mt-6">
-                  {p[1]}
+                  {p.title}
                 </h2>
               </div>
               <div className="text-xs font-bold text-[#667085]">
-                {p[2]}{" "}
+                {p.readTime}{" "}
                 <span className="ml-2 text-[#7018ff]">Read article →</span>
               </div>
             </Link>

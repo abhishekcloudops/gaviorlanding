@@ -1,31 +1,56 @@
 import type { MetadataRoute } from "next";
-import { allServices, projects } from "@/content/site-data";
-const base = "https://gavior.in";
+import {
+  allServices,
+  hardcodedServiceSlugs,
+  industries,
+  industrySlug,
+  posts,
+  projects,
+} from "@/content/site-data";
+
+export const base = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://gavior.in"
+).replace(/\/$/, "");
+
+// Excluded deliberately: /coming-soon and /search are thin placeholder pages
+// and are marked noindex, so listing them would contradict that directive.
+const staticRoutes = [
+  "",
+  "/about",
+  "/services",
+  "/portfolio",
+  "/showcase",
+  "/case-studies",
+  "/industries",
+  "/pricing",
+  "/blog",
+  "/careers",
+  "/contact",
+  "/faq",
+  "/book-consultation",
+  "/privacy-policy",
+  "/terms",
+  "/cookie-policy",
+  "/refund-policy",
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    "",
-    "/about",
-    "/services",
-    "/portfolio",
-    "/showcase",
-    "/case-studies",
-    "/industries",
-    "/pricing",
-    "/blog",
-    "/careers",
-    "/contact",
-    "/faq",
-    "/book-consultation",
-  ]
-    .map((url) => ({ url: base + url, lastModified: new Date() }))
-    .concat(
-      allServices.map((x) => ({
-        url: `${base}/services/${x.slug}`,
-        lastModified: new Date(),
-      })),
-      projects.map((x) => ({
-        url: `${base}/portfolio/${x.slug}`,
-        lastModified: new Date(),
-      })),
-    );
+  // The 13 hardcoded pages take precedence over the [slug] template wherever a
+  // slug appears in both, so dedupe rather than emit the same URL twice.
+  const serviceSlugs = Array.from(
+    new Set([...hardcodedServiceSlugs, ...allServices.map((s) => s.slug)]),
+  );
+
+  const urls = [
+    ...staticRoutes,
+    ...serviceSlugs.map((s) => `/services/${s}`),
+    ...projects.map((p) => `/portfolio/${p.slug}`),
+    ...industries.map((i) => `/industries/${industrySlug(i)}`),
+    ...posts.map((p) => `/blog/${p.slug}`),
+  ];
+
+  // No lastModified: it was `new Date()` on every entry, so every URL claimed to
+  // have changed at request time. An inaccurate lastmod gets discounted, and
+  // omitting it is more truthful than guessing.
+  return urls.map((url) => ({ url: base + url }));
 }

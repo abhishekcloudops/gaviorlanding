@@ -1,4 +1,11 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+// Placeholder page: kept reachable, but not a search result.
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+};
+
 export default function ComingSoon() {
   return (
     <main className="min-h-screen bg-[#0b1220] text-white grid place-items-center p-6">
