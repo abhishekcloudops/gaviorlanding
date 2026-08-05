@@ -152,7 +152,7 @@ jobs:
           echo "New revision: $NEW_REF"
 
           echo "📥 Installing dependencies..."
-          npm ci --no-audit --no-fund --no-optional
+          npm ci --no-audit --no-fund
 
           echo "🧹 Cleaning build cache..."
           rm -rf .next node_modules/.cache
