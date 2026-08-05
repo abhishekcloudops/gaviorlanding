@@ -28,8 +28,12 @@ Your Gavior website now has complete email integration using Hostinger SMTP. Ema
 SMTP Host: smtp.hostinger.com
 SMTP Port: 587
 Email: hello@gavior.in
-Password: Gavior@151281
+Password: <stored in Hostinger; never commit it>
 ```
+
+> **Never put the mailbox password in this file or any tracked file.**
+> - Local dev: put it in `.env.local` (gitignored).
+> - CI/CD: store it as the GitHub Actions secret `SMTP_PASSWORD`.
 
 ### Email Recipients
 - **Contact form submissions sent to:**
@@ -61,7 +65,7 @@ Check that `.env.local` contains:
 SMTP_HOST=smtp.hostinger.com
 SMTP_PORT=587
 SMTP_USER=hello@gavior.in
-SMTP_PASSWORD=Gavior@151281
+SMTP_PASSWORD=your-mailbox-password-here
 SMTP_FROM_EMAIL=hello@gavior.in
 SMTP_FROM_NAME=Gavior
 CONTACT_FORM_RECIPIENTS=info@gavior.in,gaviorsupport@gmail.com
