@@ -154,6 +154,9 @@ jobs:
           echo "📥 Installing dependencies..."
           npm ci --no-audit --no-fund --no-optional
 
+          echo "🧹 Cleaning build cache..."
+          rm -rf .next node_modules/.cache
+
           echo "🔨 Rebuilding native modules for Linux..."
           npm rebuild
 
