@@ -20,19 +20,20 @@ export function PageHero({
 }) {
   return (
     <section className="page-hero">
-      <div className="shell py-24 md:py-32 text-center">
+      <div className="shell py-20 sm:py-24 md:py-32 text-center">
         <p className="eyebrow justify-center">{eyebrow}</p>
-        <h1 className="display text-[56px] sm:text-[78px] max-w-4xl mt-6 mx-auto">
+        {/* Everything in this hero is centred on one axis. The copy and button
+            used to sit side by side in a flex row, which pushed centre-aligned
+            text into a narrow left column beside the button and left the block
+            visibly off-axis under the heading. */}
+        <h1 className="display text-[38px] sm:text-[56px] lg:text-[78px] max-w-4xl mt-5 sm:mt-6 mx-auto text-balance">
           {title}
         </h1>
-        <div className="mt-8 flex flex-col sm:flex-row gap-6 items-center justify-center">
-          <p className="max-w-xl text-[17px] leading-7 text-[#667085]">
-            {copy}
-          </p>
-          <Link
-            href="/book-consultation"
-            className="button header-primary shrink-0"
-          >
+        <p className="mt-6 sm:mt-8 max-w-2xl mx-auto text-[17px] leading-7 text-[#667085] text-pretty">
+          {copy}
+        </p>
+        <div className="mt-8 sm:mt-9 flex justify-center">
+          <Link href="/book-consultation" className="button header-primary">
             {action}
             <ArrowRight size={16} />
           </Link>
