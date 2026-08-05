@@ -183,12 +183,17 @@ jobs:
           echo "🏗️ Building application..."
           npm run build
 
-          echo "🔄 Reloading PM2..."
-          if pm2 describe gavior >/dev/null 2>&1; then
-            pm2 reload deploy/pm2/ecosystem.config.cjs --only gavior --update-env
-          else
-            pm2 start deploy/pm2/ecosystem.config.cjs --only gavior
-          fi
+          echo "🔄 Restarting PM2..."
+          # Delete and start rather than reload: `pm2 reload` cannot move a
+          # process between exec_modes, and in fork mode reload is a restart
+          # anyway, so this costs no extra downtime and guarantees the process
+          # actually matches ecosystem.config.cjs.
+          pm2 delete gavior >/dev/null 2>&1 || true
+          # Clear any orphan holding :3000 that PM2 no longer tracks, otherwise
+          # the new process dies with EADDRINUSE.
+          fuser -k 3000/tcp >/dev/null 2>&1 || true
+          sleep 2
+          pm2 start deploy/pm2/ecosystem.config.cjs --only gavior
           pm2 save
 
           echo "⏳ Waiting for health check..."
