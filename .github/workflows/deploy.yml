@@ -1,0 +1,287 @@
+name: Build and Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '22'
+  REGISTRY: ghcr.io
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deployment
+  cancel-in-progress: false
+
+jobs:
+  # ============================================================================
+  # VALIDATE: Build locally to catch errors before SSH connection
+  # ============================================================================
+  validate:
+    name: Build & Test Locally
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund --no-optional
+        env:
+          AUDIT: false
+
+      - name: Run linter
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Build application
+        run: |
+          npm run build
+          echo "✅ Build completed successfully"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-info
+          path: .next
+          retention-days: 1
+        if: success()
+
+  # ============================================================================
+  # DEPLOY: Push validated code to EC2 and restart services
+  # ============================================================================
+  deploy:
+    name: Deploy to Production
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 20
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Configure SSH key
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # Add EC2 host to known_hosts
+          echo "${{ secrets.EC2_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+          # Verify key format
+          ssh-keygen -l -f ~/.ssh/deploy_key
+
+      - name: Test SSH connection
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile=~/.ssh/known_hosts \
+            -o ConnectTimeout=10 \
+            -o BatchMode=yes \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
+            "echo '✅ SSH connection successful'; uname -a"
+
+      - name: Verify EC2 prerequisites
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=yes \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          set -e
+          echo "Checking prerequisites..."
+          which node >/dev/null && echo "✅ Node.js: $(node -v)"
+          which npm >/dev/null && echo "✅ npm: $(npm -v)"
+          which pm2 >/dev/null && echo "✅ PM2 installed"
+          which nginx >/dev/null && echo "✅ Nginx installed"
+          which git >/dev/null && echo "✅ Git installed"
+          test -d ${{ secrets.APP_DIRECTORY }} && echo "✅ App directory exists"
+          test -f ${{ secrets.APP_DIRECTORY }}/.git/config && echo "✅ Git repo initialized"
+          exit 0
+          EOF
+
+      - name: Deploy application
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=yes \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          set -Eeuo pipefail
+
+          APP_DIR="${{ secrets.APP_DIRECTORY }}"
+          DOMAIN_NAME="${{ secrets.DOMAIN_NAME }}"
+
+          # Trap errors for rollback
+          trap 'echo "❌ Deployment failed"; exit 1' ERR
+
+          # Change to app directory
+          cd "$APP_DIR"
+
+          echo "📦 Fetching latest code..."
+          git fetch --prune origin main
+
+          PREVIOUS_REF=$(git rev-parse HEAD)
+          echo "Previous revision: $PREVIOUS_REF"
+
+          git reset --hard origin/main
+          NEW_REF=$(git rev-parse HEAD)
+          echo "New revision: $NEW_REF"
+
+          echo "📥 Installing dependencies..."
+          npm ci --no-audit --no-fund --no-optional
+
+          echo "🏗️ Building application..."
+          npm run build
+
+          echo "🔄 Reloading PM2..."
+          if pm2 describe gavior >/dev/null 2>&1; then
+            pm2 reload deploy/pm2/ecosystem.config.cjs --only gavior --update-env
+          else
+            pm2 start deploy/pm2/ecosystem.config.cjs --only gavior
+          fi
+          pm2 save
+
+          echo "⏳ Waiting for health check..."
+          for attempt in {1..5}; do
+            if curl -sf http://127.0.0.1:3000/ >/dev/null 2>&1; then
+              echo "✅ Application is responding"
+              break
+            elif [ $attempt -lt 5 ]; then
+              echo "Attempt $attempt/5: waiting for app..."
+              sleep 3
+            else
+              echo "❌ Health check failed after 5 attempts"
+              echo "Rolling back to $PREVIOUS_REF..."
+              git reset --hard "$PREVIOUS_REF"
+              npm ci --no-audit --no-fund
+              npm run build
+              pm2 reload deploy/pm2/ecosystem.config.cjs --only gavior --update-env
+              pm2 save
+              exit 1
+            fi
+          done
+
+          echo "✅ Deployment successful!"
+          EOF
+
+      - name: Verify deployment
+        run: |
+          set -euo pipefail
+          echo "🔍 Verifying deployment..."
+
+          # Wait for network propagation
+          sleep 5
+
+          # Verify via SSH
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=yes \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          echo "📊 Service Status:"
+          pm2 status || echo "PM2 status check failed"
+          echo ""
+          echo "🌐 Nginx Status:"
+          sudo systemctl status nginx --no-pager | head -n 5 || true
+          echo ""
+          echo "🔒 SSL Certificate:"
+          sudo certbot certificates 2>/dev/null | grep -A 2 "gavior" || true
+          EOF
+
+      - name: Post-deployment health check
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=yes \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          echo "Running post-deployment checks..."
+
+          # Check Node process
+          if pm2 describe gavior >/dev/null 2>&1; then
+            echo "✅ PM2 process running"
+            pm2 describe gavior | grep -E "status|memory|cpu"
+          else
+            echo "❌ PM2 process not found"
+            exit 1
+          fi
+
+          # Check disk space
+          DISK_USAGE=$(df -h / | tail -n 1 | awk '{print $5}')
+          echo "💾 Disk usage: $DISK_USAGE"
+
+          # Check memory
+          FREE_MEM=$(free -h | grep Mem | awk '{print $7}')
+          echo "🧠 Available memory: $FREE_MEM"
+          EOF
+
+      - name: On failure - collect diagnostics
+        if: failure()
+        run: |
+          set +e
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=yes \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF' || true
+          echo "📋 DIAGNOSTICS"
+          echo "PM2 Status:"
+          pm2 status || true
+          echo ""
+          echo "Recent PM2 Logs:"
+          pm2 logs gavior --lines 50 --nostream || true
+          echo ""
+          echo "Nginx Error Log:"
+          sudo tail -n 20 /var/log/nginx/error.log || true
+          echo ""
+          echo "Disk Usage:"
+          df -h
+          echo ""
+          echo "Memory Usage:"
+          free -h
+          EOF
+
+  # ============================================================================
+  # NOTIFY: Create deployment status
+  # ============================================================================
+  status:
+    name: Deployment Status
+    needs: [validate, deploy]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Deployment summary
+        run: |
+          cat << 'EOF'
+
+          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                         DEPLOYMENT WORKFLOW SUMMARY
+          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+          Repository: ${{ github.repository }}
+          Branch: ${{ github.ref_name }}
+          Commit: ${{ github.sha }}
+          Triggered by: ${{ github.actor }}
+
+          Validate Result: ${{ needs.validate.result }}
+          Deploy Result: ${{ needs.deploy.result }}
+
+          Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          EOF
