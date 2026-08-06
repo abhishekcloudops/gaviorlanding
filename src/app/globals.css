@@ -171,3 +171,129 @@ img {
 @media (max-width: 700px) { .showcase-grid { grid-template-columns: 1fr; gap: 34px; }.showcase-card-wide { grid-column: auto; }.showcase-card-wide .showcase-image { aspect-ratio: 1.28; } }
 @media (max-width: 600px) { .kinetic-hero { min-height: 680px; margin-top: -72px; padding-top: 72px; background-position: 39% center; animation: none; }.cap-hero { min-height: 680px; align-items: start; }.cap-hero-content { width: 100%; padding: 132px 2px 36px; }.cap-hero-kicker { font-size: 13px; }.cap-hero-title { margin-top: 12px; font-size: clamp(3.2rem, 13.9vw, 4.65rem); line-height: .98; }.cap-hero-copy { margin-top: 19px; max-width: 335px; font-size: 16px; }.cap-hero-actions { margin-top: 27px; gap: 8px; }.cap-hero-actions .button { flex: 1 1 auto; }.cap-hero-note { margin-top: 15px; font-size: 12px; }.cap-hero-proof { margin-top: 24px; padding-top: 14px; gap: 9px 12px; font-size: 9px; letter-spacing: .04em; }.cap-hero-proof b { margin-right: 4px; } .card { border-radius: 14px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+
+/* ---- Services fanned deck ---- */
+.deck-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .84fr) minmax(0, 1.16fr);
+  gap: 56px;
+  align-items: start;
+}
+.deck-intro { position: sticky; top: 104px; }
+.deck-intro-copy {
+  margin-top: 20px;
+  max-width: 360px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #667085;
+}
+.deck-intro-cta { display: inline-flex; margin-top: 26px; }
+.deck {
+  position: relative;
+  height: 770px;
+  perspective: 1400px;
+}
+.deck-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 110px);
+  min-height: 212px;
+  padding: 22px 26px 20px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background:
+    linear-gradient(148deg, #fff 0%, #fff 42%, color-mix(in srgb, var(--tint) 42%, #fff) 100%);
+  box-shadow: 0 26px 48px -30px #10182873, 0 2px 6px #1018280d;
+  transform:
+    translate(calc(var(--i) * 20px), calc(var(--i) * 98px))
+    rotate(calc(-6deg + 1deg * var(--i)));
+  transform-origin: 22% 78%;
+  transition: transform .5s cubic-bezier(.22, .61, .36, 1), box-shadow .5s ease;
+  will-change: transform;
+}
+.deck:hover .deck-card {
+  transform:
+    translate(calc(var(--i) * 24px), calc(var(--i) * 106px))
+    rotate(calc(-4.5deg + .8deg * var(--i)));
+}
+.deck .deck-card:hover {
+  z-index: 30;
+  transform:
+    translate(calc(var(--i) * 24px + 16px), calc(var(--i) * 106px - 10px))
+    rotate(0deg) scale(1.015);
+  box-shadow: 0 38px 64px -30px #1018288c, 0 3px 10px #10182814;
+}
+.deck-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.deck-card-kicker {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #667085;
+}
+.deck-card-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+}
+.deck-card-title {
+  margin-top: 14px;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1.15;
+}
+.deck-card-copy {
+  margin-top: 9px;
+  max-width: 380px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #667085;
+}
+.deck-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+.deck-card-bar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+.deck-card-bar i { height: 5px; border-radius: 99px; background: #e9ebf0; }
+.deck-card-bar i:nth-child(1) { flex: 3; }
+.deck-card-bar i:nth-child(2) { flex: 1.15; background: color-mix(in srgb, var(--tint) 80%, #4b5565); }
+.deck-card-bar i:nth-child(3) { flex: 2; }
+@media (max-width: 1024px) {
+  .deck-layout { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .deck-intro { position: static; min-width: 0; }
+  .deck { height: auto; min-width: 0; display: grid; gap: 14px; }
+  .deck-card,
+  .deck:hover .deck-card,
+  .deck .deck-card:hover {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    min-height: 0;
+    transform: none;
+    border-radius: 24px;
+    padding: 22px;
+  }
+  .deck .deck-card:hover { box-shadow: 0 20px 40px -28px #10182873; }
+}

@@ -65,50 +65,66 @@ export function Intro({
 export function ServiceGrid() {
   return (
     <section className="shell py-18 md:py-25">
-      <div className="flex justify-between items-end mb-10">
-        <div>
+      <div className="deck-layout">
+        <Reveal className="deck-intro">
           <p className="eyebrow">What we do</p>
           <h2 className="display text-[42px] sm:text-[58px] mt-4">
             Built around your
             <br />
             next big move.
           </h2>
-        </div>
-        <Link href="/services" className="hidden sm:flex button button-light">
-          All capabilities <ArrowRight size={15} />
-        </Link>
-      </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {services.slice(0, 6).map((s, i) => {
-          const Icon = s.icon;
-          return (
-            <Reveal key={s.slug}>
+          <p className="deck-intro-copy">
+            Six capabilities, one operating rhythm. Pick the one that moves your
+            next release forward.
+          </p>
+          <Link href="/services" className="button button-light deck-intro-cta">
+            All capabilities <ArrowRight size={15} />
+          </Link>
+        </Reveal>
+        <Reveal className="deck">
+          {services.slice(0, 6).map((s, i) => {
+            const Icon = s.icon;
+            return (
               <Link
+                key={s.slug}
                 href={`/services/${s.slug}`}
-                className="card group h-full p-6 block hover:-translate-y-1 transition-transform"
+                className="deck-card"
+                style={
+                  {
+                    "--i": i,
+                    "--tint": s.color,
+                    zIndex: i + 1,
+                  } as React.CSSProperties
+                }
               >
-                <div
-                  className="w-11 h-11 rounded-xl grid place-items-center"
-                  style={{ background: s.color }}
-                >
-                  <Icon size={20} />
+                <div className="deck-card-top">
+                  <span className="deck-card-kicker">
+                    0{i + 1} / {s.tag}
+                  </span>
+                  <span
+                    className="deck-card-icon"
+                    style={{
+                      background: s.color,
+                      color: s.color === "#7018ff" ? "#fff" : "#111",
+                    }}
+                  >
+                    <Icon size={16} />
+                  </span>
                 </div>
-                <p className="text-[11px] font-bold tracking-widest uppercase text-[#667085] mt-8">
-                  0{i + 1} — {s.tag}
-                </p>
-                <h3 className="text-xl font-bold tracking-[-.04em] mt-2">
-                  {s.name}
-                </h3>
-                <p className="text-sm leading-6 text-[#667085] mt-3">
-                  {s.short}
-                </p>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold">
-                  Explore <MoveUpRight size={15} />
+                <h3 className="deck-card-title">{s.name}</h3>
+                <p className="deck-card-copy">{s.short}</p>
+                <span className="deck-card-link">
+                  Explore <MoveUpRight size={14} />
+                </span>
+                <span className="deck-card-bar" aria-hidden>
+                  <i />
+                  <i />
+                  <i />
                 </span>
               </Link>
-            </Reveal>
-          );
-        })}
+            );
+          })}
+        </Reveal>
       </div>
     </section>
   );
