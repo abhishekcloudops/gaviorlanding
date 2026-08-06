@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
@@ -24,12 +25,18 @@ export default function SaaSDevelopment() {
               We help you launch and scale B2B SaaS products with enterprise-grade architecture, payment processing, and user management.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-6 py-3 bg-black text-white rounded-lg font-semibold">
+              <Link
+                href="/book-consultation"
+                className="px-6 py-3 bg-black text-white rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
                 Start Your SaaS
-              </button>
-              <button className="px-6 py-3 border border-black rounded-lg font-semibold">
+              </Link>
+              <Link
+                href="/case-studies"
+                className="px-6 py-3 border border-black rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
                 View Case Studies
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -216,9 +223,12 @@ export default function SaaSDevelopment() {
                     </li>
                   ))}
                 </ul>
-                <button className="w-full px-6 py-3 bg-black text-white rounded-lg font-semibold">
-                  Get Started
-                </button>
+                <Link
+                href="/contact"
+                className="w-full px-6 py-3 bg-black text-white rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
+                Get Started
+              </Link>
               </div>
             ))}
           </div>
@@ -262,9 +272,12 @@ export default function SaaSDevelopment() {
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
             Let&apos;s discuss your product idea and how we can help you launch and scale.
           </p>
-          <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
-            Schedule a Call
-          </button>
+          <Link
+                href="/book-consultation"
+                className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
+                Schedule a Call
+              </Link>
         </section>
       </main>
       <Footer />

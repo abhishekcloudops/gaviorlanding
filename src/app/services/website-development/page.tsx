@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
@@ -38,12 +39,18 @@ export default function WebsiteDevelopment() {
               detail so your website becomes your most powerful sales tool.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-6 py-3 bg-black text-white rounded-lg font-semibold">
+              <Link
+                href="/book-consultation"
+                className="px-6 py-3 bg-black text-white rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
                 Start Your Project
-              </button>
-              <button className="px-6 py-3 border border-black rounded-lg font-semibold">
+              </Link>
+              <Link
+                href="/case-studies"
+                className="px-6 py-3 border border-black rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
                 View Case Studies
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -241,9 +248,12 @@ export default function WebsiteDevelopment() {
                     </li>
                   ))}
                 </ul>
-                <button className="w-full px-6 py-3 bg-black text-white rounded-lg font-semibold">
-                  Get Started
-                </button>
+                <Link
+                href="/contact"
+                className="w-full px-6 py-3 bg-black text-white rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
+                Get Started
+              </Link>
               </div>
             ))}
           </div>
@@ -326,9 +336,12 @@ export default function WebsiteDevelopment() {
             Let&apos;s discuss your website project and how we can help you achieve
             your business goals.
           </p>
-          <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
-            Schedule Consultation
-          </button>
+          <Link
+                href="/book-consultation"
+                className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
+                Schedule Consultation
+              </Link>
         </section>
       </main>
       <Footer />

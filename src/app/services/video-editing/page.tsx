@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
@@ -36,12 +37,18 @@ export default function VideoEditing() {
               Expert video editing, color grading, and sound design. We transform raw footage into polished, broadcast-quality videos that engage and convert.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-6 py-3 bg-black text-white rounded-lg font-semibold">
+              <Link
+                href="/book-consultation"
+                className="px-6 py-3 bg-black text-white rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
                 Submit Footage
-              </button>
-              <button className="px-6 py-3 border border-black rounded-lg font-semibold">
+              </Link>
+              <Link
+                href="/portfolio"
+                className="px-6 py-3 border border-black rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
                 View Portfolio
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -242,9 +249,12 @@ export default function VideoEditing() {
                     </li>
                   ))}
                 </ul>
-                <button className="w-full px-6 py-3 bg-black text-white rounded-lg font-semibold">
-                  Get Started
-                </button>
+                <Link
+                href="/contact"
+                className="w-full px-6 py-3 bg-black text-white rounded-lg font-semibold inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
+                Get Started
+              </Link>
               </div>
             ))}
           </div>
@@ -322,9 +332,12 @@ export default function VideoEditing() {
           <p className="text-xl text-[#667085] mb-8 max-w-2xl mx-auto">
             Send us your raw footage and let&apos;s create something professional and engaging.
           </p>
-          <button className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg">
-            Submit Your Footage
-          </button>
+          <Link
+                href="/book-consultation"
+                className="px-8 py-4 bg-black text-white rounded-lg font-semibold text-lg inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
+                Submit Your Footage
+              </Link>
         </section>
       </main>
       <Footer />
