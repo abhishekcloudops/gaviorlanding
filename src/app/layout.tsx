@@ -40,6 +40,12 @@ export default function RootLayout({
     description:
       "Digital transformation company delivering design, software, cloud, automation and AI.",
   };
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Gavior",
+    url: "https://gavior.in/",
+  };
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <head>
@@ -58,6 +64,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
         />
         {children}
       </body>
