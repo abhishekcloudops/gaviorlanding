@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Manrope } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const display = Manrope({ subsets: ["latin"], variable: "--font-display" });
@@ -41,6 +42,18 @@ export default function RootLayout({
   };
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
+      <head>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-7YYV1JFZ95" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-7YYV1JFZ95');
+          `}
+        </Script>
+      </head>
       <body>
         <script
           type="application/ld+json"
