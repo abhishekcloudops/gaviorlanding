@@ -2,14 +2,35 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { CTA } from "@/components/sections";
-import { posts } from "@/content/site-data";
+import { getPostBySlug, getAllPosts } from "@/content/blog-api";
+import Markdown from "react-markdown";
 
 // Only these slugs exist. Anything else 404s instead of rendering the URL
 // string as an <h1>, which previously returned 200 for every possible slug.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
+  const posts = getAllPosts();
   return posts.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+  if (!post) return {};
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+    },
+  };
 }
 
 export default async function Article({
@@ -18,7 +39,7 @@ export default async function Article({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = posts.find((p) => p.slug === slug);
+  const post = getPostBySlug(slug);
   if (!post) notFound();
   return (
     <>
@@ -30,30 +51,8 @@ export default async function Article({
         <h1 className="display text-[52px] sm:text-[72px] mt-6">
           {post.title}
         </h1>
-        <p className="text-xl leading-8 text-[#667085] mt-8">
-          The most useful digital work is built around the choices people need
-          to make—not the technology they happen to use.
-        </p>
-        <div className="mt-14 grid gap-7 text-[17px] leading-8 text-[#344054]">
-          <p>
-            It is easy to mistake activity for progress. A new tool, a more
-            detailed brief, another campaign—each can create the feeling of
-            motion without making the underlying experience any clearer.
-          </p>
-          <h2 className="text-3xl font-bold tracking-[-.05em] text-[#101828]">
-            Start with the thing that has to change.
-          </h2>
-          <p>
-            We have found that the strongest teams work backwards from the real
-            outcome. They name the behaviour that matters, understand what
-            currently gets in its way, and make a deliberate decision about the
-            smallest change worth shipping.
-          </p>
-          <p>
-            That approach does not make the work smaller. It makes it coherent.
-            Design, technology and growth stop competing for attention and start
-            reinforcing one another.
-          </p>
+        <div className="mt-14 prose prose-lg max-w-none text-[17px] leading-8 text-[#344054]">
+          <Markdown>{post.content}</Markdown>
         </div>
       </article>
       <CTA />

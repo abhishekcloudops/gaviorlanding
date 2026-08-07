@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
+import { getAllPosts } from "@/content/blog-api";
 import {
   allServices,
   hardcodedServiceSlugs,
   industries,
   industrySlug,
-  posts,
   projects,
 } from "@/content/site-data";
 
@@ -42,15 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   const urls = [
-    ...staticRoutes,
-    ...serviceSlugs.map((s) => `/services/${s}`),
-    ...projects.map((p) => `/portfolio/${p.slug}`),
-    ...industries.map((i) => `/industries/${industrySlug(i)}`),
-    ...posts.map((p) => `/blog/${p.slug}`),
+    ...staticRoutes.map((url) => ({ url: base + url })),
+    ...serviceSlugs.map((s) => ({ url: `${base}/services/${s}` })),
+    ...projects.map((p) => ({ url: `${base}/portfolio/${p.slug}` })),
+    ...industries.map((i) => ({ url: `${base}/industries/${industrySlug(i)}` })),
+    ...getAllPosts().map((p) => ({ url: `${base}/blog/${p.slug}` })),
   ];
 
-  // No lastModified: it was `new Date()` on every entry, so every URL claimed to
-  // have changed at request time. An inaccurate lastmod gets discounted, and
-  // omitting it is more truthful than guessing.
-  return urls.map((url) => ({ url: base + url }));
+  return urls;
 }

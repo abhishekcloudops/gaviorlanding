@@ -180,45 +180,7 @@ export const faqs = [
 export const industrySlug = (name: string) =>
   name.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-");
 
-/** Slugs match what BlogPage has always linked to, so no live URL changes. */
-export const posts = [
-  {
-    slug: "the-operating-system-of-a-business-that-can-change-its-mind",
-    category: "Strategy",
-    title: "The operating system of a business that can change its mind",
-    readTime: "8 min read",
-  },
-  {
-    slug: "what-ai-automation-looks-like-when-it-is-actually-useful",
-    category: "Technology",
-    title: "What AI automation looks like when it is actually useful",
-    readTime: "6 min read",
-  },
-  {
-    slug: "why-trusted-products-feel-more-obvious-than-impressive",
-    category: "Design",
-    title: "Why trusted products feel more obvious than impressive",
-    readTime: "5 min read",
-  },
-  {
-    slug: "the-quiet-compounding-effect-of-a-clear-digital-brand",
-    category: "Growth",
-    title: "The quiet compounding effect of a clear digital brand",
-    readTime: "7 min read",
-  },
-  {
-    slug: "shipping-for-the-second-year-not-just-the-launch",
-    category: "Engineering",
-    title: "Shipping for the second year, not just the launch",
-    readTime: "9 min read",
-  },
-  {
-    slug: "how-to-make-complex-work-feel-like-a-single-decision",
-    category: "Leadership",
-    title: "How to make complex work feel like a single decision",
-    readTime: "4 min read",
-  },
-];
+
 
 /** Hardcoded service pages under src/app/services/<slug>/page.tsx. */
 export const hardcodedServiceSlugs = [

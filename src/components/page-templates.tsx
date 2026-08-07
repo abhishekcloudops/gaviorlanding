@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, Search, PlayCircle } from "lucide-react";
 import { CTA, Reveal } from "@/components/sections";
+import { getAllPosts } from "@/content/blog-api";
 import {
   industries,
   industrySlug,
-  posts,
   projects,
 } from "@/content/site-data";
 export function PageHero({
@@ -169,8 +169,7 @@ export function IndustriesPage() {
   );
 }
 export function BlogPage() {
-  // `posts` now comes from site-data so this list, generateStaticParams and the
-  // sitemap all read the same slugs.
+  const posts = getAllPosts();
   return (
     <>
       <PageHero
