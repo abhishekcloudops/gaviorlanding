@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "Visual design that captivates",
     type: "website",
   },
+  alternates: {
+    canonical: "/services/graphic-design",
+  },
 };
 
 export default function GraphicDesign() {

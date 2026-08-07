@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "Build amazing websites that convert visitors into customers",
     type: "website",
   },
+  alternates: {
+    canonical: "/services/website-development",
+  },
 };
 
 export default function WebsiteDevelopment() {

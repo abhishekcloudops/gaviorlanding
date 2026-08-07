@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "Professional video production",
     type: "website",
   },
+  alternates: {
+    canonical: "/services/video-editing",
+  },
 };
 
 export default function VideoEditing() {

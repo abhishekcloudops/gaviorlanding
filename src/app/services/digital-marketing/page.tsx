@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "Grow your business online",
     type: "website",
   },
+  alternates: {
+    canonical: "/services/digital-marketing",
+  },
 };
 
 export default function DigitalMarketing() {

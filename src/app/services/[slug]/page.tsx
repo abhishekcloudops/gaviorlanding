@@ -4,6 +4,7 @@ import { Footer } from "@/components/site-footer";
 import { CTA, FAQ, Intro } from "@/components/sections";
 import { allServices } from "@/content/site-data";
 import { PageHero, TextBlocks } from "@/components/page-templates";
+
 export function generateStaticParams() {
   return allServices.map((s) => ({ slug: s.slug }));
 }
@@ -16,7 +17,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = allServices.find((s) => s.slug === slug);
   if (!service) return {};
-  
+
   return {
     title: `${service.name} | Gavior Services`,
     description: service.short,
@@ -26,10 +27,11 @@ export async function generateMetadata({
     openGraph: {
       title: `${service.name} | Gavior Services`,
       description: service.short,
-      type: "article",
+      type: "website",
     },
   };
 }
+
 export default async function Service({
   params,
 }: {
@@ -38,8 +40,56 @@ export default async function Service({
   const { slug } = await params;
   const service = allServices.find((s) => s.slug === slug);
   if (!service) notFound();
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.name,
+    description: service.short,
+    provider: {
+      "@type": "Organization",
+      name: "Gavior",
+      url: "https://gavior.in",
+    },
+    areaServed: "Worldwide",
+    serviceType: service.name,
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://gavior.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: "https://gavior.in/services",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.name,
+        item: `https://gavior.in/services/${slug}`,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Header />
       <PageHero
         eyebrow={service.tag}

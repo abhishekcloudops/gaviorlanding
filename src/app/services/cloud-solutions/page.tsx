@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "Scale infinitely with the cloud",
     type: "website",
   },
+  alternates: {
+    canonical: "/services/cloud-solutions",
+  },
 };
 
 export default function CloudSolutions() {

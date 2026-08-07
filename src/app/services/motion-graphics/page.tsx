@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "Bring your brand to life",
     type: "website",
   },
+  alternates: {
+    canonical: "/services/motion-graphics",
+  },
 };
 
 export default function MotionGraphics() {

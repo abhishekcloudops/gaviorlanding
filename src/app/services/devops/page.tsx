@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "Deploy with confidence",
     type: "website",
   },
+  alternates: {
+    canonical: "/services/devops",
+  },
 };
 
 export default function DevOps() {

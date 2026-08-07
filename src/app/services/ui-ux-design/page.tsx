@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "Design experiences that convert",
     type: "website",
   },
+  alternates: {
+    canonical: "/services/ui-ux-design",
+  },
 };
 
 export default function UIUXDesign() {

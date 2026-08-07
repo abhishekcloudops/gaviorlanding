@@ -55,6 +55,7 @@ export const metadata: Metadata = {
       "Design, technology, cloud and AI for businesses built to move.",
   },
 };
+
 export default function RootLayout({
   children,
 }: {
@@ -65,16 +66,30 @@ export default function RootLayout({
     "@type": "Organization",
     name: "Gavior",
     url: "https://gavior.in",
+    logo: "https://gavior.in/brand/gavior-logo-light.png",
     email: "hello@gavior.in",
     description:
-      "Digital transformation company delivering design, software, cloud, automation and AI.",
+      "Digital transformation company delivering custom website development, enterprise SaaS applications, cloud infrastructure, and AI automation.",
+    sameAs: [
+      "https://linkedin.com/company/gavior",
+      "https://twitter.com/gavior",
+      "https://github.com/gavior",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "hello@gavior.in",
+      contactType: "customer service",
+      availableLanguage: ["English", "Hindi"],
+    },
   };
+
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Gavior",
     url: "https://gavior.in/",
   };
+
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <head>

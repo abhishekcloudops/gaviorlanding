@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "AI Automation Services | Gavior",
   description:
     "Automate your business processes with AI. Custom AI solutions for workflows, chatbots, data analysis, and intelligent automation.",
+  alternates: {
+    canonical: "/services/ai-automation",
+  },
 };
 
 export default function AIAutomation() {

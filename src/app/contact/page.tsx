@@ -5,17 +5,37 @@ import { ContactForm } from "@/components/contact-form";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact | Gavior",
-  description: "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
+  title: "Contact Us | Gavior Digital Engineering",
+  description: "Get in touch with Gavior's software architecture and design team. We respond within 24 hours to discuss custom website development, AI automation, and enterprise apps.",
   alternates: {
     canonical: "/contact",
   },
 };
 
-
 export default function Contact() {
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Gavior",
+    url: "https://gavior.in",
+    logo: "https://gavior.in/brand/gavior-logo-light.png",
+    image: "https://gavior.in/brand/gavior-og.png",
+    description: "Gavior provides custom web application development, AI workflow automation, SaaS engineering, and UI/UX design.",
+    email: "hello@gavior.in",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "India",
+    },
+    openingHours: "Mo-Fr 09:00-18:00",
+    priceRange: "$$",
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+      />
       <Header />
       <main className="shell py-20 md:py-28 grid lg:grid-cols-[.85fr_1.15fr] gap-12">
         <div>

@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "Native apps that users love",
     type: "website",
   },
+  alternates: {
+    canonical: "/services/mobile-app-development",
+  },
 };
 
 export default function MobileAppDevelopment() {

@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     description: "Rank #1 on Google",
     type: "website",
   },
+  alternates: {
+    canonical: "/services/seo-services",
+  },
 };
 
 export default function SEOServices() {

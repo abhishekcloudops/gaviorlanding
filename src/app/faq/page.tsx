@@ -2,21 +2,38 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { PageHero } from "@/components/page-templates";
 import { FAQ, CTA } from "@/components/sections";
+import { faqs } from "@/content/site-data";
 
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Faq | Gavior",
-  description: "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
+  title: "Frequently Asked Questions | Gavior",
+  description: "Get answers to common questions about Gavior's custom website development, AI automation, pricing, and enterprise software engineering.",
   alternates: {
     canonical: "/faq",
   },
 };
 
-
 export default function FaqPage() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(([q, a]) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: a,
+      },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <PageHero
         eyebrow="FAQ"

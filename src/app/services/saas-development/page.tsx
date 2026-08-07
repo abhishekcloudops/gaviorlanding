@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description:
     "Build scalable SaaS products with modern architecture. We specialize in multi-tenant platforms, payment integration, and user management.",
   keywords: ["SaaS development", "SaaS platform", "B2B software", "cloud platform"],
+  alternates: {
+    canonical: "/services/saas-development",
+  },
 };
 
 export default function SaaSDevelopment() {

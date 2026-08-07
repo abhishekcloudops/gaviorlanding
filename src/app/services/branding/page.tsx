@@ -13,7 +13,11 @@ export const metadata: Metadata = {
     "brand identity",
     "brand strategy",
     "brand guidelines",
+    "corporate identity",
   ],
+  alternates: {
+    canonical: "/services/branding",
+  },
   openGraph: {
     title: "Branding Services | Gavior",
     description: "Build a brand that stands out",
