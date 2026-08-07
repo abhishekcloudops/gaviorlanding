@@ -13,9 +13,38 @@ export const metadata: Metadata = {
   },
   description:
     "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
+  keywords: [
+    "Web Development Agency",
+    "Custom SaaS Development",
+    "UI/UX Design Studio",
+    "AI Automation Consultants",
+    "Enterprise Web Applications",
+    "Gavior Technologies",
+  ],
+  alternates: {
+    canonical: "./",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     type: "website",
     siteName: "Gavior",
+    title: "Gavior — Digital transformation, made tangible.",
+    description:
+      "Design, technology, cloud and AI for businesses built to move.",
+    url: "https://gavior.in",
+  },
+  twitter: {
+    card: "summary_large_image",
     title: "Gavior — Digital transformation, made tangible.",
     description:
       "Design, technology, cloud and AI for businesses built to move.",

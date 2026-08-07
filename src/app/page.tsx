@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import {
@@ -9,6 +10,15 @@ import {
   ProjectGrid,
   ServiceGrid,
 } from "@/components/sections";
+
+export const metadata: Metadata = {
+  title: "Gavior — Premier Custom Software, Web App & AI Development Agency",
+  description: "Gavior is a top-tier digital product agency. We engineer custom enterprise web applications, scalable SaaS platforms, UI/UX designs, and AI automation systems.",
+  alternates: {
+    canonical: "/",
+  },
+};
+
 export default function Home() {
   return (
     <>
