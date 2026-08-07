@@ -12,8 +12,8 @@ import {
 } from "@/components/sections";
 
 export const metadata: Metadata = {
-  title: "Gavior — Premier Custom Software, Web App & AI Development Agency",
-  description: "Gavior is a top-tier digital product agency. We engineer custom enterprise web applications, scalable SaaS platforms, UI/UX designs, and AI automation systems.",
+  title: "Gavior — Web Development, AI Automation & Digital Products",
+  description: "Build modern websites, SaaS products, and AI automation systems with Gavior — designed for growth, speed, and clarity.",
   alternates: {
     canonical: "/",
   },
