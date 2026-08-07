@@ -51,8 +51,28 @@ export default async function Article({
         <h1 className="display text-[52px] sm:text-[72px] mt-6">
           {post.title}
         </h1>
-        <div className="mt-14 prose prose-lg max-w-none text-[17px] leading-8 text-[#344054]">
-          <Markdown>{post.content}</Markdown>
+        <p className="text-xl leading-8 text-[#667085] mt-8">
+          {post.excerpt}
+        </p>
+        <div className="mt-14 grid gap-7 text-[17px] leading-8 text-[#344054]">
+          <Markdown
+            components={{
+              h2: ({ node, ...props }) => (
+                <h2 className="text-3xl font-bold tracking-[-.05em] text-[#101828] mt-4" {...props} />
+              ),
+              h3: ({ node, ...props }) => (
+                <h3 className="text-xl font-bold tracking-[-.02em] text-[#101828] mt-4" {...props} />
+              ),
+              ul: ({ node, ...props }) => (
+                <ul className="list-disc pl-5 space-y-2" {...props} />
+              ),
+              strong: ({ node, ...props }) => (
+                <strong className="font-semibold text-[#101828]" {...props} />
+              ),
+            }}
+          >
+            {post.content}
+          </Markdown>
         </div>
       </article>
       <CTA />
