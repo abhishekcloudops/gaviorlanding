@@ -100,7 +100,7 @@ export function WorkPage({ caseStudies = false }: { caseStudies?: boolean }) {
           {["All work", "Product", "Brand", "Platform", "AI", "Growth"].map(
             (f, i) => (
               <button
-                className={`rounded-full px-4 py-2 text-sm font-bold ${i === 0 ? "bg-[#101828] text-white" : "bg-white border border-[#e1e4e8]"}`}
+                className={`rounded-full px-4 py-2 text-sm font-bold ${i === 0 ? "bg-[#101828] text-white" : "bg-white text-[#171717] border border-[#e1e4e8]"}`}
                 key={f}
               >
                 {f}

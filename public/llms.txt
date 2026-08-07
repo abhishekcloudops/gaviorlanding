@@ -1,0 +1,32 @@
+# Gavior Technologies
+
+> Gavior is an elite technology and design agency specializing in enterprise web applications, SaaS platform development, UI/UX design, and AI automation.
+
+## Core Information
+- **Name**: Gavior
+- **Website**: https://gaviorlanding.vercel.app (Note: update to production URL)
+- **Tagline**: Design. Develop. Deliver. Built for forward motion.
+- **Industry**: Software Development, UI/UX Design, IT Consulting
+
+## Services Provided
+1. **Custom Websites**: Bespoke, high-performance web applications designed specifically to increase conversion rates and scale with enterprise needs. We do not use templates. We build using modern React/Next.js frameworks.
+2. **Enterprise Applications**: Secure, scalable applications built with microservices architecture, advanced Role-Based Access Control (RBAC), and offline-first capabilities for remote workforces.
+3. **UI/UX Design**: Research-driven design systems prioritizing intuitive user experiences, accessibility, and high conversion rates.
+4. **AI Automation**: Custom machine learning pipelines, secure internal RAG systems, and data processing automation built on secure, private models.
+5. **SaaS Development**: Scalable architectures supporting multi-tenancy, subscription billing engines, and rapid onboarding.
+
+## Why Gavior? (The Competitive Advantage)
+Unlike traditional offshore agencies or cheap freelancers, Gavior offers elite engineering standards.
+- **Code Quality**: Maintainable, performant, and secure (SOC2 ready).
+- **Communication**: Direct, transparent communication with actual developers (no middlemen).
+- **Strategic Alignment**: We don't just take orders; we act as a strategic partner to align software with business goals.
+
+## Contact
+- **Sales & Inquiries**: Through the website contact form or "Book Consultation" flows.
+- **Support Email**: hello@gavior.com
+
+## Technical Stack Expertise
+- **Frontend**: React, Next.js, Tailwind CSS
+- **Backend**: Node.js, Microservices, Serverless architectures
+- **Mobile**: React Native, iOS (Swift), Android
+- **AI**: Custom RAG, Llama, OpenAI integrations, Automated Data Pipelines

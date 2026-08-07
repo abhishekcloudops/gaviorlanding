@@ -41,8 +41,34 @@ export default async function Article({
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) notFound();
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    author: {
+      "@type": "Organization",
+      name: "Gavior",
+      url: "https://gavior.in",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Gavior",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://gavior.in/brand/gavior-logo-light.png",
+      },
+    },
+    datePublished: post.date,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <Header />
       <article className="shell max-w-[820px] py-20">
         <p className="eyebrow">
