@@ -1,6 +1,18 @@
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { ContactForm } from "@/components/contact-form";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact | Gavior",
+  description: "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
+  alternates: {
+    canonical: "/contact",
+  },
+};
+
+
 export default function Contact() {
   return (
     <>

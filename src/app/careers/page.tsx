@@ -2,6 +2,18 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { StandardPage } from "@/components/page-templates";
 import Link from "next/link";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Careers | Gavior",
+  description: "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
+  alternates: {
+    canonical: "/careers",
+  },
+};
+
+
 export default function Careers() {
   return (
     <>

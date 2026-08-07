@@ -2,6 +2,18 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { PageHero } from "@/components/page-templates";
 import Link from "next/link";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pricing | Gavior",
+  description: "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
+  alternates: {
+    canonical: "/pricing",
+  },
+};
+
+
 export default function Pricing() {
   const tiers = [
     [

@@ -4,6 +4,18 @@ import { PageHero } from "@/components/page-templates";
 import { ServiceGrid, CTA } from "@/components/sections";
 import { allServices } from "@/content/site-data";
 import Link from "next/link";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Services | Gavior",
+  description: "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
+  alternates: {
+    canonical: "/services",
+  },
+};
+
+
 export default function Services() {
   return (
     <>

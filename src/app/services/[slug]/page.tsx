@@ -7,6 +7,29 @@ import { PageHero, TextBlocks } from "@/components/page-templates";
 export function generateStaticParams() {
   return allServices.map((s) => ({ slug: s.slug }));
 }
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const service = allServices.find((s) => s.slug === slug);
+  if (!service) return {};
+  
+  return {
+    title: `${service.name} | Gavior Services`,
+    description: service.short,
+    alternates: {
+      canonical: `/services/${slug}`,
+    },
+    openGraph: {
+      title: `${service.name} | Gavior Services`,
+      description: service.short,
+      type: "article",
+    },
+  };
+}
 export default async function Service({
   params,
 }: {

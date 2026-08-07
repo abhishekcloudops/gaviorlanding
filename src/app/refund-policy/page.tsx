@@ -1,6 +1,18 @@
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { StandardPage } from "@/components/page-templates";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Refund Policy | Gavior",
+  description: "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
+  alternates: {
+    canonical: "/refund-policy",
+  },
+};
+
+
 export default function Refund() {
   return (
     <>

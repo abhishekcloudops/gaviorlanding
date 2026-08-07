@@ -7,6 +7,29 @@ import { projects } from "@/content/site-data";
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const p = projects.find((p) => p.slug === slug);
+  if (!p) return {};
+  
+  return {
+    title: `${p.name} | Gavior Portfolio`,
+    description: p.description,
+    alternates: {
+      canonical: `/portfolio/${slug}`,
+    },
+    openGraph: {
+      title: `${p.name} | Gavior Portfolio`,
+      description: p.description,
+      type: "article",
+    },
+  };
+}
 export default async function Project({
   params,
 }: {

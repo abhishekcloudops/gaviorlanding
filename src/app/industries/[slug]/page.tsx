@@ -12,6 +12,29 @@ export function generateStaticParams() {
   return industries.map((name) => ({ slug: industrySlug(name) }));
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const industry = industries.find((i) => industrySlug(i) === slug);
+  if (!industry) return {};
+  
+  return {
+    title: `${industry} Software Development | Gavior`,
+    description: `Custom software, web applications, and digital transformation services tailored for the ${industry} industry by Gavior.`,
+    alternates: {
+      canonical: `/industries/${slug}`,
+    },
+    openGraph: {
+      title: `${industry} Software Development | Gavior`,
+      description: `Custom software, web applications, and digital transformation services tailored for the ${industry} industry by Gavior.`,
+      type: "article",
+    },
+  };
+}
+
 export default async function Industry({
   params,
 }: {

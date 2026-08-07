@@ -2,6 +2,18 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { PageHero } from "@/components/page-templates";
 import { FAQ, CTA } from "@/components/sections";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Faq | Gavior",
+  description: "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
+  alternates: {
+    canonical: "/faq",
+  },
+};
+
+
 export default function FaqPage() {
   return (
     <>
