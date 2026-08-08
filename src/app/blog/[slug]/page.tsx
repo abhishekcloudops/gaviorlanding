@@ -5,7 +5,7 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { CTA } from "@/components/sections";
 import { getPostBySlug, getAllPosts } from "@/content/blog-api";
-import { services, industries, industrySlug } from "@/content/site-data";
+import { allServices, services, industries, industrySlug } from "@/content/site-data";
 import Markdown from "react-markdown";
 import { ArrowRight, Calendar, Clock, ExternalLink, User } from "lucide-react";
 
@@ -27,6 +27,7 @@ export async function generateMetadata({
   return {
     title: `${post.title} | Gavior Insights`,
     description: post.excerpt,
+    keywords: [post.targetKeyword, ...post.secondaryKeywords].filter(Boolean),
     alternates: {
       canonical: `/blog/${post.slug}`,
     },
@@ -58,9 +59,27 @@ export default async function Article({
   const allPosts = getAllPosts();
   const relatedPosts = allPosts
     .filter((p) => p.slug !== post.slug)
+    .map((candidate) => ({
+      candidate,
+      score:
+        (candidate.category === post.category ? 3 : 0) +
+        candidate.relatedServices.filter((service) => post.relatedServices.includes(service)).length * 2 +
+        candidate.relatedIndustries.filter((industry) => post.relatedIndustries.includes(industry)).length,
+    }))
+    .sort((a, b) => b.score - a.score || (a.candidate.date > b.candidate.date ? -1 : 1))
     .slice(0, 2);
 
-  const matchedServices = services.filter((s) =>
+  const serviceAliases = [
+    { slug: "website-development", name: "Website development", short: "Responsive business websites with clear scope and measurable enquiry paths." },
+    { slug: "cloud-solutions", name: "Cloud solutions", short: "Practical cloud architecture, migration and operational foundations." },
+    { slug: "devops", name: "DevOps services", short: "Safer deployments, observable systems and repeatable delivery workflows." },
+    { slug: "branding", name: "Branding services", short: "Identity systems built for consistent real-world use." },
+    { slug: "seo-services", name: "SEO services", short: "Technical and content-led search visibility grounded in useful pages." },
+  ];
+  const availableServices = [...services, ...allServices, ...serviceAliases].filter(
+    (service, index, list) => list.findIndex((item) => item.slug === service.slug) === index,
+  );
+  const matchedServices = availableServices.filter((s) =>
     post.relatedServices.includes(s.slug)
   );
   const selectedServices = matchedServices.length > 0 ? matchedServices : services.slice(0, 3);
@@ -77,11 +96,13 @@ export default async function Article({
 
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
     datePublished: post.date,
     dateModified: post.updatedDate,
+    image: `https://gavior.in/blog/${post.slug}/opengraph-image`,
+    isAccessibleForFree: true,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `https://gavior.in/blog/${post.slug}`,
@@ -352,7 +373,7 @@ export default async function Article({
           <div className="mt-12 pt-10 border-t border-[#eaecf0]">
             <h3 className="text-xl font-bold text-[#101828] mb-6">Further Reading</h3>
             <div className="grid sm:grid-cols-2 gap-6">
-              {relatedPosts.map((rel) => (
+              {relatedPosts.map(({ candidate: rel }) => (
                 <Link
                   key={rel.slug}
                   href={`/blog/${rel.slug}`}

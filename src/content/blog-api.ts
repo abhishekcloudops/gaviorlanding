@@ -24,6 +24,8 @@ export type BlogPost = {
   author: Author;
   relatedServices: string[];
   relatedIndustries: string[];
+  targetKeyword: string;
+  secondaryKeywords: string[];
 };
 
 const defaultAuthor: Author = {
@@ -49,12 +51,13 @@ export function getPostBySlug(slug: string): BlogPost | null {
   }
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
+  const wordCount = (content.match(/\b[\w’'-]+\b/g) || []).length;
 
   return {
     slug: realSlug,
     title: data.title || '',
     category: data.category || 'Engineering',
-    readTime: data.readTime || '5 min read',
+    readTime: `${Math.max(1, Math.ceil(wordCount / 220))} min read`,
     excerpt: data.excerpt || '',
     date: data.date || '2026-08-01',
     updatedDate: data.updatedDate || data.date || '2026-08-07',
@@ -67,6 +70,8 @@ export function getPostBySlug(slug: string): BlogPost | null {
     },
     relatedServices: data.relatedServices || ['custom-websites', 'ai-automation', 'saas-development'],
     relatedIndustries: data.relatedIndustries || ['technology', 'finance', 'manufacturing'],
+    targetKeyword: data.targetKeyword || '',
+    secondaryKeywords: data.secondaryKeywords || [],
     content,
   };
 }
