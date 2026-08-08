@@ -246,8 +246,8 @@ export function Metrics() {
         ["Engineering", "systems built to evolve"],
         ["Partnership", "direct, practical collaboration"],
       ].map(([a, b]) => (
-        <div key={a} className="py-9 px-4 first:pl-0">
-          <div className="display text-5xl">{a}</div>
+        <div key={a} className="min-w-0 py-9 px-1 first:pl-0 sm:px-4">
+          <div className="display break-words text-[clamp(1.45rem,7vw,3rem)]">{a}</div>
           <div className="text-xs font-semibold text-[#667085] mt-2">{b}</div>
         </div>
       ))}
