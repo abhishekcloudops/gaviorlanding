@@ -50,6 +50,47 @@ const homeServiceListSchema = {
   })),
 };
 
+const technologyGroups = [
+  {
+    title: "Product development",
+    items: [
+      { name: "React", url: "https://en.wikipedia.org/wiki/React_(software)", description: "a component-based user-interface library" },
+      { name: "Next.js", url: "https://en.wikipedia.org/wiki/Next.js", description: "a framework for production web applications" },
+    ],
+  },
+  {
+    title: "Cloud platforms",
+    items: [
+      { name: "Amazon Web Services", url: "https://en.wikipedia.org/wiki/Amazon_Web_Services", description: "a cloud-computing platform" },
+      { name: "Microsoft Azure", url: "https://en.wikipedia.org/wiki/Microsoft_Azure", description: "Microsoft’s cloud platform" },
+      { name: "Google Cloud Platform", url: "https://en.wikipedia.org/wiki/Google_Cloud_Platform", description: "Google’s cloud platform" },
+    ],
+  },
+  {
+    title: "Delivery & AI systems",
+    items: [
+      { name: "Docker", url: "https://en.wikipedia.org/wiki/Docker_(software)", description: "container packaging for consistent releases" },
+      { name: "Kubernetes", url: "https://en.wikipedia.org/wiki/Kubernetes", description: "container orchestration for scalable operations" },
+      { name: "OpenAI", url: "https://en.wikipedia.org/wiki/OpenAI", description: "an AI platform relevant to automation workflows" },
+    ],
+  },
+];
+
+const homeEntitySchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://gavior.in/#home",
+  url: "https://gavior.in/",
+  name: "Gavior — Web Development, AI Automation & Digital Products",
+  about: technologyGroups.flatMap((group) =>
+    group.items.map((item) => ({
+      "@type": "Thing",
+      name: item.name,
+      sameAs: item.url,
+    })),
+  ),
+};
+
 export default function Home() {
   return (
     <>
@@ -62,6 +103,10 @@ export default function Home() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(homeServiceListSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(homeEntitySchema) }}
         />
         <KineticHero />
         <Intro
@@ -181,7 +226,29 @@ export default function Home() {
           </div>
           <div className="text-[17px] leading-8 text-[#667085]">
             <p>Technology follows the business need. Gavior scopes the product, data, security and operating requirements first, then recommends platforms and tools that your team can realistically run and improve.</p>
-            <p className="mt-5">Depending on the project, that can include cloud platforms such as <a className="font-semibold text-[#171717] underline decoration-[#bda0ff] underline-offset-4 hover:text-[#7018ff]" href="https://aws.amazon.com/" target="_blank" rel="noreferrer">Amazon Web Services</a>, <a className="font-semibold text-[#171717] underline decoration-[#bda0ff] underline-offset-4 hover:text-[#7018ff]" href="https://azure.microsoft.com/" target="_blank" rel="noreferrer">Microsoft Azure</a> and <a className="font-semibold text-[#171717] underline decoration-[#bda0ff] underline-offset-4 hover:text-[#7018ff]" href="https://cloud.google.com/" target="_blank" rel="noreferrer">Google Cloud</a>, alongside the design, data and automation systems that fit the workflow.</p>
+            <p className="mt-5">These established technology ecosystems help explain the kinds of decisions Gavior can scope. They do not prescribe a one-size-fits-all stack.</p>
+            <div className="mt-7 grid gap-5 sm:grid-cols-3">
+              {technologyGroups.map((group) => (
+                <div key={group.title}>
+                  <h3 className="text-base font-bold text-[#171717]">{group.title}</h3>
+                  <ul className="mt-3 grid gap-3 text-sm leading-6">
+                    {group.items.map((item) => (
+                      <li key={item.name}>
+                        <a
+                          className="font-semibold text-[#171717] underline decoration-[#bda0ff] underline-offset-4 hover:text-[#7018ff]"
+                          href={item.url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {item.name}
+                        </a>{" "}
+                        — {item.description}.
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
         <section className="shell py-20 md:py-28">
