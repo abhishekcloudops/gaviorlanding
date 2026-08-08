@@ -84,7 +84,7 @@ export default async function Service({
       <section className="bg-[#0b1220] text-white py-18">
         <div className="shell grid md:grid-cols-2 gap-12">
           <div>
-            <p className="eyebrow text-white/60 before:bg-[#7018ff]">
+            <p className="eyebrow eyebrow-light before:bg-[#7018ff]">
               How we work
             </p>
             <h2 className="display text-5xl mt-5">

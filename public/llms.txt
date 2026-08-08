@@ -1,10 +1,10 @@
-# Gavior Technologies
+# Gavior
 
 > Gavior is an elite technology and design agency specializing in enterprise web applications, SaaS platform development, UI/UX design, and AI automation.
 
 ## Core Information
 - **Name**: Gavior
-- **Website**: https://gavior.in
+- **Website**: [Gavior homepage](https://gavior.in/)
 - **Tagline**: Design. Develop. Deliver. Built for forward motion.
 - **Industry**: Software Development, UI/UX Design, IT Consulting
 
@@ -22,8 +22,15 @@ Unlike traditional offshore agencies or cheap freelancers, Gavior offers elite e
 - **Strategic Alignment**: We don't just take orders; we act as a strategic partner to align software with business goals.
 
 ## Contact
-- **Sales & Inquiries**: Through the website contact form or "Book Consultation" flows.
+- **Sales & Inquiries**: Use the [contact page](https://gavior.in/contact) or [book a consultation](https://gavior.in/book-consultation).
 - **Support Email**: hello@gavior.in
+
+## Primary Pages
+- [Services](https://gavior.in/services): Complete digital, creative, AI, cloud, infrastructure and consulting capabilities.
+- [Pricing](https://gavior.in/pricing): Public starting prices and package scopes.
+- [Portfolio](https://gavior.in/portfolio): Selected project examples and outcomes.
+- [Insights](https://gavior.in/blog): Articles about websites, SaaS, cloud, AI automation, design and growth.
+- [About Gavior](https://gavior.in/about): Company approach and working principles.
 
 ## Technical Stack Expertise
 - **Frontend**: React, Next.js, Tailwind CSS

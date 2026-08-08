@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { X } from "lucide-react";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { GENERAL_WHATSAPP_MESSAGE, whatsappUrl } from "@/lib/whatsapp";
@@ -13,11 +10,8 @@ const quickQueries = [
 ];
 
 export function FloatingWhatsApp() {
-  const [open, setOpen] = useState(false);
-
   return (
-    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end sm:bottom-6 sm:right-6">
-      {open && (
+    <details className="group fixed bottom-4 right-4 z-[60] sm:bottom-6 sm:right-6">
         <div className="mb-3 w-[min(350px,calc(100vw-32px))] overflow-hidden rounded-[22px] border border-black/10 bg-white shadow-[0_22px_65px_rgba(18,26,33,.22)]">
           <div className="flex items-start justify-between gap-5 bg-[#101b16] p-5 text-white">
             <div className="flex gap-3">
@@ -29,14 +23,6 @@ export function FloatingWhatsApp() {
                 <p className="mt-1 text-xs leading-5 text-white/60">Choose your query. A ready message will open in WhatsApp.</p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              aria-label="Close WhatsApp enquiry"
-              className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/10 text-white/75 hover:bg-white/20"
-            >
-              <X className="h-4 w-4" />
-            </button>
           </div>
           <div className="p-3">
             <p className="px-2 pb-2 pt-1 text-[10px] font-extrabold uppercase tracking-[.15em] text-[#8a8490]">What can we help with?</p>
@@ -63,23 +49,20 @@ export function FloatingWhatsApp() {
             </a>
           </div>
         </div>
-      )}
 
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
-        aria-label={open ? "Close WhatsApp enquiry" : "Open WhatsApp enquiry"}
-        className="group flex min-h-14 items-center gap-3 rounded-full bg-[#25D366] p-2 pr-4 text-[#082d17] shadow-[0_12px_35px_rgba(25,120,61,.3)] transition-transform hover:-translate-y-1 hover:bg-[#2ee06f]"
+      <summary
+        aria-label="Toggle WhatsApp enquiry"
+        className="ml-auto flex min-h-14 w-fit cursor-pointer list-none items-center gap-3 rounded-full bg-[#25D366] p-2 pr-4 text-[#082d17] shadow-[0_12px_35px_rgba(25,120,61,.3)] transition-transform hover:-translate-y-1 hover:bg-[#2ee06f] [&::-webkit-details-marker]:hidden"
       >
         <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-[#1faf56]">
-          <WhatsAppIcon className="h-6 w-6" />
+          <WhatsAppIcon className="h-6 w-6 group-open:hidden" />
+          <X className="hidden h-5 w-5 text-[#082d17] group-open:block" />
         </span>
         <span className="hidden text-left sm:block">
-          <span className="block text-[10px] font-extrabold uppercase tracking-[.12em] opacity-65">Quick enquiry</span>
+          <span className="block text-[10px] font-extrabold uppercase tracking-[.12em]">Quick enquiry</span>
           <span className="block text-sm font-extrabold">Chat on WhatsApp</span>
         </span>
-      </button>
-    </div>
+      </summary>
+    </details>
   );
 }

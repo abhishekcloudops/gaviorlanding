@@ -1,16 +1,24 @@
-import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import { whatsappUrl } from "@/lib/whatsapp";
 
-export const metadata: Metadata = {
-  title: "Website, Design, AI & Software Pricing | Gavior",
-  description:
-    "Explore transparent Gavior pricing for websites, branding, digital marketing, software, AI automation, cloud and DevOps services.",
-  alternates: { canonical: "/pricing" },
-};
+type Currency = "INR" | "USD";
+
+const INR_PER_USD = 85;
+
+function formatPrice(price: string, currency: Currency) {
+  if (currency === "INR") return price;
+
+  return price.replace(/₹([\d,]+)/g, (_match, amount: string) => {
+    const converted = Math.round(Number(amount.replace(/,/g, "")) / INR_PER_USD);
+    return `$${new Intl.NumberFormat("en-US").format(converted)}`;
+  });
+}
 
 const websitePackages = [
   {
@@ -139,16 +147,18 @@ function SectionIntro({ eyebrow, title, copy, inverted = false }: { eyebrow: str
   );
 }
 
-function PriceRows({ services, inverted = false }: { services: { icon: string; name: string; price: string; model: string }[]; inverted?: boolean }) {
+function PriceRows({ services, currency, inverted = false }: { services: { icon: string; name: string; price: string; model: string }[]; currency: Currency; inverted?: boolean }) {
   return (
     <div className={`mt-10 overflow-hidden rounded-[24px] border ${inverted ? "border-white/10 bg-white/[.035]" : "border-[#e6e1ec] bg-white shadow-[0_14px_45px_rgba(37,20,64,.055)]"}`}>
       <div className={`hidden grid-cols-[1fr_220px_170px] gap-5 border-b px-7 py-4 text-[10px] font-extrabold uppercase tracking-[.17em] md:grid ${inverted ? "border-white/10 text-white/38" : "border-[#ebe7f0] text-[#8a8492]"}`}>
         <span>Service</span><span>Starting price</span><span>Pricing</span>
       </div>
-      {services.map((service) => (
-        <a
+      {services.map((service) => {
+        const displayedPrice = formatPrice(service.price, currency);
+
+        return <a
           href={whatsappUrl(
-            `Hi Gavior, I am interested in your ${service.name} service.\n\nDisplayed price: ${service.price}\nPricing model: ${service.model}\n\nPlease share the included deliverables, expected timeline, revision limits and final quotation.`,
+            `Hi Gavior, I am interested in your ${service.name} service.\n\nDisplayed price: ${displayedPrice}\nPricing model: ${service.model}\n\nPlease share the included deliverables, expected timeline, revision limits and final quotation.`,
           )}
           target="_blank"
           rel="noreferrer"
@@ -159,17 +169,39 @@ function PriceRows({ services, inverted = false }: { services: { icon: string; n
             <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl text-lg ${inverted ? "bg-white/10" : "bg-[#f1eaff]"}`}>{service.icon}</span>
             <span className={`font-bold tracking-[-.02em] ${inverted ? "text-white" : "text-[#171717]"}`}>{service.name}</span>
           </span>
-          <span className={`text-lg font-extrabold tracking-[-.035em] ${inverted ? "text-[#cbb3ff]" : "text-[#7018ff]"}`}>{service.price}</span>
+          <span className={`text-lg font-extrabold tracking-[-.035em] ${inverted ? "text-[#cbb3ff]" : "text-[#7018ff]"}`}>{displayedPrice}</span>
           <span className={`flex items-center justify-between gap-3 text-sm ${inverted ? "text-white/55" : "text-[#667085]"}`}>
             {service.model}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </span>
-        </a>
-      ))}
+        </a>;
+      })}
     </div>
   );
 }
 
 export default function Pricing() {
+  const [currency, setCurrency] = useState<Currency>("INR");
+  const [locationResolved, setLocationResolved] = useState(false);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    fetch(`/api/visitor-country?timezone=${encodeURIComponent(timezone)}`, {
+      signal: controller.signal,
+    })
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Location lookup failed")))
+      .then((data: { currency?: Currency }) => {
+        if (data.currency === "INR" || data.currency === "USD") setCurrency(data.currency);
+      })
+      .catch(() => {
+        if (timezone !== "Asia/Kolkata") setCurrency("USD");
+      })
+      .finally(() => setLocationResolved(true));
+
+    return () => controller.abort();
+  }, []);
+
   return (
     <>
       <Header />
@@ -183,6 +215,11 @@ export default function Pricing() {
             </h1>
             <p className="mx-auto mt-7 max-w-2xl text-[16px] leading-7 text-[#667085] sm:text-lg">
               Clear starting prices for websites, creative work, software, AI and infrastructure—with the scope confirmed before work begins.
+            </p>
+            <p className="mt-4 text-xs font-bold text-[#7018ff]" aria-live="polite">
+              {locationResolved
+                ? currency === "INR" ? "Prices shown in INR for India" : "Prices shown in USD for your region"
+                : "Setting prices for your region…"}
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <a href="#website-packages" className="button bg-[#171717] text-white hover:bg-black">Explore pricing <ArrowRight className="h-4 w-4" /></a>
@@ -210,14 +247,14 @@ export default function Pricing() {
 
         <section id="website-packages" className="scroll-mt-36 bg-[#f7f5fb] py-20 md:py-28">
           <div className="shell">
-            <SectionIntro eyebrow="Website packages" title="Your digital presence starts at ₹999." copy="Fast, fixed-scope websites for local businesses, freelancers, startups and growing brands." />
+            <SectionIntro eyebrow="Website packages" title={`Your digital presence starts at ${formatPrice("₹999", currency)}.`} copy="Fast, fixed-scope websites for local businesses, freelancers, startups and growing brands." />
             <div className="mt-11 grid items-stretch gap-5 lg:grid-cols-3">
               {websitePackages.map((pkg) => (
                 <article key={pkg.name} className={`relative flex flex-col overflow-hidden rounded-[26px] border p-7 sm:p-8 ${pkg.featured ? "border-[#171717] bg-[#171717] text-white shadow-[0_24px_60px_rgba(23,23,23,.2)]" : "border-[#e3ddea] bg-white shadow-[0_12px_38px_rgba(37,20,64,.05)]"}`}>
                   {pkg.featured && <span className="absolute right-0 top-0 rounded-bl-2xl bg-[#7018ff] px-4 py-2 text-[10px] font-extrabold uppercase tracking-[.16em]">Most popular</span>}
                   <p className={`text-[10px] font-extrabold uppercase tracking-[.18em] ${pkg.featured ? "text-[#bda0ff]" : "text-[#7018ff]"}`}>{pkg.eyebrow}</p>
                   <h3 className="mt-3 text-2xl font-bold tracking-[-.04em]">{pkg.name}</h3>
-                  <div className="mt-6 flex items-end gap-2"><span className="display text-[52px]">{pkg.price}</span><span className={`pb-1.5 text-xs ${pkg.featured ? "text-white/50" : "text-[#77717d]"}`}>one-time</span></div>
+                  <div className="mt-6 flex items-end gap-2"><span className="display text-[52px]">{formatPrice(pkg.price, currency)}</span><span className={`pb-1.5 text-xs ${pkg.featured ? "text-white/50" : "text-[#77717d]"}`}>one-time</span></div>
                   <span className={`mt-5 w-fit rounded-full px-3 py-1.5 text-xs font-bold ${pkg.featured ? "bg-white/10 text-white/75" : "bg-[#f1eaff] text-[#7018ff]"}`}>Delivered in {pkg.delivery}</span>
                   <ul className="mt-7 flex-1 space-y-3 border-t border-current/10 pt-7">
                     {pkg.features.map((feature) => <li key={feature} className={`flex items-start gap-3 text-sm ${pkg.featured ? "text-white/78" : "text-[#59535f]"}`}><CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${pkg.featured ? "text-[#a77cff]" : "text-[#7018ff]"}`} />{feature}</li>)}
@@ -225,7 +262,7 @@ export default function Pricing() {
                   <p className={`mt-7 rounded-xl p-4 text-xs leading-5 ${pkg.featured ? "bg-white/[.07] text-white/60" : "bg-[#f8f7fa] text-[#6d6772]"}`}><strong className={pkg.featured ? "text-white" : "text-[#171717]"}>Best for: </strong>{pkg.bestFor}</p>
                   <a
                     href={whatsappUrl(
-                      `Hi Gavior, I want to choose the ${pkg.name} website package.\n\nPrice: ${pkg.price} one-time\nDelivery: ${pkg.delivery}\nBest for: ${pkg.bestFor}\n\nIncluded:\n${pkg.features.map((feature) => `• ${feature}`).join("\n")}\n\nPlease confirm the final scope, availability, payment process, and domain/hosting charges.`,
+                      `Hi Gavior, I want to choose the ${pkg.name} website package.\n\nPrice: ${formatPrice(pkg.price, currency)} one-time\nDelivery: ${pkg.delivery}\nBest for: ${pkg.bestFor}\n\nIncluded:\n${pkg.features.map((feature) => `• ${feature}`).join("\n")}\n\nPlease confirm the final scope, availability, payment process, and domain/hosting charges.`,
                     )}
                     target="_blank"
                     rel="noreferrer"
@@ -236,20 +273,20 @@ export default function Pricing() {
                 </article>
               ))}
             </div>
-            <p className="mt-7 text-center text-xs leading-6 text-[#77717d]">Domain, hosting, premium assets, copywriting and custom backend features are quoted separately unless included in your proposal.</p>
+            <p className="mt-7 text-center text-xs leading-6 text-[#77717d]">Domain, hosting, premium assets, copywriting and custom backend features are quoted separately unless included in your proposal.{currency === "USD" ? " USD prices are rounded estimates; final invoice currency is confirmed in your proposal." : ""}</p>
           </div>
         </section>
 
         <section id="creative-growth" className="scroll-mt-36 bg-white py-20 md:py-28">
           <div className="shell">
             <SectionIntro eyebrow="Creative & growth services" title="Creative support that keeps your brand moving." copy="Book a single deliverable or choose monthly support. Each plan is shaped around a clear volume, channel and revision limit." />
-            <PriceRows services={creativeServices} />
+            <PriceRows services={creativeServices} currency={currency} />
             <div className="mt-5 grid gap-4 md:grid-cols-3">
               {[
                 ["Creative Essentials", "From ₹2,999/month", "A practical monthly design pack for brands that need consistent output."],
                 ["Brand Momentum", "From ₹9,999/month", "Design, short-form edits and a lightweight monthly content plan."],
                 ["Growth Partner", "From ₹14,999/month", "Campaign, content and performance support in one engagement."],
-              ].map(([name, price, copy]) => <div key={name} className="flex flex-col rounded-2xl border border-[#e8e3ed] bg-[#faf9fc] p-6"><p className="text-sm font-bold">{name}</p><p className="mt-3 text-xl font-extrabold text-[#7018ff]">{price}</p><p className="mt-3 flex-1 text-xs leading-5 text-[#6d6772]">{copy}</p><a href={whatsappUrl(`Hi Gavior, I want to choose the ${name} creative plan.\n\nDisplayed price: ${price}\nPlan summary: ${copy}\n\nPlease share the complete deliverables, monthly limits, revisions, timeline and payment process.`)} target="_blank" rel="noreferrer" className="button mt-5 w-full bg-[#171717] text-white hover:bg-[#7018ff]">Choose this plan <ArrowRight className="h-4 w-4" /></a></div>)}
+              ].map(([name, price, copy]) => <div key={name} className="flex flex-col rounded-2xl border border-[#e8e3ed] bg-[#faf9fc] p-6"><p className="text-sm font-bold">{name}</p><p className="mt-3 text-xl font-extrabold text-[#7018ff]">{formatPrice(price, currency)}</p><p className="mt-3 flex-1 text-xs leading-5 text-[#6d6772]">{copy}</p><a href={whatsappUrl(`Hi Gavior, I want to choose the ${name} creative plan.\n\nDisplayed price: ${formatPrice(price, currency)}\nPlan summary: ${copy}\n\nPlease share the complete deliverables, monthly limits, revisions, timeline and payment process.`)} target="_blank" rel="noreferrer" className="button mt-5 w-full bg-[#171717] text-white hover:bg-[#7018ff]">Choose this plan <ArrowRight className="h-4 w-4" /></a></div>)}
             </div>
             <p className="mt-6 text-xs leading-6 text-[#77717d]">Advertising spend, influencer fees, paid tools, stock assets and production costs are separate. Deliverable volume and platforms are confirmed before the monthly plan begins.</p>
           </div>
@@ -261,7 +298,7 @@ export default function Pricing() {
             <section id={group.id} key={group.id} className={`scroll-mt-36 py-20 md:py-28 ${inverted ? "bg-[#111016] text-white" : "bg-[#f7f5fb]"}`}>
               <div className="shell">
                 <SectionIntro eyebrow={group.eyebrow} title={group.title} copy={group.copy} inverted={inverted} />
-                <PriceRows services={group.services} inverted={inverted} />
+                <PriceRows services={group.services} currency={currency} inverted={inverted} />
                 {group.id === "products" && <p className="mt-6 text-xs leading-6 text-[#77717d]">Micro-MVP and prototype prices cover a tightly defined first version. Complex permissions, native applications, multi-tenant architecture, subscriptions and production scaling require a custom estimate.</p>}
                 {group.id === "infrastructure" && <p className="mt-6 text-xs leading-6 text-[#77717d]">Cloud-provider charges, licences and paid monitoring tools are separate. Production Kubernetes, migrations, high availability and multi-environment infrastructure require a custom estimate.</p>}
               </div>

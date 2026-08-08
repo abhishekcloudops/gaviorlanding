@@ -1,7 +1,6 @@
-"use client";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, MoveUpRight, Play } from "lucide-react";
-import { motion } from "framer-motion";
+import { preload } from "react-dom";
 import { faqs, projects, services } from "@/content/site-data";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { whatsappUrl } from "@/lib/whatsapp";
@@ -12,21 +11,43 @@ export const Reveal = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <motion.div
-    className={className}
-    initial={{ opacity: 0, y: 18 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.15 }}
-    transition={{ duration: 0.55, ease: "easeOut" }}
-  >
+  <div className={className}>
     {children}
-  </motion.div>
+  </div>
 );
 export function KineticHero() {
+  preload("/brand/gavior-sky-hero-v2.avif", {
+    as: "image",
+    type: "image/avif",
+    fetchPriority: "high",
+    imageSrcSet:
+      "/brand/gavior-sky-hero-mobile-v4.avif 400w, /brand/gavior-sky-hero-mobile-v3.avif 800w, /brand/gavior-sky-hero-v2.avif 1672w",
+    imageSizes: "(max-width: 600px) 42vw, 38vw",
+  });
+
   return (
     <section className="kinetic-hero">
+      <picture className="kinetic-hero-media">
+        <source
+          srcSet="/brand/gavior-sky-hero-mobile-v4.avif 400w, /brand/gavior-sky-hero-mobile-v3.avif 800w, /brand/gavior-sky-hero-v2.avif 1672w"
+          sizes="(max-width: 600px) 42vw, 38vw"
+          type="image/avif"
+        />
+        {/* This native picture keeps a WebP fallback while making the LCP image
+            discoverable in the initial HTML. */}
+        <img
+          src="/brand/gavior-sky-hero-v2.webp"
+          srcSet="/brand/gavior-sky-hero-mobile-v4.webp 400w, /brand/gavior-sky-hero-mobile-v3.webp 800w, /brand/gavior-sky-hero-v2.webp 1672w"
+          sizes="(max-width: 600px) 42vw, 38vw"
+          alt=""
+          width="1672"
+          height="941"
+          fetchPriority="high"
+          decoding="sync"
+        />
+      </picture>
       <div className="shell cap-hero">
-        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, ease: "easeOut" }} className="cap-hero-content">
+        <div className="cap-hero-content">
           <p className="cap-hero-kicker">Design. Develop. Deliver.</p>
           <h1 className="display cap-hero-title">Make your next move<br /><span>impossible to ignore.</span></h1>
           <p className="cap-hero-copy">Gavior partners with ambitious teams to create clear brands, useful products and systems that earn attention and keep it.</p>
@@ -44,7 +65,7 @@ export function KineticHero() {
           </div>
           <p className="cap-hero-note">No pressure. Just a useful first conversation.</p>
           <div className="cap-hero-proof"><span><b>01</b> Brand strategy</span><span><b>02</b> Digital products</span><span><b>03</b> Intelligent systems</span></div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -159,11 +180,13 @@ export function ProjectGrid() {
           </Link>
         </div>
         <div className="grid md:grid-cols-3 gap-4">
-          {projects.map((p) => (
-            <Reveal key={p.slug}>
+          {projects.map((p) => {
+            const needsLightText = p.slug === "vanta-commerce";
+
+            return <Reveal key={p.slug}>
               <Link href={`/portfolio/${p.slug}`} className="group block">
                 <div
-                  className="rounded-2xl p-5 aspect-[.82] flex flex-col justify-between overflow-hidden"
+                  className={`rounded-2xl p-5 aspect-[.82] flex flex-col justify-between overflow-hidden ${needsLightText ? "text-white" : "text-[#111111]"}`}
                   style={{ background: p.color }}
                 >
                   <div className="flex justify-between text-xs font-bold">
@@ -173,11 +196,11 @@ export function ProjectGrid() {
                       size={18}
                     />
                   </div>
-                  <div className="rounded-xl bg-white/15 border border-white/25 backdrop-blur p-4">
+                  <div className={`rounded-xl border border-white/25 backdrop-blur p-4 ${needsLightText ? "bg-black/25" : "bg-white/15"}`}>
                     <div className="font-semibold text-xl tracking-[-.04em]">
                       {p.name}
                     </div>
-                    <div className="text-sm opacity-80 mt-1">
+                    <div className={`text-sm mt-1 ${needsLightText ? "text-white" : "opacity-80"}`}>
                       {p.description}
                     </div>
                   </div>
@@ -186,8 +209,8 @@ export function ProjectGrid() {
                   {p.result}
                 </div>
               </Link>
-            </Reveal>
-          ))}
+            </Reveal>;
+          })}
         </div>
       </div>
     </section>
@@ -225,7 +248,7 @@ export function CTA() {
     <section className="shell pb-20">
       <div className="rounded-[24px] bg-[#171717] text-white p-7 sm:p-12 md:p-16 grid md:grid-cols-[1fr_auto] gap-10 items-end">
         <div>
-          <p className="eyebrow text-white/70 before:bg-[#a56bff]">Make your move</p>
+          <p className="eyebrow eyebrow-light before:bg-[#a56bff]">Make your move</p>
           <h2 className="display text-[47px] sm:text-[68px] mt-6 max-w-2xl">
             Ready to turn a better idea into a better business?
           </h2>

@@ -1,10 +1,7 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Menu, X } from "lucide-react";
-import { useState } from "react";
 export function Header() {
-  const [open, setOpen] = useState(false);
   const links = [
     ["Services", "/services"],
     ["Work", "/portfolio"],
@@ -23,12 +20,13 @@ export function Header() {
             className="relative block h-9 w-28 shrink-0 sm:h-10 sm:w-32"
           >
             <Image
-              src="/brand/gavior-logo.png"
+              src="/brand/gavior-logo-header.avif"
               alt="Gavior — Design. Develop. Deliver."
               fill
               sizes="160px"
               className="object-contain object-left"
-              priority
+              unoptimized
+              loading="eager"
             />
           </Link>
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-[13px] font-semibold text-[#727272]">
@@ -46,32 +44,31 @@ export function Header() {
               Let’s build <ArrowRight size={15} />
             </Link>
           </div>
-          <button
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle navigation"
-            className="lg:hidden grid h-9 w-9 place-items-center rounded-full bg-[#f4f4f5]"
-          >
-            {open ? <X /> : <Menu />}
-          </button>
+          <details className="group relative lg:hidden">
+            <summary
+              aria-label="Toggle navigation"
+              className="grid h-9 w-9 cursor-pointer list-none place-items-center rounded-full bg-[#f4f4f5] [&::-webkit-details-marker]:hidden"
+            >
+              <Menu className="group-open:hidden" />
+              <X className="hidden group-open:block" />
+            </summary>
+            <nav className="absolute right-0 top-12 w-[min(330px,calc(100vw-28px))] rounded-[20px] border border-black/10 bg-white/95 p-2 grid gap-1 shadow-[0_12px_28px_rgba(15,23,42,.08)]">
+              {[
+                ...links,
+                ["Contact", "/contact"],
+                ["Book a consultation", "/book-consultation"],
+              ].map(([label, href]) => (
+                <Link
+                  className="rounded-xl p-3 text-sm font-semibold hover:bg-[#f5f5f5]"
+                  key={href}
+                  href={href}
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </details>
         </div>
-        {open && (
-          <nav className="mt-2 rounded-[20px] border border-black/10 bg-white/95 p-2 grid gap-1 shadow-[0_12px_28px_rgba(15,23,42,.08)] lg:hidden">
-            {[
-              ...links,
-              ["Contact", "/contact"],
-              ["Book a consultation", "/book-consultation"],
-            ].map(([l, h]) => (
-              <Link
-                onClick={() => setOpen(false)}
-                className="font-semibold text-sm p-3 rounded-xl hover:bg-[#f5f5f5]"
-                key={h}
-                href={h}
-              >
-                {l}
-              </Link>
-            ))}
-          </nav>
-        )}
       </div>
     </header>
   );

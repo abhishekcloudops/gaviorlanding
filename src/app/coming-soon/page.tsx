@@ -13,7 +13,7 @@ export default function ComingSoon() {
         <div className="text-4xl font-bold tracking-[-.1em]">
           gavior<span className="text-[#7018ff]">.</span>
         </div>
-        <p className="eyebrow justify-center mt-20 text-white/70 before:bg-[#7018ff]">
+        <p className="eyebrow eyebrow-light justify-center mt-20 before:bg-[#7018ff]">
           A new chapter
         </p>
         <h1 className="display text-6xl sm:text-8xl mt-6">

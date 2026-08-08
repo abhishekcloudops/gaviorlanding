@@ -95,7 +95,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main className="home-main">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqSchema) }}
@@ -280,7 +280,7 @@ export default function Home() {
           </div>
           <div className="rounded-[20px] bg-[#171717] text-white p-8 sm:p-11 flex flex-col justify-between">
             <div>
-              <p className="eyebrow text-white/70 before:bg-[#a56bff]">A practical point of view</p>
+              <p className="eyebrow eyebrow-light before:bg-[#a56bff]">A practical point of view</p>
               <h2 className="display text-[42px] mt-6">
                 Beautiful only
                 <br />

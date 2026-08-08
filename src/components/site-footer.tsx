@@ -58,7 +58,7 @@ export function Footer() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-9">
             {cols.map(([title, items]) => (
               <div key={title as string}>
-                <h3 className="text-xs uppercase tracking-widest text-white/45 mb-5">
+                <h3 className="text-xs uppercase tracking-widest text-white/60 mb-5">
                   {title}
                 </h3>
                 <div className="grid gap-3">
@@ -76,7 +76,7 @@ export function Footer() {
             ))}
           </div>
         </div>
-        <div className="border-t border-white/15 pt-6 flex flex-col sm:flex-row gap-4 justify-between text-xs text-white/45">
+        <div className="border-t border-white/15 pt-6 flex flex-col sm:flex-row gap-4 justify-between text-xs text-white/60">
           <span>
             © {new Date().getFullYear()} Gavior Technologies. Built for forward
             motion.
