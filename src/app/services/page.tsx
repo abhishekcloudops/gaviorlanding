@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { Footer } from "@/components/site-footer";
+import { PageHero } from "@/components/page-templates";
 import { Header } from "@/components/site-header";
 import { allServices } from "@/content/site-data";
 
@@ -11,27 +11,52 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Services | Gavior",
   description:
-    "Explore Gavior services across digital products, creative growth, AI systems, cloud infrastructure and technical consulting.",
+    "Explore Gavior services across digital products, creative growth, AI automation, cloud infrastructure and technical consulting.",
   alternates: {
     canonical: "/services",
   },
 };
 
-type ServiceChapter = {
-  eyebrow: string;
-  title: string;
-  copy: string;
-  tone: "dark" | "light";
-  slugs: string[];
-  images: string[];
+const serviceDescriptions: Record<string, string> = {
+  "custom-websites": "Fast, conversion-focused websites built around your brand and business goals.",
+  "enterprise-applications": "Secure digital systems that make complex operations easier to manage.",
+  "saas-development": "Subscription products designed to launch clearly and scale confidently.",
+  "mobile-app-development": "Useful, native-feeling mobile experiences for customers on the move.",
+  "ui-ux-design": "Research-led interfaces that make complicated tasks feel simple.",
+  "e-commerce-development": "High-performing storefronts designed to turn discovery into revenue.",
+  "custom-software-development": "Purpose-built software for workflows off-the-shelf tools cannot solve.",
+  "api-development": "Reliable APIs that connect products, teams and business-critical data.",
+  "growth-marketing": "Focused campaigns and experiments that create measurable demand.",
+  "brand-identity-design": "Distinctive visual systems that make your business easier to recognise.",
+  "graphic-design": "Clear, memorable creative for digital, print and everyday brand moments.",
+  "video-editing-motion-graphics": "Sharp edits and motion that turn attention into understanding.",
+  "search-engine-optimization": "Technical and content-led SEO built for sustainable discovery.",
+  "digital-marketing": "Connected digital campaigns shaped around reach, response and return.",
+  "social-media-management": "Consistent content systems that keep your brand useful and visible.",
+  "content-marketing": "Practical content that earns trust before the sales conversation begins.",
+  "ai-automation": "Practical intelligence woven into the way your business already works.",
+  "ai-chatbots": "Helpful conversational experiences for support, sales and internal knowledge.",
+  "ai-agents": "Goal-driven assistants that coordinate multi-step work with human oversight.",
+  "erp-development": "Connected operational systems that bring core business processes together.",
+  "crm-development": "Customer platforms shaped around the way your team actually sells.",
+  "aws-solutions": "Secure, scalable AWS foundations with cost and reliability built in.",
+  "azure-solutions": "Microsoft cloud environments designed for dependable enterprise delivery.",
+  "google-cloud": "Modern Google Cloud architecture for data-rich, intelligent products.",
+  "devops-engineering": "Delivery systems that help teams ship safely and recover quickly.",
+  "ci-cd-automation": "Automated build, test and release pipelines with fewer manual handoffs.",
+  "docker-kubernetes": "Portable container platforms engineered for predictable scale.",
+  "vps-dedicated-servers": "Hardened server environments with performance and control in balance.",
+  "linux-administration": "Reliable Linux operations, security hardening and ongoing maintenance.",
+  "technical-consulting": "Senior technical direction for architecture, delivery and critical decisions.",
 };
 
-const chapters: ServiceChapter[] = [
+const serviceGroups = [
   {
-    eyebrow: "01 / Build",
-    title: "Digital product services",
-    copy: "Useful, high-performing digital experiences built around what your customers and teams need to do next.",
-    tone: "dark",
+    number: "01",
+    eyebrow: "Build",
+    title: "Digital products",
+    copy: "From the first interface to the systems behind it, we design and build digital products people can depend on.",
+    grid: "lg:grid-cols-4",
     slugs: [
       "custom-websites",
       "enterprise-applications",
@@ -42,18 +67,13 @@ const chapters: ServiceChapter[] = [
       "custom-software-development",
       "api-development",
     ],
-    images: [
-      "/services/digital-products.jpg",
-      "/brand/gavior-sky-hero.png",
-      "/showcase/mens-grooming-ui.png",
-      "/showcase/event-social-posts.png",
-    ],
   },
   {
-    eyebrow: "02 / Be seen",
-    title: "Creative & growth services",
-    copy: "Brand, content and performance systems that make your business easier to recognise, trust and choose.",
-    tone: "light",
+    number: "02",
+    eyebrow: "Be seen",
+    title: "Creative & growth",
+    copy: "A connected mix of brand, content and performance capability that makes your business easier to notice and choose.",
+    grid: "lg:grid-cols-4",
     slugs: [
       "growth-marketing",
       "brand-identity-design",
@@ -64,20 +84,13 @@ const chapters: ServiceChapter[] = [
       "social-media-management",
       "content-marketing",
     ],
-    images: [
-      "/services/creative-growth.jpg",
-      "/showcase/cafe-brew-identity.jpg",
-      "/showcase/floriaa-identity.png",
-      "/showcase/vector-illustrations.png",
-      "/showcase/2d-animation-portfolio.png",
-      "/showcase/event-social-posts.png",
-    ],
   },
   {
-    eyebrow: "03 / Automate",
+    number: "03",
+    eyebrow: "Work smarter",
     title: "AI & business systems",
-    copy: "Practical intelligence and connected operating systems that remove repetitive work without removing human judgment.",
-    tone: "dark",
+    copy: "Applied intelligence and connected operating tools that remove repetitive work while keeping people in control.",
+    grid: "lg:grid-cols-5",
     slugs: [
       "ai-automation",
       "ai-chatbots",
@@ -85,17 +98,13 @@ const chapters: ServiceChapter[] = [
       "erp-development",
       "crm-development",
     ],
-    images: [
-      "/services/ai-automation.jpg",
-      "/services/digital-products.jpg",
-      "/services/cloud-infrastructure.jpg",
-    ],
   },
   {
-    eyebrow: "04 / Scale",
-    title: "Cloud & infrastructure",
-    copy: "Secure foundations, automated delivery and dependable operations for products that cannot afford to stand still.",
-    tone: "dark",
+    number: "04",
+    eyebrow: "Run reliably",
+    title: "Cloud, infrastructure & consulting",
+    copy: "Secure foundations, automated delivery and clear technical direction for products built to keep moving.",
+    grid: "lg:grid-cols-3",
     slugs: [
       "aws-solutions",
       "azure-solutions",
@@ -105,20 +114,8 @@ const chapters: ServiceChapter[] = [
       "docker-kubernetes",
       "vps-dedicated-servers",
       "linux-administration",
+      "technical-consulting",
     ],
-    images: [
-      "/services/cloud-infrastructure.jpg",
-      "/services/ai-automation.jpg",
-      "/brand/gavior-sky-hero.png",
-    ],
-  },
-  {
-    eyebrow: "05 / Decide",
-    title: "Technical consulting",
-    copy: "Senior technical perspective for the choices that shape your product, architecture and next phase of growth.",
-    tone: "light",
-    slugs: ["technical-consulting"],
-    images: ["/services/creative-growth.jpg"],
   },
 ];
 
@@ -128,116 +125,114 @@ export default function Services() {
   return (
     <>
       <Header />
-      <main className="services-editorial">
-        <section className="services-editorial-hero">
-          <div className="shell services-editorial-hero-grid">
-            <div className="services-editorial-hero-copy">
-              <p className="services-editorial-kicker">Gavior services</p>
-              <h1>
-                Design, technology
-                <br />
-                and <em>intelligent systems.</em>
-              </h1>
-              <p>
-                One partner for the strategy, craft and engineering it takes to
-                turn an ambitious idea into something people can use, trust and
-                grow with.
-              </p>
-              <div className="services-editorial-actions">
-                <Link href="/book-consultation" className="services-lime-button">
-                  Start a project <ArrowRight size={15} />
-                </Link>
-                <Link href="#all-services" className="services-text-link">
-                  Explore all 30 services
-                </Link>
-              </div>
+      <PageHero
+        eyebrow="Capabilities"
+        title="One team. Every digital capability."
+        copy="Strategy, design, engineering, growth and infrastructure—connected around the outcome your business needs next."
+        action="Plan your project"
+      />
+
+      <main className="bg-[#f7f7f8] py-20 md:py-28">
+        <div className="shell">
+          <div className="mb-20 grid gap-7 border-b border-[#dfe3ea] pb-10 md:grid-cols-[1fr_auto] md:items-end">
+            <div>
+              <p className="eyebrow">All services</p>
+              <h2 className="display mt-5 max-w-3xl text-[42px] sm:text-[58px]">
+                Everything needed to make the next move count.
+              </h2>
             </div>
-            <Link
-              href="/services/custom-websites"
-              className="services-editorial-hero-media"
-              aria-label="Explore custom website development"
-            >
-              <Image
-                src="/services/digital-products.jpg"
-                alt="Designer reviewing a responsive digital product"
-                fill
-                priority
-                sizes="(max-width: 900px) 100vw, 48vw"
-              />
-              <span className="services-hero-media-label">
-                Digital products <ArrowUpRight size={16} />
-              </span>
-            </Link>
-          </div>
-          <div className="shell services-editorial-proof" aria-label="Gavior service summary">
-            <span><strong>30</strong> connected services</span>
-            <span><strong>05</strong> specialist disciplines</span>
-            <span><strong>01</strong> accountable partner</span>
-          </div>
-        </section>
-
-        <div id="all-services">
-          {chapters.map((chapter, chapterIndex) => {
-            const chapterServices = chapter.slugs
-              .map((slug) => servicesBySlug.get(slug))
-              .filter((service): service is NonNullable<typeof service> => Boolean(service));
-
-            return (
-              <section
-                key={chapter.title}
-                className={`services-chapter services-chapter-${chapter.tone}`}
-              >
-                <div className="shell">
-                  <div className="services-chapter-heading">
-                    <p>{chapter.eyebrow}</p>
-                    <h2>{chapter.title}</h2>
-                    <span>{chapter.copy}</span>
-                  </div>
-
-                  <div className={`services-showcase-grid services-showcase-grid-${chapterServices.length}`}>
-                    {chapterServices.map((service, index) => (
-                      <Link
-                        key={service.slug}
-                        href={`/services/${service.slug}`}
-                        className={`services-showcase-card services-showcase-card-${index % 6} ${
-                          chapterServices.length === 1 ? "services-showcase-card-single" : ""
-                        }`}
-                      >
-                        <Image
-                          src={chapter.images[index % chapter.images.length]}
-                          alt=""
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                        />
-                        <span className="services-card-shade" />
-                        <span className="services-card-number">
-                          {String(chapterIndex + 1).padStart(2, "0")}.{String(index + 1).padStart(2, "0")}
-                        </span>
-                        <span className="services-card-content">
-                          <strong>{service.name}</strong>
-                          <small>{service.short}</small>
-                        </span>
-                        <span className="services-card-arrow" aria-hidden>
-                          <ArrowUpRight size={16} />
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {[
+                ["30", "Services"],
+                ["04", "Disciplines"],
+                ["01", "Partner"],
+              ].map(([value, label]) => (
+                <div key={label} className="min-w-[104px] rounded-2xl border border-[#e1e4e8] bg-white p-4">
+                  <strong className="display block text-3xl text-[#7018ff]">{value}</strong>
+                  <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.14em] text-[#667085]">{label}</span>
                 </div>
-              </section>
-            );
-          })}
-        </div>
-
-        <section className="services-editorial-cta">
-          <div className="shell services-editorial-cta-inner">
-            <p>Have a project in mind?</p>
-            <h2>Your next move deserves the right creative and technical team.</h2>
-            <Link href="/book-consultation" className="services-lime-button">
-              Let&apos;s build it <ArrowRight size={15} />
-            </Link>
+              ))}
+            </div>
           </div>
-        </section>
+
+          <div className="space-y-24 md:space-y-32">
+            {serviceGroups.map((group) => {
+              const groupServices = group.slugs
+                .map((slug) => servicesBySlug.get(slug))
+                .filter((service): service is NonNullable<typeof service> => Boolean(service));
+
+              return (
+                <section key={group.title}>
+                  <div className="mb-8 grid gap-5 md:grid-cols-[120px_1fr_1fr] md:items-end">
+                    <span className="display text-5xl text-[#7018ff]/25">{group.number}</span>
+                    <div>
+                      <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#7018ff]">{group.eyebrow}</p>
+                      <h2 className="display mt-3 text-[38px] sm:text-[48px]">{group.title}</h2>
+                    </div>
+                    <p className="max-w-md text-sm leading-6 text-[#667085] md:justify-self-end">{group.copy}</p>
+                  </div>
+
+                  <div className={`grid gap-4 sm:grid-cols-2 ${group.grid}`}>
+                    {groupServices.map((service, index) => {
+                      const Icon = service.icon;
+                      const darkAccent = service.color === "#7018ff";
+
+                      return (
+                        <Link
+                          key={service.slug}
+                          href={`/services/${service.slug}`}
+                          className="group flex min-h-[260px] flex-col rounded-2xl border border-[#e1e4e8] bg-white p-6 shadow-[0_4px_18px_rgba(16,24,40,.035)] transition-all duration-300 hover:-translate-y-1 hover:border-[#bda0ff] hover:shadow-[0_16px_36px_rgba(112,24,255,.10)]"
+                        >
+                          <div className="flex items-start justify-between gap-4">
+                            <span
+                              className="grid h-11 w-11 place-items-center rounded-xl"
+                              style={{
+                                backgroundColor: service.color,
+                                color: darkAccent ? "#fff" : "#171717",
+                              }}
+                            >
+                              <Icon size={19} />
+                            </span>
+                            <span className="text-[10px] font-extrabold tracking-[0.14em] text-[#98a2b3]">
+                              {group.number}.{String(index + 1).padStart(2, "0")}
+                            </span>
+                          </div>
+
+                          <div className="mt-auto pt-12">
+                            <h3 className="text-[22px] font-bold leading-[1.08] tracking-[-.045em] text-[#171717]">
+                              {service.name}
+                            </h3>
+                            <p className="mt-3 text-xs leading-5 text-[#667085]">
+                              {serviceDescriptions[service.slug] ?? service.short}
+                            </p>
+                            <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-extrabold text-[#7018ff]">
+                              Explore service
+                              <ArrowUpRight className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" size={14} />
+                            </span>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+
+          <section className="mt-24 overflow-hidden rounded-[28px] bg-[#171717] p-8 text-white sm:p-12 md:mt-32 md:p-16">
+            <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
+              <div>
+                <p className="eyebrow text-white/60 before:bg-[#a56bff]">Make your move</p>
+                <h2 className="display mt-6 max-w-3xl text-[44px] sm:text-[62px]">
+                  Not sure which service you need? Start with the outcome.
+                </h2>
+              </div>
+              <Link href="/book-consultation" className="button bg-white text-[#171717]">
+                Talk to Gavior <ArrowRight size={16} />
+              </Link>
+            </div>
+          </section>
+        </div>
       </main>
       <Footer />
     </>
