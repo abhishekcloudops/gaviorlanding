@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowRight, ChevronDown, MoveUpRight, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import { faqs, projects, services } from "@/content/site-data";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
+import { whatsappUrl } from "@/lib/whatsapp";
 export const Reveal = ({
   children,
   className = "",
@@ -30,6 +32,14 @@ export function KineticHero() {
           <p className="cap-hero-copy">Gavior partners with ambitious teams to create clear brands, useful products and systems that earn attention and keep it.</p>
           <div className="cap-hero-actions">
             <Link className="button cap-hero-main" href="/book-consultation">Start a project <ArrowRight size={16} /></Link>
+            <a
+              className="button bg-[#25D366] text-[#082d17] shadow-[0_8px_24px_rgba(25,120,61,.2)] hover:bg-[#2ee06f]"
+              href={whatsappUrl("Hi Gavior, I found you through your website and would like to discuss a project. Please help me choose the right service.")}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <WhatsAppIcon className="h-4 w-4" /> WhatsApp us
+            </a>
             <Link className="button cap-hero-secondary" href="/portfolio"><Play size={14} fill="currentColor" /> See our work</Link>
           </div>
           <p className="cap-hero-note">No pressure. Just a useful first conversation.</p>

@@ -115,7 +115,7 @@ export async function sendContactFormConfirmation(
               <h3 style="margin-top: 0;">Need Immediate Assistance?</h3>
               <p>
                 📧 Email: <a href="mailto:hello@gavior.in">hello@gavior.in</a><br>
-                💬 WhatsApp: <a href="https://wa.me/919999999999">Chat with us</a><br>
+                💬 WhatsApp: <a href="https://wa.me/916291939807">+91 6291 939 807</a><br>
                 🤝 Book a Call: <a href="https://calendly.com/gavior">Schedule Now</a>
               </p>
             </div>

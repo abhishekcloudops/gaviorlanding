@@ -11,6 +11,7 @@ export function Header() {
     ["Showcase", "/showcase"],
     ["About", "/about"],
     ["Insights", "/blog"],
+    ["Pricing", "/pricing"],
   ];
   return (
     <header className="sticky top-0 z-40 pt-3 text-[#171717]">
@@ -30,14 +31,14 @@ export function Header() {
               priority
             />
           </Link>
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-[13px] font-semibold text-[#727272]">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-[13px] font-semibold text-[#727272]">
             {links.map(([label, href]) => (
               <Link key={href} className="hover:text-[#9e6bff]" href={href}>
                 {label}
               </Link>
             ))}
           </nav>
-          <div className="hidden md:flex gap-3">
+          <div className="hidden lg:flex gap-3">
             <Link className="button header-contact" href="/contact">
               Contact
             </Link>
@@ -48,13 +49,13 @@ export function Header() {
           <button
             onClick={() => setOpen(!open)}
             aria-label="Toggle navigation"
-            className="md:hidden grid h-9 w-9 place-items-center rounded-full bg-[#f4f4f5]"
+            className="lg:hidden grid h-9 w-9 place-items-center rounded-full bg-[#f4f4f5]"
           >
             {open ? <X /> : <Menu />}
           </button>
         </div>
         {open && (
-          <nav className="mt-2 rounded-[20px] border border-black/10 bg-white/95 p-2 grid gap-1 shadow-[0_12px_28px_rgba(15,23,42,.08)] md:hidden">
+          <nav className="mt-2 rounded-[20px] border border-black/10 bg-white/95 p-2 grid gap-1 shadow-[0_12px_28px_rgba(15,23,42,.08)] lg:hidden">
             {[
               ...links,
               ["Contact", "/contact"],

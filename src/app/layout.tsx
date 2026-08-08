@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Manrope } from "next/font/google";
 import Script from "next/script";
+import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 import "./globals.css";
 
 const display = Manrope({ subsets: ["latin"], variable: "--font-display" });
@@ -95,6 +96,7 @@ export default function RootLayout({
     contactPoint: {
       "@type": "ContactPoint",
       email: "hello@gavior.in",
+      telephone: "+91-6291-939-807",
       contactType: "customer service",
       availableLanguage: ["English", "Hindi"],
     },
@@ -134,6 +136,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
         />
         {children}
+        <FloatingWhatsApp />
       </body>
     </html>
   );
