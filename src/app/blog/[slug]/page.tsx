@@ -86,13 +86,19 @@ export default async function Article({
       "@type": "WebPage",
       "@id": `https://gavior.in/blog/${post.slug}`,
     },
-    author: {
-      "@type": "Person",
-      name: post.author.name,
-      jobTitle: post.author.role,
-      sameAs: post.author.linkedIn,
-      url: "https://gavior.in/about",
-    },
+    author: post.author.linkedIn
+      ? {
+          "@type": "Person",
+          name: post.author.name,
+          jobTitle: post.author.role,
+          sameAs: post.author.linkedIn,
+          url: "https://gavior.in/about",
+        }
+      : {
+          "@type": "Organization",
+          name: post.author.name,
+          url: "https://gavior.in/about",
+        },
     publisher: {
       "@type": "Organization",
       name: "Gavior",

@@ -27,11 +27,11 @@ export type BlogPost = {
 };
 
 const defaultAuthor: Author = {
-  name: "Abhishek Sharma",
-  role: "Principal Technical Architect",
-  avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-  linkedIn: "https://linkedin.com/company/gavior",
-  bio: "Abhishek leads technical architecture and product strategy at Gavior, specializing in high-performance web systems and enterprise AI integration.",
+  name: "Gavior Editorial Team",
+  role: "Editorial team",
+  avatar: "",
+  linkedIn: "",
+  bio: "The Gavior Editorial Team shares practical guidance on product design, software engineering, cloud delivery and AI automation.",
 };
 
 export function getPostSlugs() {
@@ -61,9 +61,9 @@ export function getPostBySlug(slug: string): BlogPost | null {
     author: {
       name: data.authorName || defaultAuthor.name,
       role: data.authorRole || defaultAuthor.role,
-      avatar: data.authorAvatar || defaultAuthor.avatar,
-      linkedIn: data.authorLinkedIn || defaultAuthor.linkedIn,
-      bio: data.authorBio || defaultAuthor.bio,
+      avatar: data.authorAvatar ?? defaultAuthor.avatar,
+      linkedIn: data.authorLinkedIn ?? defaultAuthor.linkedIn,
+      bio: data.authorBio ?? defaultAuthor.bio,
     },
     relatedServices: data.relatedServices || ['custom-websites', 'ai-automation', 'saas-development'],
     relatedIndustries: data.relatedIndustries || ['technology', 'finance', 'manufacturing'],
