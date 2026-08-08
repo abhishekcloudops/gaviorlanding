@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Website, Design, AI & Software Pricing | Gavior",
@@ -145,8 +146,12 @@ function PriceRows({ services, inverted = false }: { services: { icon: string; n
         <span>Service</span><span>Starting price</span><span>Pricing</span>
       </div>
       {services.map((service) => (
-        <Link
-          href={`/contact?service=${encodeURIComponent(service.name)}`}
+        <a
+          href={whatsappUrl(
+            `Hi Gavior, I am interested in your ${service.name} service.\n\nDisplayed price: ${service.price}\nPricing model: ${service.model}\n\nPlease share the included deliverables, expected timeline, revision limits and final quotation.`,
+          )}
+          target="_blank"
+          rel="noreferrer"
           key={service.name}
           className={`group grid gap-4 border-b px-5 py-5 transition-colors last:border-0 sm:px-7 md:grid-cols-[1fr_220px_170px] md:items-center ${inverted ? "border-white/10 hover:bg-white/[.06]" : "border-[#eeeaf2] hover:bg-[#faf8fd]"}`}
         >
@@ -158,7 +163,7 @@ function PriceRows({ services, inverted = false }: { services: { icon: string; n
           <span className={`flex items-center justify-between gap-3 text-sm ${inverted ? "text-white/55" : "text-[#667085]"}`}>
             {service.model}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </span>
-        </Link>
+        </a>
       ))}
     </div>
   );
@@ -218,7 +223,16 @@ export default function Pricing() {
                     {pkg.features.map((feature) => <li key={feature} className={`flex items-start gap-3 text-sm ${pkg.featured ? "text-white/78" : "text-[#59535f]"}`}><CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${pkg.featured ? "text-[#a77cff]" : "text-[#7018ff]"}`} />{feature}</li>)}
                   </ul>
                   <p className={`mt-7 rounded-xl p-4 text-xs leading-5 ${pkg.featured ? "bg-white/[.07] text-white/60" : "bg-[#f8f7fa] text-[#6d6772]"}`}><strong className={pkg.featured ? "text-white" : "text-[#171717]"}>Best for: </strong>{pkg.bestFor}</p>
-                  <Link href={`/contact?package=${encodeURIComponent(pkg.name)}`} className={`button mt-5 w-full ${pkg.featured ? "bg-[#7018ff] text-white hover:bg-[#832fff]" : "bg-[#171717] text-white hover:bg-[#7018ff]"}`}>Choose {pkg.name.replace("Gavior ", "")} <ArrowRight className="h-4 w-4" /></Link>
+                  <a
+                    href={whatsappUrl(
+                      `Hi Gavior, I want to choose the ${pkg.name} website package.\n\nPrice: ${pkg.price} one-time\nDelivery: ${pkg.delivery}\nBest for: ${pkg.bestFor}\n\nIncluded:\n${pkg.features.map((feature) => `• ${feature}`).join("\n")}\n\nPlease confirm the final scope, availability, payment process, and domain/hosting charges.`,
+                    )}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`button mt-5 w-full ${pkg.featured ? "bg-[#7018ff] text-white hover:bg-[#832fff]" : "bg-[#171717] text-white hover:bg-[#7018ff]"}`}
+                  >
+                    Choose {pkg.name.replace("Gavior ", "")} <ArrowRight className="h-4 w-4" />
+                  </a>
                 </article>
               ))}
             </div>
@@ -235,7 +249,7 @@ export default function Pricing() {
                 ["Creative Essentials", "From ₹2,999/month", "A practical monthly design pack for brands that need consistent output."],
                 ["Brand Momentum", "From ₹9,999/month", "Design, short-form edits and a lightweight monthly content plan."],
                 ["Growth Partner", "From ₹14,999/month", "Campaign, content and performance support in one engagement."],
-              ].map(([name, price, copy]) => <div key={name} className="rounded-2xl border border-[#e8e3ed] bg-[#faf9fc] p-6"><p className="text-sm font-bold">{name}</p><p className="mt-3 text-xl font-extrabold text-[#7018ff]">{price}</p><p className="mt-3 text-xs leading-5 text-[#6d6772]">{copy}</p></div>)}
+              ].map(([name, price, copy]) => <div key={name} className="flex flex-col rounded-2xl border border-[#e8e3ed] bg-[#faf9fc] p-6"><p className="text-sm font-bold">{name}</p><p className="mt-3 text-xl font-extrabold text-[#7018ff]">{price}</p><p className="mt-3 flex-1 text-xs leading-5 text-[#6d6772]">{copy}</p><a href={whatsappUrl(`Hi Gavior, I want to choose the ${name} creative plan.\n\nDisplayed price: ${price}\nPlan summary: ${copy}\n\nPlease share the complete deliverables, monthly limits, revisions, timeline and payment process.`)} target="_blank" rel="noreferrer" className="button mt-5 w-full bg-[#171717] text-white hover:bg-[#7018ff]">Choose this plan <ArrowRight className="h-4 w-4" /></a></div>)}
             </div>
             <p className="mt-6 text-xs leading-6 text-[#77717d]">Advertising spend, influencer fees, paid tools, stock assets and production costs are separate. Deliverable volume and platforms are confirmed before the monthly plan begins.</p>
           </div>
