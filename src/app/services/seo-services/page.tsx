@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
+import { ServiceStructuredData } from "@/components/service-structured-data";
 
 export const metadata: Metadata = {
   title: "SEO Services | Gavior",
@@ -28,6 +29,7 @@ export default function SEOServices() {
   return (
     <>
       <Header />
+      <ServiceStructuredData slug="seo-services" />
       <main>
         {/* Hero Section */}
         <section className="py-20 lg:py-32 shell">

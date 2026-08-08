@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
+import { ServiceStructuredData } from "@/components/service-structured-data";
 
 export const metadata: Metadata = {
   title: "AI Automation Services | Gavior",
@@ -16,6 +17,7 @@ export default function AIAutomation() {
   return (
     <>
       <Header />
+      <ServiceStructuredData slug="ai-automation" />
       <main>
         <section className="py-20 lg:py-32 shell">
           <div className="max-w-3xl">

@@ -41,55 +41,8 @@ export default async function Service({
   const service = allServices.find((s) => s.slug === slug);
   if (!service) notFound();
 
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: service.name,
-    description: service.short,
-    provider: {
-      "@type": "Organization",
-      name: "Gavior",
-      url: "https://gavior.in",
-    },
-    areaServed: "Worldwide",
-    serviceType: service.name,
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://gavior.in",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Services",
-        item: "https://gavior.in/services",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: service.name,
-        item: `https://gavior.in/services/${slug}`,
-      },
-    ],
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
       <Header />
       <PageHero
         eyebrow={service.tag}

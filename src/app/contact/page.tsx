@@ -19,15 +19,13 @@ export default function Contact() {
     name: "Gavior",
     url: "https://gavior.in",
     logo: "https://gavior.in/brand/gavior-logo-light.png",
-    image: "https://gavior.in/brand/gavior-og.png",
+    image: "https://gavior.in/brand/gavior-sky-hero.png",
     description: "Gavior provides custom web application development, AI workflow automation, SaaS engineering, and UI/UX design.",
     email: "hello@gavior.in",
     address: {
       "@type": "PostalAddress",
       addressCountry: "India",
     },
-    openingHours: "Mo-Fr 09:00-18:00",
-    priceRange: "$$",
   };
 
   return (

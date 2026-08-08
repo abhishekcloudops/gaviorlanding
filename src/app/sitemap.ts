@@ -42,31 +42,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const urls: MetadataRoute.Sitemap = [
     ...staticRoutes.map((s) => ({
       url: `${base}${s.route}`,
-      lastModified: new Date().toISOString(),
       changeFrequency: s.changeFrequency,
       priority: s.priority,
     })),
     ...serviceSlugs.map((s) => ({
       url: `${base}/services/${s}`,
-      lastModified: new Date().toISOString(),
       changeFrequency: "weekly" as const,
       priority: 0.85,
     })),
     ...projects.map((p) => ({
       url: `${base}/portfolio/${p.slug}`,
-      lastModified: new Date().toISOString(),
       changeFrequency: "monthly" as const,
       priority: 0.75,
     })),
     ...industries.map((i) => ({
       url: `${base}/industries/${industrySlug(i)}`,
-      lastModified: new Date().toISOString(),
       changeFrequency: "weekly" as const,
       priority: 0.85,
     })),
     ...posts.map((p) => ({
       url: `${base}/blog/${p.slug}`,
-      lastModified: p.updatedDate ? new Date(p.updatedDate).toISOString() : new Date().toISOString(),
+      ...(p.updatedDate ? { lastModified: new Date(p.updatedDate).toISOString() } : {}),
       changeFrequency: "weekly" as const,
       priority: 0.8,
     })),

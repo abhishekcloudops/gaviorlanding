@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Search, PlayCircle } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import { CTA, Reveal } from "@/components/sections";
 import { getAllPosts } from "@/content/blog-api";
 import {

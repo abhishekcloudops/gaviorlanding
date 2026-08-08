@@ -153,20 +153,24 @@ export const industries = [
 ];
 export const faqs = [
   [
+    "What does Gavior do?",
+    "Gavior designs and builds custom websites, SaaS products, enterprise applications, UI/UX systems and AI workflow automations for organisations that need digital work to create practical business value.",
+  ],
+  [
     "What does an engagement with Gavior look like?",
-    "We start with the business problem, align on outcomes, then bring a focused cross-functional team. You’ll have a clear roadmap, direct communication and visible progress from week one.",
+    "We begin with the business problem and desired outcome, then define the right scope, team and delivery plan. You work directly with the people designing and building the solution.",
   ],
   [
-    "Do you work with teams outside India?",
-    "Yes. Gavior works across time zones with product teams, founders and enterprise leaders worldwide.",
+    "Can Gavior work with our internal team?",
+    "Yes. Gavior can work alongside internal product, design, marketing and engineering teams, adding focused strategy, design or implementation capability where it is needed.",
   ],
   [
-    "Can you work with our internal team?",
-    "Absolutely. We plug into existing teams as a strategic partner, bringing the capabilities and pace you need without the overhead.",
+    "How are projects scoped and priced?",
+    "Project scope and investment depend on the problem, requirements, technical complexity and delivery approach. Gavior offers discovery work, defined projects and ongoing partnerships.",
   ],
   [
-    "How do you price projects?",
-    "Every engagement is scoped around its outcome. We offer focused discovery sprints, project-based work and embedded partnerships.",
+    "Where does Gavior work?",
+    "Gavior is based in India and works with teams across time zones. Project collaboration is planned around the people, goals and operating rhythm of each engagement.",
   ],
 ];
 

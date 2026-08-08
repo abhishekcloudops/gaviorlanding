@@ -231,10 +231,10 @@ export function Metrics() {
   return (
     <section className="shell grid grid-cols-2 lg:grid-cols-4 border-y border-[#e1e4e8]">
       {[
-        ["12+", "years shaping digital"],
-        ["84", "products brought to market"],
-        ["19", "specialist disciplines"],
-        ["14", "countries served"],
+        ["Strategy", "clear choices before execution"],
+        ["Design", "experiences people can use"],
+        ["Engineering", "systems built to evolve"],
+        ["Partnership", "direct, practical collaboration"],
       ].map(([a, b]) => (
         <div key={a} className="py-9 px-4 first:pl-0">
           <div className="display text-5xl">{a}</div>

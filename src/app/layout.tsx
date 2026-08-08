@@ -14,7 +14,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://gavior.in"),
   title: {
     default: "Gavior — Digital transformation, made tangible.",
-    template: "%s | Gavior",
+    // Individual routes provide descriptive, brand-qualified titles. Applying
+    // another suffix here created titles such as "Services | Gavior | Gavior".
+    template: "%s",
   },
   description:
     "Gavior helps ambitious companies build durable digital products, brands and intelligent systems.",
@@ -47,12 +49,19 @@ export const metadata: Metadata = {
     description:
       "Design, technology, cloud and AI for businesses built to move.",
     url: "https://gavior.in",
+    images: [{
+      url: "/brand/gavior-sky-hero.png",
+      width: 1200,
+      height: 630,
+      alt: "Gavior — digital products, brands and intelligent systems",
+    }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Gavior — Digital transformation, made tangible.",
     description:
       "Design, technology, cloud and AI for businesses built to move.",
+    images: ["/brand/gavior-sky-hero.png"],
   },
 };
 
@@ -64,16 +73,24 @@ export default function RootLayout({
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://gavior.in/#organization",
     name: "Gavior",
     url: "https://gavior.in",
     logo: "https://gavior.in/brand/gavior-logo-light.png",
     email: "hello@gavior.in",
     description:
       "Digital transformation company delivering custom website development, enterprise SaaS applications, cloud infrastructure, and AI automation.",
-    sameAs: [
-      "https://linkedin.com/company/gavior",
-      "https://twitter.com/gavior",
-      "https://github.com/gavior",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "IN",
+    },
+    knowsAbout: [
+      "Custom website development",
+      "SaaS development",
+      "Enterprise software development",
+      "UI/UX design",
+      "AI workflow automation",
+      "Cloud infrastructure",
     ],
     contactPoint: {
       "@type": "ContactPoint",
@@ -86,8 +103,11 @@ export default function RootLayout({
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://gavior.in/#website",
     name: "Gavior",
     url: "https://gavior.in/",
+    inLanguage: "en",
+    publisher: { "@id": "https://gavior.in/#organization" },
   };
 
   return (

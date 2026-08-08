@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
+import { ServiceStructuredData } from "@/components/service-structured-data";
 
 export const metadata: Metadata = {
   title: "SaaS Development Services | Gavior",
@@ -17,6 +18,7 @@ export default function SaaSDevelopment() {
   return (
     <>
       <Header />
+      <ServiceStructuredData slug="saas-development" />
       <main>
         <section className="py-20 lg:py-32 shell">
           <div className="max-w-3xl">

@@ -25,16 +25,6 @@ export default function Home() {
       <Header />
       <main>
         <KineticHero />
-        <div className="border-b border-[#e1e4e8] py-5 marquee text-sm font-bold text-[#667085]">
-          <div>
-            Trusted by teams building what’s next &nbsp; • &nbsp; NIMBUS &nbsp;
-            • &nbsp; KORU &nbsp; • &nbsp; VANTA &nbsp; • &nbsp; NORTHSTAR &nbsp;
-            • &nbsp; ELARA &nbsp; • &nbsp; ORBIT &nbsp; • &nbsp; Trusted by
-            teams building what’s next &nbsp; • &nbsp; NIMBUS &nbsp; • &nbsp;
-            KORU &nbsp; • &nbsp; VANTA &nbsp; • &nbsp; NORTHSTAR &nbsp; • &nbsp;
-            ELARA &nbsp; • &nbsp; ORBIT &nbsp; • &nbsp;
-          </div>
-        </div>
         <Intro
           eyebrow="The Gavior difference"
           title="Clarity is a competitive advantage."

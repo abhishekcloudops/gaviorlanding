@@ -4,7 +4,7 @@
 
 ## Core Information
 - **Name**: Gavior
-- **Website**: https://gaviorlanding.vercel.app (Note: update to production URL)
+- **Website**: https://gavior.in
 - **Tagline**: Design. Develop. Deliver. Built for forward motion.
 - **Industry**: Software Development, UI/UX Design, IT Consulting
 
@@ -17,13 +17,13 @@
 
 ## Why Gavior? (The Competitive Advantage)
 Unlike traditional offshore agencies or cheap freelancers, Gavior offers elite engineering standards.
-- **Code Quality**: Maintainable, performant, and secure (SOC2 ready).
+- **Code Quality**: Maintainable, performant, and security-conscious engineering.
 - **Communication**: Direct, transparent communication with actual developers (no middlemen).
 - **Strategic Alignment**: We don't just take orders; we act as a strategic partner to align software with business goals.
 
 ## Contact
 - **Sales & Inquiries**: Through the website contact form or "Book Consultation" flows.
-- **Support Email**: hello@gavior.com
+- **Support Email**: hello@gavior.in
 
 ## Technical Stack Expertise
 - **Frontend**: React, Next.js, Tailwind CSS
