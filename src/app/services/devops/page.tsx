@@ -3,6 +3,7 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
 import { ServiceStructuredData } from "@/components/service-structured-data";
+import { ServicePageExpansion } from "@/components/service-page-expansion";
 
 export const metadata: Metadata = {
   title: "DevOps Services | Gavior",
@@ -314,6 +315,7 @@ export default function DevOps() {
                 Schedule DevOps Consultation
               </Link>
         </section>
+        <ServicePageExpansion slug="devops" name="DevOps services" />
       </main>
       <Footer />
     </>

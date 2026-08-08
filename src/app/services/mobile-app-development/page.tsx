@@ -3,6 +3,7 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
 import { ServiceStructuredData } from "@/components/service-structured-data";
+import { ServicePageExpansion } from "@/components/service-page-expansion";
 
 export const metadata: Metadata = {
   title: "Mobile App Development Services | Gavior",
@@ -316,6 +317,7 @@ export default function MobileAppDevelopment() {
                 Schedule App Consultation
               </Link>
         </section>
+        <ServicePageExpansion slug="mobile-app-development" name="Mobile app development" />
       </main>
       <Footer />
     </>

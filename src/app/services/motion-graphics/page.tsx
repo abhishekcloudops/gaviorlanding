@@ -3,6 +3,7 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
 import { ServiceStructuredData } from "@/components/service-structured-data";
+import { ServicePageExpansion } from "@/components/service-page-expansion";
 
 export const metadata: Metadata = {
   title: "Motion Graphics Services | Gavior",
@@ -316,6 +317,7 @@ export default function MotionGraphics() {
                 Start Animation Project
               </Link>
         </section>
+        <ServicePageExpansion slug="motion-graphics" name="Motion graphics" />
       </main>
       <Footer />
     </>

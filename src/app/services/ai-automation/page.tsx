@@ -3,6 +3,7 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
 import { ServiceStructuredData } from "@/components/service-structured-data";
+import { ServicePageExpansion } from "@/components/service-page-expansion";
 
 export const metadata: Metadata = {
   title: "AI Automation Services | Gavior",
@@ -211,6 +212,7 @@ export default function AIAutomation() {
                 Schedule Consultation
               </Link>
         </section>
+        <ServicePageExpansion slug="ai-automation" name="AI automation" />
       </main>
       <Footer />
     </>

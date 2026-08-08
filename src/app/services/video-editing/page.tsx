@@ -3,6 +3,7 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
 import { ServiceStructuredData } from "@/components/service-structured-data";
+import { ServicePageExpansion } from "@/components/service-page-expansion";
 
 export const metadata: Metadata = {
   title: "Video Editing Services | Gavior",
@@ -344,6 +345,7 @@ export default function VideoEditing() {
                 Submit Your Footage
               </Link>
         </section>
+        <ServicePageExpansion slug="video-editing" name="Video editing" />
       </main>
       <Footer />
     </>

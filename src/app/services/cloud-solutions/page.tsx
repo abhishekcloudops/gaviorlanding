@@ -3,6 +3,7 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
 import { ServiceStructuredData } from "@/components/service-structured-data";
+import { ServicePageExpansion } from "@/components/service-page-expansion";
 
 export const metadata: Metadata = {
   title: "Cloud Solutions Services | Gavior",
@@ -314,6 +315,7 @@ export default function CloudSolutions() {
                 Schedule Cloud Assessment
               </Link>
         </section>
+        <ServicePageExpansion slug="cloud-solutions" name="Cloud solutions" />
       </main>
       <Footer />
     </>

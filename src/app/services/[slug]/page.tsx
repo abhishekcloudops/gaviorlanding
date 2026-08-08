@@ -4,6 +4,7 @@ import { Footer } from "@/components/site-footer";
 import { CTA, FAQ, Intro } from "@/components/sections";
 import { allServices } from "@/content/site-data";
 import { PageHero, TextBlocks } from "@/components/page-templates";
+import { ServicePageExpansion } from "@/components/service-page-expansion";
 
 export function generateStaticParams() {
   return allServices.map((s) => ({ slug: s.slug }));
@@ -104,6 +105,7 @@ export default async function Service({
           </ol>
         </div>
       </section>
+      <ServicePageExpansion slug={slug} name={service.name} />
       <FAQ />
       <CTA />
       <Footer />

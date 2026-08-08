@@ -3,6 +3,7 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
 import { ServiceStructuredData } from "@/components/service-structured-data";
+import { ServicePageExpansion } from "@/components/service-page-expansion";
 
 export const metadata: Metadata = {
   title: "Digital Marketing Services | Gavior",
@@ -358,6 +359,7 @@ export default function DigitalMarketing() {
                 Schedule Marketing Consultation
               </Link>
         </section>
+        <ServicePageExpansion slug="digital-marketing" name="Digital marketing" />
       </main>
       <Footer />
     </>

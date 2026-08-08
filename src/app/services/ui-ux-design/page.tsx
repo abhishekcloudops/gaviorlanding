@@ -3,6 +3,7 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
 import { ServiceStructuredData } from "@/components/service-structured-data";
+import { ServicePageExpansion } from "@/components/service-page-expansion";
 
 export const metadata: Metadata = {
   title: "UI/UX Design Services | Gavior",
@@ -316,6 +317,7 @@ export default function UIUXDesign() {
                 Schedule Design Consultation
               </Link>
         </section>
+        <ServicePageExpansion slug="ui-ux-design" name="UI/UX design" />
       </main>
       <Footer />
     </>

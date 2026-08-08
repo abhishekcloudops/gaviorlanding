@@ -3,6 +3,7 @@ import { Header } from "@/components/site-header";
 import { Footer } from "@/components/site-footer";
 import type { Metadata } from "next";
 import { ServiceStructuredData } from "@/components/service-structured-data";
+import { ServicePageExpansion } from "@/components/service-page-expansion";
 
 export const metadata: Metadata = {
   title: "Branding Services | Gavior",
@@ -318,6 +319,7 @@ export default function Branding() {
                 Schedule Branding Consultation
               </Link>
         </section>
+        <ServicePageExpansion slug="branding" name="Branding services" />
       </main>
       <Footer />
     </>
