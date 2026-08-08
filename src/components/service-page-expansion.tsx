@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { allServices } from "@/content/site-data";
+import { ServiceWhatsAppLink } from "@/components/service-whatsapp-link";
 
 type ServiceDetail = {
   question: string;
@@ -67,6 +68,7 @@ export function ServicePageExpansion({ slug, name }: { slug: string; name: strin
           <p className="eyebrow">Service overview</p>
           <h2 className="display text-[42px] sm:text-[56px] mt-5">{detail.question}</h2>
           <p className="mt-7 text-[17px] leading-8 text-[#667085]">{detail.answer}</p>
+          <ServiceWhatsAppLink serviceName={name} className="button mt-7 bg-[#25D366] text-[#082d17] hover:bg-[#2ee06f]" />
         </div>
         <div className="grid md:grid-cols-2 gap-5 mt-12">
           <div className="rounded-2xl bg-[#f4f4f5] p-7 sm:p-8">

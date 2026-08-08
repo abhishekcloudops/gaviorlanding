@@ -10,14 +10,44 @@ import {
   ProjectGrid,
   ServiceGrid,
 } from "@/components/sections";
+import { faqs, services } from "@/content/site-data";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Gavior — Web Development, AI Automation & Digital Products",
-  description: "Build modern websites, SaaS products, and AI automation systems with Gavior — designed for growth, speed, and clarity.",
+  description: "Gavior is an India-based digital product partner for custom websites, SaaS development, cloud engineering and AI automation—built for growth, speed and clarity.",
   alternates: {
     canonical: "/",
   },
+};
+
+const homeFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(([question, answer]) => ({
+    "@type": "Question",
+    name: question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: answer,
+    },
+  })),
+};
+
+const homeServiceListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Gavior digital services",
+  itemListElement: services.map((service, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Service",
+      name: service.name,
+      url: `https://gavior.in/services/${service.slug}`,
+      provider: { "@id": "https://gavior.in/#organization" },
+    },
+  })),
 };
 
 export default function Home() {
@@ -25,6 +55,14 @@ export default function Home() {
     <>
       <Header />
       <main>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(homeServiceListSchema) }}
+        />
         <KineticHero />
         <Intro
           eyebrow="The Gavior difference"
@@ -45,6 +83,105 @@ export default function Home() {
               <p>Whether you need a focused discovery sprint, a defined product release or ongoing delivery support, we help shape the scope into a practical plan your team can understand and own.</p>
               <Link href="/services" className="font-bold text-[#7018ff]">Explore all Gavior services →</Link>
             </div>
+          </div>
+        </section>
+        <section className="shell py-20 md:py-28">
+          <div className="max-w-3xl">
+            <p className="eyebrow">Services at a glance</p>
+            <h2 className="display mt-5 text-[43px] sm:text-[58px]">
+              What services does Gavior provide?
+            </h2>
+            <p className="mt-6 text-[17px] leading-8 text-[#667085]">
+              Gavior brings product strategy, design, engineering, growth and cloud delivery together. Businesses can start with one focused capability or combine services around a larger digital goal.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            <div className="card p-7">
+              <h3 className="text-xl font-bold tracking-[-.04em]">Digital products</h3>
+              <ul className="mt-5 grid gap-3 text-sm leading-6 text-[#667085]">
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/custom-websites">Custom website development</Link></li>
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/saas-development">SaaS development</Link></li>
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/enterprise-applications">Enterprise applications</Link></li>
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/ui-ux-design">UI/UX design</Link></li>
+              </ul>
+            </div>
+            <div className="card p-7">
+              <h3 className="text-xl font-bold tracking-[-.04em]">Brand & growth</h3>
+              <ul className="mt-5 grid gap-3 text-sm leading-6 text-[#667085]">
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/brand-identity-design">Brand identity design</Link></li>
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/growth-marketing">Growth marketing</Link></li>
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/search-engine-optimization">Search engine optimization</Link></li>
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/content-marketing">Content marketing</Link></li>
+              </ul>
+            </div>
+            <div className="card p-7">
+              <h3 className="text-xl font-bold tracking-[-.04em]">AI, cloud & operations</h3>
+              <ul className="mt-5 grid gap-3 text-sm leading-6 text-[#667085]">
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/ai-automation">AI automation</Link></li>
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/cloud-solutions">Cloud solutions</Link></li>
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/devops-engineering">DevOps engineering</Link></li>
+                <li><Link className="font-semibold text-[#171717] hover:text-[#7018ff]" href="/services/technical-consulting">Technical consulting</Link></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section className="bg-[#f7f7f8] py-20 md:py-28">
+          <div className="shell">
+            <div className="max-w-3xl">
+              <p className="eyebrow">Choose a starting point</p>
+              <h2 className="display mt-5 text-[43px] sm:text-[58px]">
+                Which Gavior service fits your next project?
+              </h2>
+              <p className="mt-6 text-[17px] leading-8 text-[#667085]">
+                Start with the business outcome, then choose the capability that makes that outcome practical. If your need crosses categories, we can shape one connected delivery plan.
+              </p>
+            </div>
+            <div className="mt-10 overflow-x-auto rounded-2xl border border-[#e1e4e8] bg-white">
+              <table className="min-w-[700px] w-full border-collapse text-left">
+                <caption className="sr-only">Gavior services by common business need</caption>
+                <thead className="bg-[#171717] text-white">
+                  <tr>
+                    <th scope="col" className="px-6 py-4 text-xs font-extrabold uppercase tracking-[.14em]">Business need</th>
+                    <th scope="col" className="px-6 py-4 text-xs font-extrabold uppercase tracking-[.14em]">Best starting service</th>
+                    <th scope="col" className="px-6 py-4 text-xs font-extrabold uppercase tracking-[.14em]">What it helps you do</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#e1e4e8] text-sm leading-6 text-[#667085]">
+                  <tr>
+                    <th scope="row" className="px-6 py-5 font-bold text-[#171717]">Turn more visitors into enquiries</th>
+                    <td className="px-6 py-5"><Link className="font-semibold text-[#7018ff]" href="/services/custom-websites">Custom website development</Link></td>
+                    <td className="px-6 py-5">Create a fast, clear digital presence around the right audience and conversion path.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-6 py-5 font-bold text-[#171717]">Launch or improve a software product</th>
+                    <td className="px-6 py-5"><Link className="font-semibold text-[#7018ff]" href="/services/saas-development">SaaS development</Link></td>
+                    <td className="px-6 py-5">Define the product scope, customer workflows and delivery path for a useful release.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-6 py-5 font-bold text-[#171717]">Remove repetitive operational work</th>
+                    <td className="px-6 py-5"><Link className="font-semibold text-[#7018ff]" href="/services/ai-automation">AI automation</Link></td>
+                    <td className="px-6 py-5">Connect real business triggers, data and review steps into a controlled workflow.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-6 py-5 font-bold text-[#171717]">Improve reliability and release speed</th>
+                    <td className="px-6 py-5"><Link className="font-semibold text-[#7018ff]" href="/services/devops-engineering">Cloud & DevOps engineering</Link></td>
+                    <td className="px-6 py-5">Build dependable infrastructure, delivery automation and operational visibility.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section className="shell py-20 md:py-28 grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-end">
+          <div>
+            <p className="eyebrow">Technology context</p>
+            <h2 className="display mt-5 text-[43px] sm:text-[58px]">
+              How does Gavior choose the right technology?
+            </h2>
+          </div>
+          <div className="text-[17px] leading-8 text-[#667085]">
+            <p>Technology follows the business need. Gavior scopes the product, data, security and operating requirements first, then recommends platforms and tools that your team can realistically run and improve.</p>
+            <p className="mt-5">Depending on the project, that can include cloud platforms such as <a className="font-semibold text-[#171717] underline decoration-[#bda0ff] underline-offset-4 hover:text-[#7018ff]" href="https://aws.amazon.com/" target="_blank" rel="noreferrer">Amazon Web Services</a>, <a className="font-semibold text-[#171717] underline decoration-[#bda0ff] underline-offset-4 hover:text-[#7018ff]" href="https://azure.microsoft.com/" target="_blank" rel="noreferrer">Microsoft Azure</a> and <a className="font-semibold text-[#171717] underline decoration-[#bda0ff] underline-offset-4 hover:text-[#7018ff]" href="https://cloud.google.com/" target="_blank" rel="noreferrer">Google Cloud</a>, alongside the design, data and automation systems that fit the workflow.</p>
           </div>
         </section>
         <section className="shell py-20 md:py-28">

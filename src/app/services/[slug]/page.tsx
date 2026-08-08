@@ -5,6 +5,7 @@ import { CTA, FAQ, Intro } from "@/components/sections";
 import { allServices } from "@/content/site-data";
 import { PageHero, TextBlocks } from "@/components/page-templates";
 import { ServicePageExpansion } from "@/components/service-page-expansion";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 export function generateStaticParams() {
   return allServices.map((s) => ({ slug: s.slug }));
@@ -52,7 +53,12 @@ export default async function Service({
           service.short +
           " We combine business perspective, design craft and technical discipline to make the result genuinely useful."
         }
-        action="Talk to an expert"
+        action="Chat on WhatsApp"
+        actionHref={whatsappUrl(
+          `Hi Gavior, I am interested in ${service.name}.\n\nI found this service page on your website. Please share the recommended scope, timeline, starting price and next steps.`,
+        )}
+        actionExternal
+        actionClassName="bg-[#25D366] text-[#082d17] hover:bg-[#2ee06f]"
       />
       <Intro
         eyebrow="The opportunity"

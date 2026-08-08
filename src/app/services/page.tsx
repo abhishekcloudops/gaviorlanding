@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Footer } from "@/components/site-footer";
 import { PageHero } from "@/components/page-templates";
 import { Header } from "@/components/site-header";
+import { ServiceWhatsAppLink } from "@/components/service-whatsapp-link";
 import { allServices } from "@/content/site-data";
 
 import type { Metadata } from "next";
@@ -178,9 +179,8 @@ export default function Services() {
                       const darkAccent = service.color === "#7018ff";
 
                       return (
-                        <Link
+                        <article
                           key={service.slug}
-                          href={`/services/${service.slug}`}
                           className="group flex min-h-[260px] flex-col rounded-2xl border border-[#e1e4e8] bg-white p-6 shadow-[0_4px_18px_rgba(16,24,40,.035)] transition-all duration-300 hover:-translate-y-1 hover:border-[#bda0ff] hover:shadow-[0_16px_36px_rgba(112,24,255,.10)]"
                         >
                           <div className="flex items-start justify-between gap-4">
@@ -205,12 +205,22 @@ export default function Services() {
                             <p className="mt-3 text-xs leading-5 text-[#667085]">
                               {serviceDescriptions[service.slug] ?? service.short}
                             </p>
-                            <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-extrabold text-[#7018ff]">
-                              Explore service
-                              <ArrowUpRight className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" size={14} />
-                            </span>
+                            <div className="mt-5 flex items-center justify-between gap-3">
+                              <Link
+                                href={`/services/${service.slug}`}
+                                className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#7018ff]"
+                              >
+                                Explore service
+                                <ArrowUpRight className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" size={14} />
+                              </Link>
+                              <ServiceWhatsAppLink
+                                serviceName={service.name}
+                                label="WhatsApp"
+                                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#b6e8c6] bg-[#effcf3] px-3 py-2 text-[11px] font-extrabold text-[#167b3b] transition-colors hover:bg-[#25D366] hover:text-[#082d17]"
+                              />
+                            </div>
                           </div>
-                        </Link>
+                        </article>
                       );
                     })}
                   </div>

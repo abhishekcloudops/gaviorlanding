@@ -12,11 +12,17 @@ export function PageHero({
   title,
   copy,
   action = "Let’s talk",
+  actionHref = "/book-consultation",
+  actionExternal = false,
+  actionClassName = "header-primary",
 }: {
   eyebrow: string;
   title: string;
   copy: string;
   action?: string;
+  actionHref?: string;
+  actionExternal?: boolean;
+  actionClassName?: string;
 }) {
   return (
     <section className="page-hero">
@@ -33,10 +39,22 @@ export function PageHero({
           {copy}
         </p>
         <div className="mt-8 sm:mt-9 flex justify-center">
-          <Link href="/book-consultation" className="button header-primary">
-            {action}
-            <ArrowRight size={16} />
-          </Link>
+          {actionExternal ? (
+            <a
+              href={actionHref}
+              target="_blank"
+              rel="noreferrer"
+              className={`button ${actionClassName}`}
+            >
+              {action}
+              <ArrowRight size={16} />
+            </a>
+          ) : (
+            <Link href={actionHref} className={`button ${actionClassName}`}>
+              {action}
+              <ArrowRight size={16} />
+            </Link>
+          )}
         </div>
       </div>
     </section>
