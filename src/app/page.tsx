@@ -15,9 +15,13 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Gavior — Web Development, AI Automation & Digital Products",
-  description: "Gavior is an India-based digital product partner for custom websites, SaaS development, cloud engineering and AI automation—built for growth, speed and clarity.",
+  description: "Gavior builds custom websites, SaaS products, cloud systems and AI automation for ambitious businesses across India and beyond.",
   alternates: {
     canonical: "/",
+    languages: {
+      "en-IN": "/",
+      en: "/",
+    },
   },
 };
 

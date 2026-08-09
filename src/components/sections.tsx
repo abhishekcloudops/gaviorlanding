@@ -39,7 +39,7 @@ export function KineticHero() {
           src="/brand/gavior-sky-hero-v2.webp"
           srcSet="/brand/gavior-sky-hero-mobile-v4.webp 400w, /brand/gavior-sky-hero-mobile-v3.webp 800w, /brand/gavior-sky-hero-v2.webp 1672w"
           sizes="(max-width: 600px) 42vw, 38vw"
-          alt=""
+          alt="Abstract sky illustration in Gavior brand colours"
           width="1672"
           height="941"
           fetchPriority="high"

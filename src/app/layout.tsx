@@ -31,6 +31,13 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "./",
+    // Gavior currently publishes one English version. Declaring it explicitly
+    // prevents regional crawlers from treating duplicate URL variants as a
+    // separate language version.
+    languages: {
+      "en-IN": "./",
+      en: "./",
+    },
   },
   robots: {
     index: true,
@@ -79,6 +86,10 @@ export default function RootLayout({
     url: "https://gavior.in",
     logo: "https://gavior.in/brand/gavior-logo-light.png",
     email: "hello@gavior.in",
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=61592622064419",
+      "https://www.instagram.com/gavior.in/",
+    ],
     description:
       "Digital transformation company delivering custom website development, enterprise SaaS applications, cloud infrastructure, and AI automation.",
     address: {
@@ -116,7 +127,7 @@ export default function RootLayout({
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <head>
         {/* Google Tag Manager */}
-        <Script id="google-tag-manager" strategy="beforeInteractive">
+        <Script id="google-tag-manager" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=

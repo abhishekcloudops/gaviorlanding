@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
+import { GENERAL_WHATSAPP_MESSAGE, whatsappUrl } from "@/lib/whatsapp";
 const cols = [
   [
     "Explore",
@@ -85,6 +87,32 @@ export function Footer() {
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
             <Link href="/cookie-policy" className="hover:text-white transition-colors">Cookies</Link>
+          </div>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://www.facebook.com/profile.php?id=61592622064419"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Facebook
+            </a>
+            <a
+              href="https://www.instagram.com/gavior.in/"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Instagram
+            </a>
+            <a
+              href={whatsappUrl(GENERAL_WHATSAPP_MESSAGE)}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 hover:text-white transition-colors"
+            >
+              <WhatsAppIcon className="h-3.5 w-3.5" /> WhatsApp
+            </a>
           </div>
           <a href="mailto:hello@gavior.in" className="hover:text-white transition-colors">hello@gavior.in</a>
         </div>
