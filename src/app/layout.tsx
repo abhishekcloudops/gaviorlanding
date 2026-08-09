@@ -58,10 +58,10 @@ export const metadata: Metadata = {
       "Design, technology, cloud and AI for businesses built to move.",
     url: "https://gavior.in",
     images: [{
-      url: "/brand/gavior-sky-hero.png",
+      url: "/brand/gavior-social-preview.png",
       width: 1200,
       height: 630,
-      alt: "Gavior — digital products, brands and intelligent systems",
+      alt: "Gavior — Make your next move impossible to ignore.",
     }],
   },
   twitter: {
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: "Gavior — Digital transformation, made tangible.",
     description:
       "Design, technology, cloud and AI for businesses built to move.",
-    images: ["/brand/gavior-sky-hero.png"],
+    images: ["/brand/gavior-social-preview.png"],
   },
 };
 
