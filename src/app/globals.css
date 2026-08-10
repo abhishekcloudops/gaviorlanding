@@ -91,10 +91,12 @@ img {
 .kinetic-hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: center; animation: sky-drift 18s ease-in-out infinite alternate; }
 .cap-hero { position: relative; z-index: 1; min-height: min(790px, calc(100svh - 15px)); display: grid; place-items: center; text-align: center; }
 .cap-hero-content { max-width: 1060px; padding: 112px 0 72px; }
+.cap-hero-offer { width: fit-content; margin: 0 auto 13px; padding: 7px 11px; border: 1px solid #d8c9f5; border-radius: 999px; background: #ffffffb8; color: #4a287f; font-size: 11px; font-weight: 750; letter-spacing: .02em; box-shadow: 0 4px 16px #7018ff12; }.cap-hero-offer span { margin: 0 5px; color: var(--violet); }
 .cap-hero-kicker { font-size: 15px; font-weight: 600; color: #252525; }
 .cap-hero-title { margin-top: 13px; font-size: clamp(3.4rem, 6.55vw, 6.8rem); color: #080808; }.cap-hero-title span { color: var(--violet); }
 .cap-hero-copy { max-width: 730px; margin: 22px auto 0; color: #6e6e74; font-size: clamp(1rem, 1.6vw, 1.22rem); line-height: 1.5; }
-.cap-hero-actions { margin-top: 34px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }.cap-hero-main { background: #171717; color: white; box-shadow: 0 5px 14px #10182821; }.cap-hero-main:hover { background: #000; }.cap-hero-secondary { background: #ffffffd1; color: #242424; border: 1px solid #dedee2; }.cap-hero-note { margin-top: 17px; color: #66666d; font-size: 13px; }.cap-hero-proof { margin: 30px auto 0; padding-top: 17px; border-top: 1px solid #23232314; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; color: #66666d; font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }.cap-hero-proof b { margin-right: 7px; color: var(--violet); }
+.cap-hero-actions { margin-top: 34px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }.cap-hero-main { background: #171717; color: white; box-shadow: 0 5px 14px #10182821; }.cap-hero-main:hover { background: #000; }.cap-hero-secondary { background: #ffffffd1; color: #242424; border: 1px solid #dedee2; }.cap-hero-note { margin-top: 17px; color: #66666d; font-size: 13px; font-weight: 600; }.cap-hero-note span { margin: 0 4px; color: var(--violet); }.cap-hero-proof { margin: 30px auto 0; padding-top: 17px; border-top: 1px solid #23232314; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; color: #66666d; font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }.cap-hero-proof b { margin-right: 7px; color: var(--violet); }
+.home-service-strip { border-bottom: 1px solid #e7e4ea; background: #fff; }.home-service-strip-inner { min-height: 48px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 7px 12px; color: #5f5b64; font-size: 11px; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; }.home-service-strip-inner i { color: var(--violet); font-style: normal; }
 .page-hero { background: radial-gradient(circle at 50% -20%, #eadfff 0, transparent 38%), #fff; border-bottom: 1px solid var(--line); }
 .showcase-hero { background: radial-gradient(circle at 50% 0, #e9dcff 0, transparent 35%), #fff; border-bottom: 1px solid var(--line); }
 .showcase-behance { display: inline-flex; align-items: center; gap: 7px; margin-top: 27px; padding: 10px 14px; border: 1px solid #dedee2; background: #fff; border-radius: 999px; color: #3f3f43; font-size: 13px; font-weight: 700; }
@@ -224,6 +226,7 @@ img {
     white-space: nowrap;
   }
 }
+@media (max-width: 600px) { .cap-hero-content { padding-top: 116px; }.cap-hero-offer { margin-bottom: 11px; font-size: 10px; }.cap-hero-note { font-size: 11px; }.cap-hero-actions .cap-hero-secondary { grid-column: auto; justify-self: stretch; width: 100%; }.home-service-strip-inner { min-height: 58px; gap: 5px 9px; font-size: 9px; letter-spacing: .06em; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 
 /* ---- Editorial services showcase ---- */
@@ -569,6 +572,7 @@ img {
   color: #667085;
 }
 .deck-intro-cta { display: inline-flex; margin-top: 26px; }
+.deck-intro-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }.deck-intro-actions .deck-intro-cta { margin-top: 0; }.deck-project-cta { background: #171717; color: #fff; }.deck-project-cta:hover { background: var(--violet); }
 .deck {
   position: relative;
   height: 770px;

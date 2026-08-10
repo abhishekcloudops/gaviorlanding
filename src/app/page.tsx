@@ -8,6 +8,7 @@ import {
   KineticHero,
   Metrics,
   ProjectGrid,
+  ServiceStrip,
   ServiceGrid,
 } from "@/components/sections";
 import { faqs, services } from "@/content/site-data";
@@ -113,6 +114,7 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(homeEntitySchema) }}
         />
         <KineticHero />
+        <ServiceStrip />
         <Intro
           eyebrow="The Gavior difference"
           title="Clarity is a competitive advantage."
