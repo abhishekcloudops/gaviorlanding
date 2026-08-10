@@ -4,7 +4,6 @@ import { ArrowRight, Menu, X } from "lucide-react";
 export function Header() {
   const links = [
     ["Services", "/services"],
-    ["Work", "/portfolio"],
     ["About", "/about"],
     ["Insights", "/blog"],
     ["Pricing", "/pricing"],
