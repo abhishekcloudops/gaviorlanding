@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Website, Design, AI & Software Pricing | Gavior",
+  title: "Affordable Website, Branding & Marketing Pricing | Gavior",
   description:
-    "Explore transparent Gavior pricing for websites, branding, digital marketing, software, AI automation, cloud and DevOps services.",
+    "Explore transparent, affordable Gavior pricing for websites, branding, social media, SEO, marketing, AI automation and cloud support in India.",
   alternates: { canonical: "/pricing" },
 };
 
