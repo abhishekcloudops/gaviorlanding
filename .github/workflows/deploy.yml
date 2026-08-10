@@ -153,6 +153,7 @@ jobs:
 
           echo "⚙️ Creating .env.local..."
           SMTP_PASSWORD_VALUE='${{ secrets.SMTP_PASSWORD }}'
+          GOOGLE_DRIVE_API_KEY_VALUE='${{ secrets.GOOGLE_DRIVE_API_KEY }}'
           if [ -z "$SMTP_PASSWORD_VALUE" ]; then
             echo "❌ SMTP_PASSWORD secret is not set - email sending would fail silently"
             exit 1
@@ -167,7 +168,8 @@ jobs:
             'CONTACT_FORM_RECIPIENTS=info@gavior.in,gaviorsupport@gmail.com' \
             'SUPPORT_EMAIL=gaviorsupport@gmail.com' \
             'INFO_EMAIL=info@gavior.in' \
-            'NEXT_PUBLIC_WEBSITE_URL=https://gavior.in' > .env.local
+            'NEXT_PUBLIC_WEBSITE_URL=https://gavior.in' \
+            "GOOGLE_DRIVE_API_KEY=$GOOGLE_DRIVE_API_KEY_VALUE" > .env.local
           chmod 600 .env.local
           echo "✅ .env.local created"
 
