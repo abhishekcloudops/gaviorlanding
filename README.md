@@ -20,6 +20,15 @@ On this server, the `gavior-production` self-hosted Actions runner deploys
 successful `main` builds without storing SSH credentials in GitHub. The runner
 is intentionally limited to restarting the `gavior` systemd service.
 
+## Live social media portfolio
+
+`/portfolio` reads images and videos from the configured public Google Drive
+folder at request time. Add `GOOGLE_DRIVE_API_KEY` to the production runtime
+environment (and `.env.local` for local development). Restrict this key to the
+Google Drive API. The folder and every media file must be shared as **Anyone
+with the link — Viewer**. Results revalidate every five minutes, so Drive
+additions and removals appear automatically without deploying the site.
+
 ## Getting Started
 
 First, run the development server:
