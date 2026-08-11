@@ -51,6 +51,19 @@ const categories: Category[] = [
     ],
   },
   {
+    id: "graphic-design",
+    navLabel: "Graphic Design",
+    eyebrow: "Graphic design packages",
+    title: "All your design needs. One simple package.",
+    copy: "Creative design solutions that grow your brand. All packages include fast turnaround, creative designs, 100% satisfaction, and dedicated support.",
+    note: "All graphic design packages are billed monthly. Revisions apply per design deliverable as stated.",
+    plans: [
+      { name: "Basic", price: "₹1,999", cadence: "/month", bestFor: "Consistent basic design needs", features: ["5 Social Media Posts", "2 Ad Creatives", "1 Banner Design", "1 Flyer / Poster", "2 Revision Rounds"] },
+      { name: "Standard", price: "₹3,999", cadence: "/month", bestFor: "Growing brands with regular design requirements", featured: true, features: ["12 Social Media Posts", "4 Ad Creatives", "2 Banner Designs", "2 Flyers / Posters", "1 Brochure (Bi-Fold)", "1 Business Card Design", "3 Revision Rounds"] },
+      { name: "Premium", price: "₹6,999", cadence: "/month", bestFor: "Businesses needing comprehensive and unlimited design support", features: ["20 Social Media Posts", "6 Ad Creatives", "4 Banner Designs", "3 Flyers / Posters", "2 Brochures (Bi-Fold)", "Business Card + Letterhead", "Ad Creatives (Google & Meta)", "Unlimited Revisions"] },
+    ],
+  },
+  {
     id: "social-media",
     navLabel: "Social Media",
     eyebrow: "Social media management",
