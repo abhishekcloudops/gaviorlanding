@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 const FOLDERS = [
-  { id: "19tjBL1C1EVX6SaSxYpNh0wmgKkORDZgf", category: "Social media posts" },
+  { id: "19tjBL1C1EVX6SaSxYpNh0wmgKkORDZgf", category: "Graphics" },
   { id: "12UUndHghS6xXGkns4LdAL3SNiowxOFot", category: "Videos" },
 ] as const;
 const DRIVE_FILES_URL = "https://www.googleapis.com/drive/v3/files";
@@ -30,7 +30,7 @@ export async function GET() {
         key: apiKey,
         q: `'${folder.id}' in parents and trashed = false and (mimeType contains 'image/' or mimeType contains 'video/')`,
         fields: "files(id,name,mimeType,createdTime,modifiedTime)",
-        orderBy: "createdTime desc",
+        orderBy: "modifiedTime desc",
         pageSize: "100",
       });
       const response = await fetch(`${DRIVE_FILES_URL}?${query}`, { next: { revalidate: 300 } });
@@ -44,10 +44,10 @@ export async function GET() {
       name: file.name,
       mimeType: file.mimeType,
       category,
-      createdTime: file.createdTime ?? file.modifiedTime ?? null,
+      modifiedTime: file.modifiedTime ?? file.createdTime ?? null,
       thumbnailUrl: `https://drive.google.com/thumbnail?id=${encodeURIComponent(file.id)}&sz=w1200`,
       previewUrl: `https://drive.google.com/file/d/${encodeURIComponent(file.id)}/preview`,
-    })).sort((a, b) => (b.createdTime ?? "").localeCompare(a.createdTime ?? ""));
+    })).sort((a, b) => (b.modifiedTime ?? "").localeCompare(a.modifiedTime ?? ""));
 
     return NextResponse.json(
       { items },

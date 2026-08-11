@@ -9,7 +9,7 @@ type PortfolioItem = {
   name: string;
   mimeType: string;
   category: string;
-  createdTime: string | null;
+  modifiedTime: string | null;
   thumbnailUrl: string;
   previewUrl: string;
 };
@@ -18,7 +18,6 @@ type PortfolioResponse = { items: PortfolioItem[]; message?: string };
 
 const DRIVE_FOLDER_EMBED_URL = "https://drive.google.com/embeddedfolderview?id=19tjBL1C1EVX6SaSxYpNh0wmgKkORDZgf#grid";
 const VIDEO_FOLDER_EMBED_URL = "https://drive.google.com/embeddedfolderview?id=12UUndHghS6xXGkns4LdAL3SNiowxOFot#grid";
-const categories = ["All work", "Social media posts", "Videos"];
 
 function cleanTitle(name: string) {
   return name.replace(/\.[^/.]+$/, "").replace(/[-_]+/g, " ");
@@ -44,13 +43,11 @@ function ItemCard({ item, onOpen }: { item: PortfolioItem; onOpen: () => void })
   );
 }
 
-export function DrivePortfolioGallery() {
+export function DrivePortfolioGallery({ category }: { category: "Graphics" | "Videos" }) {
   const [items, setItems] = useState<PortfolioItem[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [state, setState] = useState<"loading" | "ready" | "error">("loading");
   const [message, setMessage] = useState("");
-  const [category, setCategory] = useState("All work");
-  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
   useEffect(() => {
     let cancelled = false;
@@ -94,38 +91,25 @@ export function DrivePortfolioGallery() {
 
   const active = activeIndex === null ? null : items[activeIndex];
   const visibleItems = items
-    .filter((item) => category === "All work" || item.category === category)
-    .sort((a, b) => sortOrder === "newest"
-      ? (b.createdTime ?? "").localeCompare(a.createdTime ?? "")
-      : (a.createdTime ?? "").localeCompare(b.createdTime ?? ""));
+    .filter((item) => item.category === category)
+    .sort((a, b) => (b.modifiedTime ?? "").localeCompare(a.modifiedTime ?? ""));
 
   return (
     <>
       {state === "loading" && <div className="drive-portfolio-state"><LoaderCircle className="animate-spin" size={22} /> Loading the latest work…</div>}
       {state === "error" && (
         <div className="drive-portfolio-fallback">
-          <div className="drive-portfolio-controls drive-portfolio-fallback-controls">
-            <div className="drive-portfolio-filters" aria-label="Portfolio category">
-              {categories.filter((value) => value !== "All work").map((value) => <button type="button" key={value} className={category === value ? "is-active" : ""} onClick={() => setCategory(value)}>{value}</button>)}
-            </div>
-          </div>
           <iframe
             src={category === "Videos" ? VIDEO_FOLDER_EMBED_URL : DRIVE_FOLDER_EMBED_URL}
-            title={category === "Videos" ? "Gavior video portfolio" : "Gavior social media portfolio"}
+            title={category === "Videos" ? "Gavior video portfolio" : "Gavior graphics portfolio"}
             className="drive-portfolio-folder-embed"
           />
           <p className="drive-portfolio-fallback-help">{message} Add GOOGLE_DRIVE_API_KEY to enable Gavior&apos;s image and video popups.</p>
         </div>
       )}
-      {state === "ready" && items.length === 0 && <div className="drive-portfolio-state">New social media work will appear here soon.</div>}
+      {state === "ready" && items.length === 0 && <div className="drive-portfolio-state">New {category.toLowerCase()} work will appear here soon.</div>}
       {state === "ready" && items.length > 0 && (
         <>
-          <div className="drive-portfolio-controls">
-            <div className="drive-portfolio-filters" aria-label="Portfolio category">
-              {categories.map((value) => <button type="button" key={value} className={category === value ? "is-active" : ""} onClick={() => setCategory(value)}>{value}</button>)}
-            </div>
-            <label className="drive-portfolio-sort">Sort by <select value={sortOrder} onChange={(event) => setSortOrder(event.target.value as "newest" | "oldest")}><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></label>
-          </div>
           {visibleItems.length ? <div className="drive-portfolio-grid">
             {visibleItems.map((item) => <ItemCard item={item} key={item.id} onOpen={() => setActiveIndex(items.findIndex((entry) => entry.id === item.id))} />)}
           </div> : <div className="drive-portfolio-state">No {category.toLowerCase()} have been added yet.</div>}
