@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { ArrowRight, ChevronDown, MoveUpRight } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { preload } from "react-dom";
-import { faqs, projects, services } from "@/content/site-data";
+import { faqs } from "@/content/site-data";
+import { ServiceFanCarousel } from "@/components/service-fan-carousel";
 export const Reveal = ({
   children,
   className = "",
@@ -46,7 +48,7 @@ export function KineticHero() {
       </picture>
       <div className="shell cap-hero">
         <div className="cap-hero-content">
-          <p className="cap-hero-offer">Launch Offer <span>•</span> Websites from ₹1,999</p>
+          <p className="cap-hero-offer">Launch Offer <span>•</span> Websites from ₹4,999</p>
           <p className="cap-hero-kicker">Design. Develop. Deliver.</p>
           <h1 className="display cap-hero-title">Make your next move<br /><span>impossible to ignore.</span></h1>
           <p className="cap-hero-copy">Gavior partners with ambitious teams to create clear brands, useful products and systems that earn attention and keep it.</p>
@@ -95,124 +97,67 @@ export function Intro({
 }
 export function ServiceGrid() {
   return (
-    <section className="shell py-18 md:py-25">
-      <div className="deck-layout">
-        <Reveal className="deck-intro">
-          <p className="eyebrow">What we do</p>
-          <h2 className="display text-[42px] sm:text-[58px] mt-4">
-            Built around your
-            <br />
-            next big move.
-          </h2>
-          <p className="deck-intro-copy">
-            Six capabilities, one operating rhythm. Pick the one that moves your
-            next release forward.
-          </p>
-          <div className="deck-intro-actions">
-            <Link href="/services" className="button button-light deck-intro-cta">All capabilities <ArrowRight size={15} /></Link>
-            <Link href="/book-consultation" className="button deck-project-cta">Start Your Project <ArrowRight size={15} /></Link>
-          </div>
-        </Reveal>
-        <Reveal className="deck">
-          {services.slice(0, 6).map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <Link
-                key={s.slug}
-                href={`/services/${s.slug}`}
-                className="deck-card"
-                style={
-                  {
-                    "--i": i,
-                    "--tint": s.color,
-                    zIndex: i + 1,
-                  } as React.CSSProperties
-                }
-              >
-                <div className="deck-card-top">
-                  <span className="deck-card-kicker">
-                    0{i + 1} / {s.tag}
-                  </span>
-                  <span
-                    className="deck-card-icon"
-                    style={{
-                      background: s.color,
-                      color: s.color === "#7018ff" ? "#fff" : "#111",
-                    }}
-                  >
-                    <Icon size={16} />
-                  </span>
-                </div>
-                <h3 className="deck-card-title">{s.name}</h3>
-                <p className="deck-card-copy">{s.short}</p>
-                <span className="deck-card-link">
-                  Explore <MoveUpRight size={14} />
-                </span>
-                <span className="deck-card-bar" aria-hidden>
-                  <i />
-                  <i />
-                  <i />
-                </span>
-              </Link>
-            );
-          })}
-        </Reveal>
+    <section className="service-fan-section">
+      <div className="shell">
+        <div className="service-fan-heading">
+          <p className="eyebrow eyebrow-light">What we build</p>
+          <h2 className="display">Digital solutions that<br />move your business forward.</h2>
+          <p>GAVIOR combines development, design, automation and digital growth to turn ideas into practical business solutions.</p>
+        </div>
+        <ServiceFanCarousel />
+        <div className="service-fan-cta">
+          <div><span>Have a project in mind?</span><strong>Let&apos;s build something that actually works.</strong></div>
+          <div><Link href="/book-consultation" className="button service-fan-primary">Start a Project <ArrowRight size={16} /></Link><Link href="/services" className="button service-fan-secondary">View All Services <ArrowRight size={16} /></Link></div>
+        </div>
       </div>
     </section>
   );
 }
 export function ProjectGrid() {
+  const websiteProjects = [
+    { name: "Gavior", url: "https://gavior.in/", category: "Digital products", description: "Digital products, brands and intelligent systems for ambitious businesses.", image: "/portfolio/gavior.png", width: 2048, height: 1155 },
+    { name: "Calvary Chapel Montrose", url: "https://calvarymontrose.com/", category: "Church community", description: "A welcoming faith community in Montrose, Colorado.", image: "/portfolio/calvary-montrose.png", width: 1200, height: 760 },
+    { name: "Calvary LIFE", url: "https://calvarylife.com/", category: "Church community", description: "A church community focused on learning, relationships and faith.", image: "/portfolio/calvary-life.png", width: 2048, height: 1155 },
+  ];
+  const reviews = [
+    { company: "Nimbus Health", role: "Healthcare platform", quote: "The process was clear from day one. We got a website that feels easier for our patients to use.", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=82" },
+    { company: "Vanta Commerce", role: "Retail intelligence", quote: "Fast communication, strong design decisions and a product direction our team could actually build on.", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=82" },
+    { company: "Northstar", role: "Logistics command centre", quote: "Gavior helped turn a complicated workflow into something much more straightforward for the team.", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=82" },
+  ];
+
   return (
     <section className="bg-[#f7f7f8] py-20 md:py-28">
       <div className="shell">
-        <div className="flex justify-between items-end mb-10">
-          <div>
-            <p className="eyebrow before:bg-[#7018ff]">
-              Selected work
-            </p>
-            <h2 className="display text-[46px] sm:text-[61px] mt-5">
-              Evidence, not
-              <br />
-              empty promises.
-            </h2>
-          </div>
-          <Link href="/portfolio" className="hidden sm:flex button button-light">
-            View all work <ArrowRight size={15} />
-          </Link>
+        <div className="flex items-end justify-between gap-6 mb-10">
+          <div><p className="eyebrow before:bg-[#7018ff]">Selected work</p><h2 className="display text-[46px] sm:text-[61px] mt-5">Work that moves<br />things forward.</h2></div>
+          <Link href="/portfolio" className="hidden sm:inline-flex button button-light">View all work <ArrowRight size={15} /></Link>
         </div>
-        <div className="grid md:grid-cols-3 gap-4">
-          {projects.map((p) => {
-            const needsLightText = p.slug === "vanta-commerce";
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {websiteProjects.map((project) => (
+            <a key={project.name} href={project.url} target="_blank" rel="noreferrer" className="group overflow-hidden rounded-2xl border border-[#e4e4e7] bg-white transition hover:-translate-y-1 hover:shadow-xl">
+              <div className="overflow-hidden bg-[#ecebf0]"><Image src={project.image} alt={`${project.name} website preview`} width={project.width} height={project.height} sizes="(max-width: 768px) 100vw, 33vw" className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]" /></div>
+              <div className="p-5"><span className="text-xs font-bold text-[#7018ff]">{project.category}</span><h3 className="mt-2 text-2xl font-bold tracking-[-.05em]">{project.name}</h3><p className="mt-2 text-sm leading-5 text-[#667085]">{project.description}</p></div>
+              <div className="flex items-center justify-between gap-3 border-t border-[#eeeeef] px-5 py-4 text-sm font-bold"><span>View live website</span><ArrowRight className="transition-transform group-hover:translate-x-1" size={16} /></div>
+            </a>
+          ))}
+        </div>
+        <div className="mt-14 border-t border-[#dedee2] pt-10"><p className="eyebrow">Client reviews</p><h3 className="display mt-4 text-[38px] sm:text-[48px]">Good work. Good words.</h3><div className="mt-8 grid gap-4 md:grid-cols-3">{reviews.map((review) => <article key={review.company} className="rounded-2xl bg-white border border-[#e4e4e7] p-6"><p className="text-[17px] leading-7 text-[#36333b]">“{review.quote}”</p><div className="mt-7 flex items-center gap-3 border-t border-[#ececef] pt-4"><span className="h-11 w-11 shrink-0 rounded-full bg-cover bg-center" style={{ backgroundImage: `url(${review.image})` }} aria-hidden /><div><strong className="block text-sm">{review.company}</strong><span className="mt-1 block text-xs text-[#737373]">{review.role}</span></div></div></article>)}</div></div>
+      </div>
+    </section>
+  );
+}
+export function ClientReviews() {
+  const reviews = [
+    { name: "Riya Sharma", company: "Business owner", image: "/testimonials/client-one.png", quote: "Gavior made the whole process simple. The new website finally feels like our business." },
+    { name: "Arjun Mehta", company: "Founder", image: "/testimonials/client-two.png", quote: "Quick communication, clean work and a result that was much better than we expected." },
+    { name: "Nisha Kapoor", company: "Marketing lead", image: "/testimonials/client-three.png", quote: "They understood what we needed and turned it into something clear, modern and easy to use." },
+  ];
 
-            return <Reveal key={p.slug}>
-              <Link href={`/portfolio/${p.slug}`} className="group block">
-                <div
-                  className={`rounded-2xl p-5 aspect-[.82] flex flex-col justify-between overflow-hidden ${needsLightText ? "text-white" : "text-[#111111]"}`}
-                  style={{ background: p.color }}
-                >
-                  <div className="flex justify-between text-xs font-bold">
-                    <span>{p.type}</span>
-                    <MoveUpRight
-                      className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
-                      size={18}
-                    />
-                  </div>
-                  <div className={`rounded-xl border border-white/25 backdrop-blur p-4 ${needsLightText ? "bg-black/25" : "bg-white/15"}`}>
-                    <div className="font-semibold text-xl tracking-[-.04em]">
-                      {p.name}
-                    </div>
-                    <div className={`text-sm mt-1 ${needsLightText ? "text-white" : "opacity-80"}`}>
-                      {p.description}
-                    </div>
-                  </div>
-                </div>
-              <div className="py-4 text-sm font-semibold text-[#667085]">
-                  {p.result}
-                </div>
-              </Link>
-            </Reveal>;
-          })}
-        </div>
+  return (
+    <section className="bg-[#f7f7f8] py-20 md:py-28">
+      <div className="shell">
+        <div className="max-w-2xl"><p className="eyebrow">Client reviews</p><h2 className="display mt-5 text-[44px] sm:text-[60px]">People notice<br />the difference.</h2></div>
+        <div className="mt-10 grid gap-4 md:grid-cols-3">{reviews.map((review) => <article key={review.name} className="rounded-[22px] border border-[#e5e2e8] bg-white p-6"><div className="flex items-center gap-3"><Image src={review.image} alt={review.name} width={176} height={176} className="h-12 w-12 rounded-full object-cover" /><div><strong className="block text-sm">{review.name}</strong><span className="mt-0.5 block text-xs text-[#737373]">{review.company}</span></div></div><p className="mt-7 text-[17px] leading-7 text-[#3e3a43]">“{review.quote}”</p></article>)}</div>
       </div>
     </section>
   );

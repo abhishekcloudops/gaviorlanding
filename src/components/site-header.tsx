@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Menu, X } from "lucide-react";
-export function Header() {
+export function Header({ floating = false }: { floating?: boolean }) {
   const links = [
     ["Services", "/services"],
     ["About", "/about"],
@@ -9,7 +9,7 @@ export function Header() {
     ["Pricing", "/pricing"],
   ];
   return (
-    <header className="sticky top-0 z-40 pt-3 text-[#171717]">
+    <header className={`${floating ? "absolute inset-x-0 top-0" : "sticky top-0"} z-40 pt-3 text-[#171717]`}>
       <div className="shell">
         <div className="h-[60px] sm:h-[66px] px-3 sm:px-4 flex items-center justify-between gap-3 rounded-[22px] sm:rounded-[26px] border border-black/10 bg-white/85 backdrop-blur-xl shadow-[0_5px_24px_rgba(15,23,42,.06)]">
           <Link

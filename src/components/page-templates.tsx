@@ -100,6 +100,31 @@ export function StandardPage({
     </>
   );
 }
+export function LegalPage({
+  eyebrow,
+  title,
+  copy,
+  blocks,
+}: {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  blocks: { title: string; body: string }[];
+}) {
+  return (
+    <>
+      <PageHero eyebrow={eyebrow} title={title} copy={copy} action="Contact us" actionHref="/contact" actionClassName="button-light" />
+      <section className="shell py-16 md:py-24">
+        <article className="mx-auto max-w-3xl">
+          <p className="border-b border-[#dedee2] pb-7 text-sm leading-7 text-[#667085]">Please read this policy carefully. It is designed to explain our approach in clear language. If you have a question, contact us at <a className="font-semibold text-[#7018ff]" href="mailto:hello@gavior.in">hello@gavior.in</a>.</p>
+          <div className="divide-y divide-[#dedee2]">
+            {blocks.map((block, index) => <section key={block.title} className="grid gap-3 py-8 sm:grid-cols-[52px_1fr] sm:gap-7"><span className="text-xs font-bold tracking-[.12em] text-[#7018ff]">{String(index + 1).padStart(2, "0")}</span><div><h2 className="text-[25px] font-bold tracking-[-.045em]">{block.title}</h2><p className="mt-3 text-[15px] leading-7 text-[#5f5a64]">{block.body}</p></div></section>)}
+          </div>
+        </article>
+      </section>
+    </>
+  );
+}
 export function WorkPage({ caseStudies = false }: { caseStudies?: boolean }) {
   return (
     <>

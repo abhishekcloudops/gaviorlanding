@@ -32,9 +32,9 @@ const categories: Category[] = [
     copy: "Focused website packages for local businesses, founders and growing service brands that need to look credible and convert enquiries.",
     note: "Domain, hosting, premium assets, copywriting and custom backend features are quoted separately unless included in your proposal.",
     plans: [
-      { name: "Gavior Mini", price: "₹1,999", cadence: "one-time", bestFor: "Personal brands and local businesses", features: ["1-page website", "Mobile responsive", "WhatsApp CTA", "Contact form", "Basic SEO", "1 revision", "3-day delivery"] },
-      { name: "Gavior Starter", price: "₹4,999", cadence: "one-time", bestFor: "Small businesses ready to get online", featured: true, features: ["Up to 3 pages", "Responsive design", "WhatsApp and contact form", "Basic SEO", "Google Maps integration", "2 revisions"] },
-      { name: "Gavior Pro", price: "₹19,999", cadence: "one-time", bestFor: "Professional brands that need a stronger digital presence", features: ["Up to 10 pages", "Custom UI/UX", "Advanced SEO setup", "Analytics", "Performance optimisation", "Blog/CMS", "3 revisions"] },
+      { name: "Website Starter", price: "₹4,999", cadence: "one-time", bestFor: "Small businesses ready to get online", features: ["Up to 5 pages", "Mobile-responsive design", "WhatsApp and contact form", "Basic SEO setup", "Google Maps integration", "2 revision rounds"] },
+      { name: "Website Growth", price: "₹19,999", cadence: "one-time", bestFor: "Businesses that need a stronger digital presence", featured: true, features: ["Custom UI tailored to your brand", "Blog and content dashboard", "Advanced SEO and analytics setup", "Fast, performance-focused build", "Lead capture and conversion sections", "Training and handover"] },
+      { name: "Custom Website", price: "Custom", cadence: "quote", bestFor: "Websites with specific business, content or product needs", features: ["Scope built around your goals", "Custom pages, flows and integrations", "CMS, dashboard or booking features", "E-commerce and payment options", "SEO, analytics and launch support", "Clear proposal before work starts"] },
     ],
   },
   {
