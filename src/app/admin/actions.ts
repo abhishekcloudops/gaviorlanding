@@ -9,7 +9,7 @@ import { calculateLine, rupeesToPaise } from "@/lib/admin/money";
 import { decryptSecret, encryptSecret } from "@/lib/admin/security";
 import { catalogSchema, clientSchema, quotationContentSchema, quotationSchema } from "@/lib/admin/validation";
 
-const allowedModels = new Set(["gemini-2.5-flash", "gemini-3-flash-preview", "gemini-3.5-flash"]);
+const allowedModels = new Set(["gemini-3.6-flash"]);
 
 function fail(path: string, code = "invalid_input"): never {
   redirect(`${path}?error=${encodeURIComponent(code)}`);
@@ -61,7 +61,7 @@ export async function saveGeminiKeyAction(formData: FormData) {
   if (!parsed.success) fail("/admin/settings", "invalid_api_key");
 
   const { data: settings } = await supabase.from("company_settings").select("ai_model").eq("id", "default").single();
-  const model = settings?.ai_model || "gemini-2.5-flash";
+  const model = settings?.ai_model || "gemini-3.6-flash";
   try {
     const ai = new GoogleGenAI({ apiKey: parsed.data.api_key });
     await ai.models.generateContent({ model, contents: "Reply with exactly: OK", config: { maxOutputTokens: 8 } });
@@ -190,7 +190,7 @@ export async function generateQuotationAction(formData: FormData) {
   const id = z.string().uuid().safeParse(formData.get("id"));
   if (!id.success) fail("/admin/quotations", "invalid_id");
   const { supabase, user, quotation, company, apiKey } = await loadQuotationForAi(id.data);
-  const model = company?.ai_model || "gemini-2.5-flash";
+  const model = company?.ai_model || "gemini-3.6-flash";
   if (!allowedModels.has(model)) fail(`/admin/quotations/${id.data}`, "invalid_model");
   if (["sent", "accepted", "rejected", "expired"].includes(quotation.status)) {
     fail(`/admin/quotations/${id.data}`, "quotation_locked");

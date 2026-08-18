@@ -28,7 +28,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
       <label className="admin-field">Default GST rate (%)<input name="default_tax_rate" type="number" min="0" max="100" step="0.01" defaultValue={Number(company?.default_tax_rate_bps || 1800) / 100} /></label>
       <label className="admin-field">Quotation prefix<input name="quotation_prefix" defaultValue={company?.quotation_prefix || "GAV-Q"} /></label>
       <label className="admin-field">Invoice prefix<input name="invoice_prefix" defaultValue={company?.invoice_prefix || "GAV-I"} /></label>
-      <label className="admin-field">Gemini model<select name="ai_model" defaultValue={company?.ai_model || "gemini-2.5-flash"}><option value="gemini-2.5-flash">Gemini 2.5 Flash</option><option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option><option value="gemini-3.5-flash">Gemini 3.5 Flash</option></select></label>
+      <label className="admin-field">Gemini model<select name="ai_model" defaultValue={company?.ai_model || "gemini-3.6-flash"}><option value="gemini-3.6-flash">Gemini 3.6 Flash</option></select></label>
       <label className="admin-field admin-field-full">Default commercial terms<textarea name="default_terms" maxLength={8000} defaultValue={company?.default_terms || ""} /></label>
       <div className="admin-field-full"><button className="admin-button" type="submit">Save company settings</button></div>
     </form></section>
