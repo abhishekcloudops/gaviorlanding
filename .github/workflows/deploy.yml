@@ -154,8 +154,16 @@ jobs:
           echo "⚙️ Creating .env.local..."
           SMTP_PASSWORD_VALUE='${{ secrets.SMTP_PASSWORD }}'
           GOOGLE_DRIVE_API_KEY_VALUE='${{ secrets.GOOGLE_DRIVE_API_KEY }}'
+          SUPABASE_URL_VALUE='${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}'
+          SUPABASE_PUBLISHABLE_KEY_VALUE='${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}'
+          ADMIN_ENCRYPTION_KEY_VALUE='${{ secrets.ADMIN_ENCRYPTION_KEY }}'
+          NEXT_SERVER_ACTIONS_ENCRYPTION_KEY_VALUE='${{ secrets.NEXT_SERVER_ACTIONS_ENCRYPTION_KEY }}'
           if [ -z "$SMTP_PASSWORD_VALUE" ]; then
             echo "❌ SMTP_PASSWORD secret is not set - email sending would fail silently"
+            exit 1
+          fi
+          if [ -z "$SUPABASE_URL_VALUE" ] || [ -z "$SUPABASE_PUBLISHABLE_KEY_VALUE" ] || [ -z "$ADMIN_ENCRYPTION_KEY_VALUE" ] || [ -z "$NEXT_SERVER_ACTIONS_ENCRYPTION_KEY_VALUE" ]; then
+            echo "❌ Admin security secrets are not fully configured"
             exit 1
           fi
           printf '%s\n' \
@@ -169,7 +177,11 @@ jobs:
             'SUPPORT_EMAIL=gaviorsupport@gmail.com' \
             'INFO_EMAIL=info@gavior.in' \
             'NEXT_PUBLIC_WEBSITE_URL=https://gavior.in' \
-            "GOOGLE_DRIVE_API_KEY=$GOOGLE_DRIVE_API_KEY_VALUE" > .env.local
+            "GOOGLE_DRIVE_API_KEY=$GOOGLE_DRIVE_API_KEY_VALUE" \
+            "NEXT_PUBLIC_SUPABASE_URL=$SUPABASE_URL_VALUE" \
+            "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=$SUPABASE_PUBLISHABLE_KEY_VALUE" \
+            "ADMIN_ENCRYPTION_KEY=$ADMIN_ENCRYPTION_KEY_VALUE" \
+            "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=$NEXT_SERVER_ACTIONS_ENCRYPTION_KEY_VALUE" > .env.local
           chmod 600 .env.local
           echo "✅ .env.local created"
 
