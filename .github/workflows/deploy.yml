@@ -62,7 +62,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-info
-          path: .next
+          path: |
+            .next
+            !.next/cache
+            !.next/dev
+          include-hidden-files: true
           retention-days: 1
         if: success()
 
@@ -81,6 +85,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+
+      - name: Download validated build
+        uses: actions/download-artifact@v4
+        with:
+          name: build-info
+          path: .next
+
+      - name: Package validated build
+        run: tar -czf /tmp/gavior-next-build.tgz .next
 
       - name: Configure SSH key
         run: |
@@ -106,6 +119,13 @@ jobs:
             -o BatchMode=yes \
             ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
             "echo '✅ SSH connection successful'; uname -a"
+
+      - name: Upload validated build
+        run: |
+          scp -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=yes \
+            /tmp/gavior-next-build.tgz \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/tmp/gavior-next-build-${{ github.sha }}.tgz
 
       - name: Verify EC2 prerequisites
         continue-on-error: true
@@ -134,6 +154,7 @@ jobs:
 
           APP_DIR="${{ secrets.APP_DIRECTORY }}"
           DOMAIN_NAME="${{ secrets.DOMAIN_NAME }}"
+          BUILD_ARCHIVE="/tmp/gavior-next-build-${{ github.sha }}.tgz"
 
           # Trap errors for rollback
           trap 'echo "❌ Deployment failed"; exit 1' ERR
@@ -188,14 +209,17 @@ jobs:
           echo "📥 Installing dependencies..."
           npm ci --no-audit --no-fund
 
-          echo "🧹 Cleaning build cache..."
-          rm -rf .next node_modules/.cache
-
           echo "🔨 Rebuilding native modules for Linux..."
           npm rebuild
 
-          echo "🏗️ Building application..."
-          npm run build
+          echo "📦 Installing validated production build..."
+          rm -rf .next.rollback node_modules/.cache
+          if [ -d .next ]; then
+            mv .next .next.rollback
+          fi
+          tar -xzf "$BUILD_ARCHIVE" -C "$APP_DIR"
+          rm -f "$BUILD_ARCHIVE"
+          test -f .next/BUILD_ID
 
           echo "🔄 Restarting PM2..."
           # Delete and start rather than reload: `pm2 reload` cannot move a
@@ -223,12 +247,17 @@ jobs:
               echo "Rolling back to $PREVIOUS_REF..."
               git reset --hard "$PREVIOUS_REF"
               npm ci --no-audit --no-fund
-              npm run build
+              rm -rf .next
+              if [ -d .next.rollback ]; then
+                mv .next.rollback .next
+              fi
               pm2 reload deploy/pm2/ecosystem.config.cjs --only gavior --update-env
               pm2 save
               exit 1
             fi
           done
+
+          rm -rf .next.rollback
 
           echo "✅ Deployment successful!"
           EOF
