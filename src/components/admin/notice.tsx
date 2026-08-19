@@ -1,6 +1,8 @@
 const labels: Record<string, string> = {
   company: "Company settings saved.", gemini: "Gemini key tested and encrypted successfully.",
   gemini_deleted: "Gemini key deleted.", client: "Client created.", item: "Catalog item created.",
+  item_deleted: "Catalog item removed successfully.",
+  catalog_cleaned: "Duplicate plans removed successfully. Catalog is now clean and unique.",
   catalog_seeded: "All Gavior standard plans and pricing packages have been synced to the database catalog.",
   created: "Document created.", generated: "Quotation generated. Review every section before sending.",
   content: "Quotation content reviewed and versioned.", status: "Status updated.", issued: "Invoice issued and locked.",

@@ -124,10 +124,10 @@ export async function seedDefaultCatalogAction() {
     const { data: existing } = await supabase
       .from("catalog_items")
       .select("id")
-      .eq("name", plan.name)
-      .maybeSingle();
+      .ilike("name", plan.name.trim())
+      .limit(1);
 
-    if (!existing) {
+    if (!existing || existing.length === 0) {
       await supabase.from("catalog_items").insert({
         name: plan.name,
         description: plan.description,
@@ -148,6 +148,53 @@ export async function seedDefaultCatalogAction() {
   revalidatePath("/admin/catalog");
   revalidatePath("/admin/quotations/new");
   redirect("/admin/catalog?saved=catalog_seeded");
+}
+
+export async function deleteCatalogItemAction(formData: FormData) {
+  const { supabase, user } = await requireAdmin();
+  const id = String(formData.get("id") || "").trim();
+  if (!id) fail("/admin/catalog", "invalid_item");
+
+  const { error } = await supabase.from("catalog_items").delete().eq("id", id);
+  if (error) fail("/admin/catalog", "save_failed");
+
+  await audit(supabase, user.id, "catalog.deleted", "catalog_item", id);
+  revalidatePath("/admin/catalog");
+  revalidatePath("/admin/quotations/new");
+  redirect("/admin/catalog?saved=item_deleted");
+}
+
+export async function cleanupDuplicateCatalogAction() {
+  const { supabase, user } = await requireAdmin();
+  const { data: items } = await supabase
+    .from("catalog_items")
+    .select("id,name,created_at")
+    .order("created_at", { ascending: false });
+
+  if (items && items.length > 0) {
+    const seen = new Set<string>();
+    const duplicateIds: string[] = [];
+
+    for (const item of items) {
+      const normalized = item.name.trim().toLowerCase();
+      if (seen.has(normalized)) {
+        duplicateIds.push(item.id);
+      } else {
+        seen.add(normalized);
+      }
+    }
+
+    if (duplicateIds.length > 0) {
+      await supabase.from("catalog_items").delete().in("id", duplicateIds);
+      await audit(supabase, user.id, "catalog.deduplicated", "catalog_item", undefined, {
+        removed_count: duplicateIds.length,
+      });
+    }
+  }
+
+  revalidatePath("/admin/catalog");
+  revalidatePath("/admin/quotations/new");
+  redirect("/admin/catalog?saved=catalog_cleaned");
 }
 
 export async function createQuotationAction(formData: FormData) {

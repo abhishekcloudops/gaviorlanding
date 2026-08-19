@@ -1,5 +1,11 @@
-import { createCatalogItemAction, seedDefaultCatalogAction } from "@/app/admin/actions";
+import {
+  cleanupDuplicateCatalogAction,
+  createCatalogItemAction,
+  deleteCatalogItemAction,
+  seedDefaultCatalogAction,
+} from "@/app/admin/actions";
 import { AdminNotice } from "@/components/admin/notice";
+import { ConfirmButton } from "@/components/admin/ui";
 import { requireAdmin } from "@/lib/admin/auth";
 import { formatMoney } from "@/lib/admin/money";
 
@@ -26,13 +32,22 @@ export default async function CatalogPage({
           </p>
         </div>
         <div className="admin-actions">
-          <form action={seedDefaultCatalogAction}>
+          <form action={cleanupDuplicateCatalogAction}>
             <button
               className="admin-button admin-button-secondary"
               type="submit"
-              title="Loads all 30 standard Gavior plans (Websites, Branding, Social Media, SEO, AI, Apps, etc.)"
+              title="Automatically remove duplicate plans keeping the newest unique entries"
             >
-              ✦ Sync all Gavior plans ({items?.length || 0} in catalog)
+              🧹 Remove Duplicates
+            </button>
+          </form>
+          <form action={seedDefaultCatalogAction}>
+            <button
+              className="admin-button"
+              type="submit"
+              title="Loads all standard Gavior plans safely without creating duplicates"
+            >
+              ✦ Sync Gavior Plans ({items?.length || 0})
             </button>
           </form>
         </div>
@@ -95,7 +110,7 @@ export default async function CatalogPage({
                 <th>SAC/HSN</th>
                 <th>Unit Price</th>
                 <th>GST</th>
-                <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -104,7 +119,7 @@ export default async function CatalogPage({
                   <td>
                     <strong>{item.name}</strong>
                     {item.description && (
-                      <small style={{ display: "block", color: "#6c7972", maxWidth: 450, whiteSpace: "normal" }}>
+                      <small style={{ display: "block", color: "#6c7972", maxWidth: 420, whiteSpace: "normal" }}>
                         {item.description}
                       </small>
                     )}
@@ -115,9 +130,12 @@ export default async function CatalogPage({
                   <td><strong>{formatMoney(item.unit_price_paise)}</strong></td>
                   <td>{Number(item.tax_rate_bps) / 100}%</td>
                   <td>
-                    <span className={item.active ? "admin-badge" : "admin-badge admin-badge-danger"}>
-                      {item.active ? "Active" : "Inactive"}
-                    </span>
+                    <form action={deleteCatalogItemAction}>
+                      <input type="hidden" name="id" value={item.id} />
+                      <ConfirmButton message={`Delete "${item.name}" from catalog? Existing quotations and invoices will retain their saved snapshot.`}>
+                        Delete
+                      </ConfirmButton>
+                    </form>
                   </td>
                 </tr>
               ))}
