@@ -7,6 +7,7 @@ import { z } from "zod";
 import { requireAdmin } from "@/lib/admin/auth";
 import { calculateLine, rupeesToPaise } from "@/lib/admin/money";
 import { decryptSecret, encryptSecret } from "@/lib/admin/security";
+import { DEFAULT_GAVIOR_PLANS } from "@/lib/admin/default-catalog";
 import { catalogSchema, clientSchema, quotationContentSchema, quotationSchema } from "@/lib/admin/validation";
 
 const allowedModels = new Set(["gemini-3.6-flash"]);
@@ -114,6 +115,39 @@ export async function createCatalogItemAction(formData: FormData) {
   await audit(supabase, user.id, "catalog.created", "catalog_item", data.id);
   revalidatePath("/admin/catalog");
   redirect("/admin/catalog?saved=item");
+}
+
+export async function seedDefaultCatalogAction() {
+  const { supabase, user } = await requireAdmin();
+  
+  for (const plan of DEFAULT_GAVIOR_PLANS) {
+    const { data: existing } = await supabase
+      .from("catalog_items")
+      .select("id")
+      .eq("name", plan.name)
+      .maybeSingle();
+
+    if (!existing) {
+      await supabase.from("catalog_items").insert({
+        name: plan.name,
+        description: plan.description,
+        item_type: plan.item_type,
+        unit: plan.unit,
+        sac_hsn: plan.sac_hsn,
+        unit_price_paise: plan.unit_price_paise,
+        tax_rate_bps: plan.tax_rate_bps,
+        active: true,
+        created_by: user.id,
+      });
+    }
+  }
+
+  await audit(supabase, user.id, "catalog.seeded_defaults", "catalog_item", undefined, {
+    count: DEFAULT_GAVIOR_PLANS.length,
+  });
+  revalidatePath("/admin/catalog");
+  revalidatePath("/admin/quotations/new");
+  redirect("/admin/catalog?saved=catalog_seeded");
 }
 
 export async function createQuotationAction(formData: FormData) {

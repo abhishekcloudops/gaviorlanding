@@ -34,7 +34,7 @@ export function QuotationForm({ clients, catalog, defaultTaxRate }: { clients: C
     <div className="admin-section-title"><h2>Line items</h2><button type="button" className="admin-button admin-button-secondary" onClick={() => setItems((current) => [...current, { ...blank(), tax_rate: defaultTaxRate }])}><Plus size={15} /> Add item</button></div>
     {items.map((item, index) => <section className="admin-panel" key={index}>
       <div className="admin-form-grid">
-        <label className="admin-field">From catalog<select value={item.catalog_item_id || ""} onChange={(event) => chooseCatalog(index, event.target.value)}><option value="">Custom item</option>{catalog.map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}</select></label>
+        <label className="admin-field">From catalog<select value={item.catalog_item_id || ""} onChange={(event) => chooseCatalog(index, event.target.value)}><option value="">Custom item</option>{catalog.map((entry) => <option key={entry.id} value={entry.id}>{entry.name} — ₹{(Number(entry.unit_price_paise) / 100).toLocaleString("en-IN")} ({entry.unit})</option>)}</select></label>
         <label className="admin-field">Description<input value={item.description} onChange={(event) => update(index, { description: event.target.value })} maxLength={500} required /></label>
         <label className="admin-field">Quantity<input type="number" inputMode="decimal" min="0.001" step="0.001" value={item.quantity} onChange={(event) => update(index, { quantity: event.target.value })} required /></label>
         <label className="admin-field">Unit<input value={item.unit} onChange={(event) => update(index, { unit: event.target.value })} maxLength={30} required /></label>
